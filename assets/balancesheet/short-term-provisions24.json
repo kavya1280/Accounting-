@@ -1,0 +1,34 @@
+{
+  "table": [
+    {
+      "insight": "Non Compliance Incidents",
+      "amount": 170,
+      "description": "Non-compliance with quality or regulatory standards can result in creation of provisions for penalties, quarantined/blocked stock adjustments, or disclosure of contingent liabilities."
+    },
+    {
+      "insight": "Customer Complaints",
+      "amount": 185,
+      "description": "Customer complaints may lead to product returns or compensation obligations, requiring recognition or adjustment of warranty or claim provisions. If customers dispute invoices due to quality issues, receivables may be delayed or written down."
+    },
+    {
+      "insight": "Environmental Monitoring",
+      "amount": 147,
+      "description": "Non-compliance with environmental standards may cause penalties or asset write-downs."
+    },
+    {
+      "insight": "Customer Data Privacy",
+      "amount": 204,
+      "description": "Costs arise from maintaining or breaching data compliance (e.g., GDPR); penalties or provisions affect financial statements."
+    },
+    {
+      "insight": "Employee Benefit Obligation Adjustment",
+      "amount": 96,
+      "description": "Adjustments impact actuarial gains/losses or employee benefit obligations (e.g., gratuity, leave encashment)."
+    },
+    {
+      "insight": "SOP & Policy Violations",
+      "amount": 170,
+      "description": "Non-adherence to HR policies results in penalties or inefficiencies increasing operational costs."
+    }
+  ]
+}

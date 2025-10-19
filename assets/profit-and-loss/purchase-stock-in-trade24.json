@@ -1,0 +1,39 @@
+{
+  "table": [
+    {
+      "insight": "Supplier Defect Rate",
+      "amount": 1825,
+      "description": "High supplier defect rates increase rework and inspection costs, and may cause purchase return losses or credit/debit note adjustments, impacting procurement-related expenses."
+    },
+    {
+      "insight": "Payment without Quality Clearance",
+      "amount": 1673,
+      "description": "If the material later fails quality inspection, it may result in write-offs or additional expense recognition instead of capitalization, directly affecting the P&L."
+    },
+    {
+      "insight": "Supplier Quality Audit Score",
+      "amount": 2225,
+      "description": "Low-quality supplies due to poor supplier audit results may increase rejections, resulting in purchase return or rejection costs. Increased audit or inspection activities to monitor low-scoring suppliers raise operating costs."
+    },
+    {
+      "insight": "Invalid PO Delivery Address",
+      "amount": 2492,
+      "description": "Payments may be made for goods not received or recorded under incorrect accounts."
+    },
+    {
+      "insight": "Abnormal movement vs production",
+      "amount": 2857,
+      "description": "Abnormal material movements (e.g., excess issues, unplanned transfers, or scrap beyond normal limits) inflate production costs and reduce profitability."
+    },
+    {
+      "insight": "Consumption Booked post Output Generation",
+      "amount": 1980,
+      "description": "When material consumption is booked after output generation, it leads to timing mismatches between production and consumption. This can temporarily overstate inventory and understate COGS, distorting gross margin and inventory valuation until corrected."
+    },
+    {
+      "insight": "Expired Material Issued to production order",
+      "amount": 401,
+      "description": "The use of expired materials increases production cost or results in write-offs, overstating COGS or scrap expense, thereby reducing profit margins."
+    }
+  ]
+}

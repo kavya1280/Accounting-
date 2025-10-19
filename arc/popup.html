@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact & Distribution Insight</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN for dynamic chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #007bff; /* Blue */
+            --secondary-color: #6c757d; /* Gray */
+            --danger-color: #dc3545; /* Red for impact table header */
+            --light-bg: #f8f9fa; /* Light page background */
+            --dark-text: #343a40; /* Dark text */
+            --card-bg: #ffffff; /* Card background */
+            --border-color: #e9ecef; /* Light border */
+            --shadow-light: rgba(0, 0, 0, 0.1); /* Standard shadow */
+            --shadow-medium: rgba(0, 0, 0, 0.12); /* Slightly stronger shadow */
+            --header-bg-light: #f1f3f5; /* Table header background */
+            --impact-header-bg: #dc3545; /* Impact table header */
+            --impact-row-even: #fdf2f2; /* Light red for even impact rows */
+            --text-muted: #6c757d;
+
+            /* Donut Chart Colors (aligned with previous revenue breakdown) */
+            --color-product-sales: #dc3545; /* Red */
+            --color-service-revenue: #20c997; /* Teal */
+            --color-subscriptions: #007bff; /* Blue */
+            --color-consulting: #ffc107; /* Yellow */
+            --color-licensing: #fd7e14; /* Orange */
+            --color-training: #e83e8c; /* Pink */
+
+            /* Combined Chart Colors */
+            --bar-color: #79a6ed; /* Light blue for bars */
+            --bar-hover-color: #5d90e8;
+            --line-color: #28a745; /* Green for line */
+            --line-point-border: #ffffff;
+            --line-point-bg: #28a745;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            display: flex; /* Center the card */
+            justify-content: center;
+            align-items: flex-start; /* Align to top */
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+        }
+
+        .combined-insight-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            width: 95%;
+            max-width: 1000px;
+            padding: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Spacing between sections */
+            opacity: 0; /* Hidden by default for scroll animation */
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .combined-insight-card.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chart-main-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .chart-section-header {
+            font-size: 1.4em;
+            font-weight: 600; /* Increased font weight */
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .top-content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr; /* Table on left, chart + legend on right (slightly more space) */
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px; /* Apply to container for overall table look */
+            box-shadow: 0 2px 8px var(--shadow-light);
+            background-color: var(--card-bg); /* Ensure background for table */
+            opacity: 0; /* Hidden by default for scroll animation */
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s; /* Delayed animation */
+        }
+
+        .table-container.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Use collapse for perfect cell alignment */
+            border-spacing: 0;
+            table-layout: fixed; /* Ensures columns respect specified widths */
+        }
+        
+       .impact-table th, .impact-table td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95em;
+            word-wrap: break-word; /* Prevents long text from breaking layout */
+        }
+
+        /* Specific column widths for Business Impact table */
+        .impact-table th:nth-child(1), .impact-table td:nth-child(1) { width: 28%; } /* Insight Name */
+        .impact-table th:nth-child(2), .impact-table td:nth-child(2) { width: 17%; text-align: right;} /* Amount */
+        .impact-table th:nth-child(3), .impact-table td:nth-child(3) { width: 15%; text-align: right;} /* Percentage */
+        .impact-table th:nth-child(4), .impact-table td:nth-child(4) { width: 40%; } /* Description */
+
+
+        .impact-table th {
+            background-color: var(--impact-header-bg); /* Red header for impact table */
+            color: #ffffff;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .impact-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .impact-table tbody tr:hover {
+            background-color: #f6f8fa;
+        }
+
+        .impact-table tbody tr:nth-child(even) {
+            background-color: var(--impact-row-even);
+        }
+
+        .impact-table tbody tr:nth-child(odd) {
+            background-color: var(--card-bg);
+        }
+
+        .chart-summary-card {
+            background-color: var(--header-bg-light);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center chart and total */
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+            text-align: center;
+            height: 100%;
+            opacity: 0; /* Hidden by default for scroll animation */
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s; /* Delayed animation */
+            position: relative; /* For total amount overlay */
+        }
+
+        .chart-summary-card.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chart-and-legend-wrapper {
+            display: flex;
+            flex-direction: column; /* Stack chart and legend vertically */
+            width: 100%;
+            align-items: center;
+            margin-bottom: 20px; /* Space between chart area and total */
+        }
+
+        .chart-container {
+            position: relative; /* For the text overlay */
+            width: 100%;
+            max-width: 250px; /* Increased chart size */
+            margin-bottom: 15px; /* Space between chart and legend */
+            flex-shrink: 0; /* Don't let it shrink */
+        }
+
+        .donut-total-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none; /* Allows clicks to pass through to the chart */
+        }
+
+        .donut-total-overlay .total-label {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .donut-total-overlay .total-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .chart-legend {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            max-width: 280px; /* Limit legend width */
+            text-align: left;
+        }
+
+        .chart-legend li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: var(--dark-text);
+        }
+
+        .chart-legend .legend-color-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Combined Line & Bar Chart Specific Styles */
+        .combined-chart-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out 0.6s, transform 0.6s ease-out 0.6s; /* Delayed animation */
+        }
+
+        .combined-chart-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .combined-chart-section .chart-section-header {
+            border-bottom: none;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .combined-chart-container {
+            position: relative;
+            width: 100%;
+            height: 350px; /* Fixed height for consistency */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .top-content-grid {
+                grid-template-columns: 1fr; /* Stack on smaller screens */
+            }
+            .combined-insight-card {
+                padding: 25px;
+                gap: 20px;
+            }
+            .chart-main-title {
+                font-size: 1.6em;
+            }
+            .chart-section-header {
+                font-size: 1.2em;
+            }
+            .chart-summary-card {
+                padding: 20px;
+            }
+            .chart-and-legend-wrapper {
+                flex-direction: row; /* Legend next to chart on medium screens */
+                flex-wrap: wrap; /* Allow legend to wrap if space is tight */
+                justify-content: center;
+                gap: 20px;
+            }
+            .chart-legend {
+                max-width: none; /* Allow legend to use more width */
+            }
+            .chart-container {
+                max-width: 200px; /* Adjusted for smaller screens */
+                margin-bottom: 0;
+            }
+            .donut-total-overlay .total-value {
+                font-size: 1.6em;
+            }
+            .impact-table th, .impact-table td {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+            .impact-table th:nth-child(1), .impact-table td:nth-child(1) { width: 30%; }
+            .impact-table th:nth-child(2), .impact-table td:nth-child(2) { width: 20%; }
+            .impact-table th:nth-child(3), .impact-table td:nth-child(3) { width: 15%; }
+            .impact-table th:nth-child(4), .impact-table td:nth-child(4) { width: 35%; }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .combined-insight-card {
+                max-width: 100%;
+                margin: 0 10px;
+                padding: 20px;
+            }
+            .chart-and-legend-wrapper {
+                flex-direction: column; /* Stack again on very small screens */
+                gap: 15px;
+            }
+            .chart-container {
+                max-width: 180px; /* Adjusted for very small screens */
+            }
+            .donut-total-overlay .total-value {
+                font-size: 1.4em;
+            }
+            .impact-table th:nth-child(1), .impact-table td:nth-child(1) { width: 35%; }
+            .impact-table th:nth-child(2), .impact-table td:nth-child(2) { width: 20%; }
+            .impact-table th:nth-child(3), .impact-table td:nth-child(3) { width: 15%; }
+            .impact-table th:nth-child(4), .impact-table td:nth-child(4) { width: 30%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="combined-insight-card">
+        <h2 class="chart-main-title">Key Business Insights Summary</h2>
+
+        <div class="top-content-grid">
+            <!-- Business Impact Insights Table -->
+            <div>
+                <h3 class="chart-section-header">Business Impact Insights</h3>
+                <div class="table-container">
+                    <table class="impact-table">
+                        <thead>
+                            <tr>
+                                <th>Insight</th>
+                                <th style="text-align: right;">Impact Amount</th>
+                                <th style="text-align: right;">% of Total</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Process Owner Mapping</td>
+                                <td class="impact-amount">-15,000</td>
+                                <td class="impact-percentage"></td>
+                                <td>Undefined ownership causes accountability gaps leading to process inefficiency expenses.</td>
+                            </tr>
+                            <tr>
+                                <td>Segmentation for Access and RCM</td>
+                                <td class="impact-amount">-10,000</td>
+                                <td class="impact-percentage"></td>
+                                <td>Improper access segmentation causes internal control weaknesses and potential data errors.</td>
+                            </tr>
+                            <tr>
+                                <td>Inconsistency Performance Metrics and KPIs across units</td>
+                                <td class="impact-amount">-20,000</td>
+                                <td class="impact-percentage"></td>
+                                <td>Lack of standardized metrics hinders performance comparison and strategic decision-making.</td>
+                            </tr>
+                             <tr>
+                                <td>Ineffective Change Management</td>
+                                <td class="impact-amount">-12,000</td>
+                                <td class="impact-percentage"></td>
+                                <td>Poorly managed changes lead to employee resistance and project delays.</td>
+                            </tr>
+                            <tr>
+                                <td>Outdated Technology Stack</td>
+                                <td class="impact-amount">-25,000</td>
+                                <td class="impact-percentage"></td>
+                                <td>Legacy systems cause operational bottlenecks and increased maintenance costs.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Revenue Distribution Donut Chart and Total -->
+            <div class="chart-summary-card">
+                <h3 class="chart-section-header" style="border-bottom: none; text-align: center; margin-bottom: 10px;">Revenue Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="revenueDonutChart"></canvas>
+                    <div class="donut-total-overlay">
+                        <div class="total-label">Total Revenue</div>
+                        <div class="total-value" id="donutTotalAmount"></div>
+                    </div>
+                </div>
+                <ul class="chart-legend" id="revenueChartLegend">
+                    <!-- Legend items will be populated by JavaScript -->
+                </ul>
+                <!-- Removed the separate total amount label/value here as it's now in the donut -->
+            </div>
+        </div>
+
+        <!-- New Combined Line & Bar Chart Section -->
+        <div class="combined-chart-section">
+            <h3 class="chart-section-header">Exception Amount & Count</h3>
+            <div class="combined-chart-container">
+                <canvas id="exceptionCombinedChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to get computed style of a CSS variable
+            function getCssVar(varName) {
+                return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+            }
+
+            // --- Business Impact Table Calculations ---
+            const impactAmounts = Array.from(document.querySelectorAll('.impact-table .impact-amount')).map(td => parseFloat(td.textContent.replace(/,/g, '')));
+            const totalImpactAmount = impactAmounts.reduce((sum, amount) => sum + Math.abs(amount), 0); // Sum of absolute values
+            
+            document.querySelectorAll('.impact-table .impact-percentage').forEach((td, index) => {
+                const amount = Math.abs(impactAmounts[index]);
+                const percentage = (totalImpactAmount > 0) ? ((amount / totalImpactAmount) * 100).toFixed(1) + '%' : '0.0%';
+                td.textContent = percentage;
+            });
+
+            // --- Revenue Distribution Donut Chart ---
+            const ctxDonut = document.getElementById('revenueDonutChart').getContext('2d');
+
+            const revenueSourceData = [
+                { label: 'Product Sales', amount: 45230, colorVar: '--color-product-sales' },
+                { label: 'Service Revenue', amount: 32150, colorVar: '--color-service-revenue' },
+                { label: 'Subscriptions', amount: 25680, colorVar: '--color-subscriptions' },
+                { label: 'Consulting', amount: 16420, colorVar: '--color-consulting' },
+                { label: 'Licensing', amount: 12340, colorVar: '--color-licensing' },
+                { label: 'Training', amount: 8920, colorVar: '--color-training' }
+            ];
+
+            const totalRevenue = revenueSourceData.reduce((sum, item) => sum + item.amount, 0);
+            document.getElementById('donutTotalAmount').textContent = new Intl.NumberFormat('en-US').format(totalRevenue);
+
+            const chartColors = revenueSourceData.map(d => getCssVar(d.colorVar));
+
+            const revenueDonutChart = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: revenueSourceData.map(d => d.label),
+                    datasets: [{
+                        data: revenueSourceData.map(d => d.amount),
+                        backgroundColor: chartColors,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        const value = new Intl.NumberFormat('en-US').format(context.parsed);
+                                        const percentage = ((context.parsed / totalRevenue) * 100).toFixed(1);
+                                        label += `$${value} (${percentage}%)`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%',
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+
+            const legendContainer = document.getElementById('revenueChartLegend');
+            revenueSourceData.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="legend-color-box" style="background-color: ${chartColors[index]};"></span>
+                    ${item.label} ($${new Intl.NumberFormat('en-US').format(item.amount)})
+                `;
+                legendContainer.appendChild(li);
+            });
+
+            // --- New Combined Line & Bar Chart ---
+            const ctxCombined = document.getElementById('exceptionCombinedChart').getContext('2d');
+            const exceptionData = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Exceptions (Amt)',
+                        data: [363, 315, 363, 120, 220, 205, 210, 195, 275, 290, 200, 350], // in Millions
+                        backgroundColor: getCssVar('--bar-color'),
+                        hoverBackgroundColor: getCssVar('--bar-hover-color'),
+                        yAxisID: 'y',
+                        borderRadius: 4,
+                        maxBarThickness: 30
+                    },
+                    {
+                        type: 'line',
+                        label: '#Exceptions',
+                        data: [14000, 12000, 14831, 5500, 9500, 9000, 9800, 9200, 11000, 12000, 9000, 14000],
+                        borderColor: getCssVar('--line-color'),
+                        backgroundColor: 'transparent',
+                        pointBackgroundColor: getCssVar('--line-point-bg'),
+                        pointBorderColor: getCssVar('--line-point-border'),
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        yAxisID: 'y1',
+                        tension: 0.3, // Smoothen the line
+                        borderWidth: 2
+                    }
+                ]
+            };
+
+            const exceptionCombinedChart = new Chart(ctxCombined, {
+                data: exceptionData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        title: {
+                            display: false, // Title already in H3
+                            text: 'Exception Amount & Count',
+                            font: {
+                                size: 18,
+                                weight: '600',
+                                family: getCssVar('--dark-text')
+                            },
+                            color: getCssVar('--dark-text')
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            align: 'end',
+                            labels: {
+                                usePointStyle: true,
+                                font: {
+                                    size: 13,
+                                    family: 'Inter'
+                                },
+                                color: getCssVar('--dark-text'),
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.dataset.type === 'bar') {
+                                        label += `${context.formattedValue}M`;
+                                    } else {
+                                        label += context.formattedValue;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12
+                                },
+                                color: getCssVar('--text-muted')
+                            },
+                            title: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            grid: {
+                                color: getCssVar('--border-color')
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + 'M'; // Add 'M' for millions
+                                },
+                                font: {
+                                    size: 12
+                                },
+                                color: getCssVar('--text-muted')
+                            },
+                            title: {
+                                display: false
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            beginAtZero: true,
+                            grid: {
+                                drawOnChartArea: false // Only draw the grid for the left Y-axis
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12
+                                },
+                                color: getCssVar('--text-muted')
+                            },
+                            title: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                root: null, // relative to the viewport
+                rootMargin: '0px',
+                threshold: 0.1 // callback fires when 10% of item is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, observerOptions);
+
+            // Observe the main card and its child sections
+            const insightCard = document.querySelector('.combined-insight-card');
+            if (insightCard) {
+                observer.observe(insightCard);
+            }
+
+            const tableContainer = document.querySelector('.table-container');
+            if (tableContainer) {
+                observer.observe(tableContainer);
+            }
+
+            const chartSummaryCard = document.querySelector('.chart-summary-card');
+            if (chartSummaryCard) {
+                observer.observe(chartSummaryCard);
+            }
+
+            const combinedChartSection = document.querySelector('.combined-chart-section');
+            if (combinedChartSection) {
+                observer.observe(combinedChartSection);
+            }
+        });
+    </script>
+</body>
+</html>

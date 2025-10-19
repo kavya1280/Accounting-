@@ -1,0 +1,44 @@
+{
+  "table": [
+    {
+      "insight": "Plant Efficiency Test",
+      "amount": 22050,
+      "description": "May affect asset utilization and depreciation recalibration."
+    },
+    {
+      "insight": "Changes to useful Life of Assets",
+      "amount": 28900,
+      "description": "Revising the useful life of assets changes the carrying value of PPE and the accumulated depreciation balance on the balance sheet. A longer useful life decreases annual depreciation and increases asset carrying amount; a shorter life increases accumulated depreciation."
+    },
+    {
+      "insight": "Table Logging",
+      "amount": 13534,
+      "description": "Additional storage capacity required for logs increases asset utilization."
+    },
+    {
+      "insight": "Access to SAP Audit Logs",
+      "amount": 41944,
+      "description": "Secure log retention may require additional storage assets."
+    },
+    {
+      "insight": "Log Management & Mining",
+      "amount": 26491,
+      "description": "Poor log management can result in missed anomaly detection; investment in better systems may be needed."
+    },
+    {
+      "insight": "Unused Super IDs",
+      "amount": 19198,
+      "description": "Highly powerful, Unused Super IDs (system accounts) are a security risk. If compromised, an attacker could improperly alter, dispose of, or write off Tangible Assets (equipment, servers) in the system, leading to a misstatement of your assets."
+    },
+    {
+      "insight": "Change Management",
+      "amount": 28343,
+      "description": "Improper change controls lead to system inefficiencies or capital project misclassification."
+    },
+    {
+      "insight": "Date Retention",
+      "amount": 56891,
+      "description": "Failure to manage retention timelines can lead to compliance fines or excess storage cost capitalization."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{"table": [
+            { "insight": "Process Owner Mapping", "amount": 1740,  "description": "Undefined ownership causes accountability gaps leading to process inefficiency expenses." },
+            { "insight": "Segmentation for Access and RCM", "amount": 2759, "description": "Improper access segmentation causes internal control weaknesses and potential data errors." },
+            { "insight": "Inconsistency Performance Metrics and KPIs across units", "amount": 2267, "description": "Lack of standardized metrics hinders performance comparison and strategic decision-making." }
+]  }

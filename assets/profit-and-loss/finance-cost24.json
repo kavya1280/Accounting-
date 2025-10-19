@@ -1,0 +1,29 @@
+{
+  "table": [
+    {
+      "insight": "Delay in payment to MSME Vendor",
+      "amount": 2255,
+      "description": "Interest on delayed MSME payments must be recognized as an expense under the MSMED Act but may be omitted."
+    },
+    {
+      "insight": "Excessive Bank Charges",
+      "amount": 21,
+      "description": "Directly increases non-operating expenses."
+    },
+    {
+      "insight": "Payment Beyond 60/180 Days since Due Date",
+      "amount": 3118,
+      "description": "Extended payment terms beyond contractual due dates may attract interest, late fees, or penalties, increasing expenses in the P&L."
+    },
+    {
+      "insight": "GST Interest Loss due to non payment (180 days)",
+      "amount": 3469,
+      "description": "Non-payment of GST within 180 days results in disallowance of input tax credit and accrual of interest liability, increasing expenses in P&L."
+    },
+    {
+      "insight": "GST Interest Loss due to non payment (60 days)",
+      "amount": 4567,
+      "description": "Delay in payment of GST beyond the due date (60 days) results in interest liability on outstanding tax, increasing finance costs in P&L."
+    }
+  ]
+}

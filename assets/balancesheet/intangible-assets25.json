@@ -1,0 +1,70 @@
+{
+  "table": [
+    {
+      "insight": "ESG Dashboard",
+      "amount": 4392,
+      "percentage": "0.12%",
+      "description": "Investments in ESG improvements or certifications increase asset recognition."
+    },
+    {
+      "insight": "Client Set to Modifiable",
+      "amount": 2350,
+      "percentage": "0.12%",
+      "description": "Potential impairment due to unapproved configuration changes affecting system stability."
+    },
+    {
+      "insight": "Direct Changes to SAP",
+      "amount": 4370,
+      "percentage": "0.12%",
+      "description": "May result in unrecorded system modifications impacting valuation."
+    },
+    {
+      "insight": "Non Usage Accounts",
+      "amount": 5507,
+      "percentage": "0.12%",
+      "description": "Wasted investment in software licenses"
+    },
+    {
+      "insight": "Changes to Password Parameters",
+      "amount": 9842,
+      "percentage": "0.12%",
+      "description": "Weak password policies may cause data breaches leading to cyber incident expenses."
+    },
+    {
+      "insight": "Inactive Accounts",
+      "amount": 2301,
+      "percentage": "0.12%",
+      "description": "Dormant user accounts increase risk of misuse, possibly resulting in fraud-related costs."
+    },
+    {
+      "insight": "Users having Privileged Access",
+      "amount": 3021,
+      "percentage": "0.12%",
+      "description": "Inadequate restriction of privileged accounts may cause financial data manipulation risk."
+    },
+    {
+      "insight": "Product Recommendation",
+      "amount": 1290,
+      "percentage": "0.12%",
+      "description": "Data-driven recommendations increase sales and incur analytics costs; may result in capitalization of developed recommendation tools."
+    },
+    {
+      "insight": "CRM Segmentation",
+      "amount": 3580,
+      "percentage": "0.12%",
+      "description": "Better customer targeting increases sales; CRM system costs may be capitalized, improving efficiency over time."
+    },
+    {
+      "insight": "Intellectual Property Compliance",
+      "amount": 3200,
+      "percentage": "0.12%",
+      "description": "Ensures proper use of intellectual property; violations may cause fines or asset impairment."
+    },
+    {
+      "insight": "Employee modifying own access",
+      "amount": 4098,
+      "percentage": "0.12%",
+      "description": "Increases fraud risk; potential unrecorded losses if misuse of access leads to fraudulent disbursements."
+    }
+  ]
+}

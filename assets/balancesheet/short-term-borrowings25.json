@@ -1,0 +1,22 @@
+{
+    "table": [
+        {
+            "insight": "Cost Driver Analysis",
+            "amount": 39731,
+            "percentage": "0.60%",
+            "description": "Effective Cost Driver Analysis can lead to immediate operational efficiencies and reduced working capital needs, potentially decreasing the need for short-term financing (e.g., overdrafts, commercial paper) to cover day-to-day operations or unexpected shortfalls. Poor analysis, conversely, could increase the need."
+        },
+        {
+            "insight": "Budget Overruns",
+            "amount": 53287,
+            "percentage": "0.60%",
+            "description": "Inaccurate forecasting leading to Budget Overruns means the company has underestimated its immediate operational funding needs. The immediate, unexpected shortfall in cash must be covered quickly, most often through flexible short-term borrowings (e.g., line of credit)."
+        },
+        {
+            "insight": "Payment without Quality Clearance",
+            "amount": 36099,
+            "percentage": "0.60%",
+            "description": "Making Payment without Quality Clearance means the company is paying for potentially faulty goods or services. If these must be recalled, reworked, or replaced, the sudden, unplanned expenditure on materials, labor, and logistics creates an immediate working capital strain, necessitating short-term borrowings to bridge the gap."
+        }
+    ]
+}

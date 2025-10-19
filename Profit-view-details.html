@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="images/paw.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profit & Loss Analytics - KPIs & Table</title>
+    <link rel="stylesheet" href="CSS/profile-view-details.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <img
+          src="images/complibear-logo-b.png"
+          alt="Logo"
+          width="100"
+          height="100"
+        />
+      </div>
+      
+      <!-- <div class="search-bar">
+            <span class="material-icons">search</span>
+            <input type="text" id="employeeSearch" placeholder="">
+        </div> -->
+      <div class="date-selector">
+        <span id="selectedDateRange">Apr 1, 2024 - Mar 31 2025</span>
+      </div>
+    </div>
+    <div class="title">
+        <a href="profit&loss.html" class="navigate-button" style="text-decoration: none;">
+        <h2>STATEMENT OF PROFIT AND LOSS</h2>
+        </a>
+    </div>
+    <div class="main-content">
+      <div class="kpi-cards">
+        <div class="card green">
+          <div class="icon-text">
+            <span class="material-icons">currency_rupee</span>
+            <h3>Total Revenue</h3>
+          </div>
+          <p id="totalRevenue">5,33,443 Cr</p>
+          <div class="card-icons"></div>
+        </div>
+        <div class="card orange">
+          <div class="icon-text">
+            <span class="material-icons">account_balance</span>
+            <h3>Total Expenses</h3>
+          </div>
+          <p id="totalExpenses">5,09,913 Cr</p>
+          <div class="card-icons"></div>
+        </div>
+        <div class="card blue">
+          <div class="icon-text">
+            <span class="material-icons">assessment</span>
+            <h3>Total Profit</h3>
+          </div>
+          <p id="totalProfit">23,530 Cr</p>
+          <div class="card-icons"></div>
+        </div>
+        <div class="card red">
+          <div class="icon-text">
+            <span class="material-icons">moving</span>
+            <h3>Net Profit</h3>
+          </div>
+          <p id="netProfit">19,323 Cr</p>
+          <div class="card-icons"></div>
+        </div>
+      </div>
+      <div class="kpi-cards" style="margin-top: 20px"></div>
+      <div class="kpi-cards">
+        <div></div>
+        <div class="card purple">
+          <div class="icon-text">
+            <span class="material-icons">credit_score</span>
+            <h3>Total Insights</h3>
+          </div>
+          <p id="totalInsights">160</p>
+          <div class="card-icons"></div>
+        </div>
+        <div class="card sea-green">
+          <div class="icon-text">
+            <span class="material-icons">deblur</span>
+            <h3>Total Impacts</h3>
+          </div>
+          <p id="totalImpact">10,39,149</p>
+          <div class="card-icons"></div>
+        </div>
+        <div></div>
+        
+      </div>
+<div class="nav-buttons">
+        <button
+          class="nav-btn"
+          id="balanceSheetBtn"
+          onclick="window.location.href='Balancesheet-view-details.html'"
+        >
+          Balance Sheet
+        </button>
+        <!-- Using a direct link for navigation is fine, but JS could also handle it via window.location.href -->
+      </div>
+
+      <div class="kpi-cards" style="margin-top: 20px"></div>
+      <div class="dashboard-panels">
+        <div class="left-panel">
+          <div class="equity-insights">
+            <div class="header-equity"></div>
+            <div class="insight-category">
+              <h5>Insight Category</h5>
+              <ul id="insightCategoryList">
+                <li data-category="All">All Categories</li>
+                <li data-category="Revenue From Operations [Gross]">
+                  Revenue From Operations
+                </li>
+                <li data-category="Excise/Sevice Tax/Other Levies">
+                  Excise/Service Tax/Other Levies
+                </li>
+                <li data-category="Other Income">Other Income</li>
+                <li data-category="Cost Of Materials Consumed">
+                  Cost Of Materials Consumed
+                </li>
+                <li data-category="Purchase Of Stock-In Trade">
+                  Purchase Of Stock-In Trade
+                </li>
+                <li data-category="Operating And Direct Expenses">
+                  Operating And Direct Expenses
+                </li>
+                <li data-category="Employee Benefit Expenses">
+                  Employee Benefit Expenses
+                </li>
+                <li data-category="Finance Costs">Finance Costs</li>
+                <li data-category="Other Expenses">Other Expenses</li>
+                <li data-category="Exceptional Items">Exceptional Items</li>
+                <li data-category="Current Tax">Current Tax</li>
+                <li data-category="Deferred Tax">Deferred Tax</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-panel full-width">
+          <div class="detailed-insights-overview">
+            <h4>Detailed Insights Overview</h4>
+            <table id="insightsTable">
+              <thead>
+                <tr>
+                  <th>Insight ID</th>
+                  <th>Insight Category</th>
+                  <th>Insight</th>
+                  <th>Profit & Loss Impact</th>
+                  <th style="display: none">PL Elements</th>
+                  <th>PL Impact Description</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table rows will be populated by JavaScript -->
+              </tbody>
+            </table>
+            <div class="pagination">
+              <button id="prevPage">Previous</button>
+              <span id="pageNumbers"></span>
+              <button id="nextPage">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="JS/profit-view-details.js"></script>
+  </body>
+</html>

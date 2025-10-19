@@ -1,0 +1,7 @@
+{
+  "table":[
+    { "insight": "GST having same Document Reference number", "amount": 14500, "percentage": "0.21%", "description": "If GST entries are duplicated or missed due to duplicate references, tax expenses could be incorrectly reported, leading to incorrect profit figures." },
+    { "insight": "GST Duplicate Invoices", "amount": 10022, "percentage": "0.21%", "description": "Duplicate GST postings can inflate tax expenses or revenues recorded against a single transaction, leading to misstated profit." },
+    { "insight": "Tax Number Validation", "amount": 15900, "percentage": "0.21%", "description": "If tax credits are disallowed due to invalid tax registration, expenses increase as the company cannot claim GST input." }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "table": [
+    {
+      "insight": "GST having same Document Reference number",
+      "amount": 9876,
+      "percentage": "0.45%",
+      "description": "Duplicate document reference numbers may lead to double posting of GST entries — either overstatement of GST payable (liability) or GST input credit (asset). Invoices with the same reference may be posted multiple times, leading to incorrect vendor or customer balances."
+    },
+    {
+      "insight": "GST Duplicate Invoices",
+      "amount": 7658,
+      "percentage": "0.45%",
+      "description": "Duplicate GST invoices lead to multiple entries for the same transaction, overstating GST payable (if sales) or GST input credit (if purchases). Duplicate tax invoices may also cause duplication in AR or AP balances, leading to errors in working capital reporting."
+    },
+    {
+      "insight": "GST Interest Loss due to non payment (180 days)",
+      "amount": 8961,
+      "percentage": "0.45%",
+      "description": "Input Tax Credit availed earlier must be reversed, increasing GST payable or reducing GST receivable (asset). Interest due on delayed GST payment creates an additional accrued liability until settled."
+    },
+    {
+      "insight": "GST Interest Loss due to non payment (60 days)",
+      "amount": 6987,
+      "percentage": "0.45%",
+      "description": "Interest accrued on unpaid GST increases current liabilities until the payment is made. Once the interest is paid, cash or bank balance decreases, reflecting the outflow of funds."
+    },
+    {
+      "insight": "Tax Number Validation",
+      "amount": 15091,
+      "percentage": "0.45%",
+      "description": "Incorrect or invalid tax number may lead to wrong GST claims or reporting errors, affecting GST receivable or payable balances. Invalid tax numbers can cause misclassification of vendor or customer tax reporting, impacting reconciliation with statutory filings."
+    },
+    {
+      "insight": "Compliance with Spend Budget",
+      "amount": 7540,
+      "percentage": "0.45%",
+      "description": "Ensures marketing costs stay within approved budgets; overspend increases expenses and liabilities."
+    },
+    {
+      "insight": "Salary Output not as per Master",
+      "amount": 8184,
+      "percentage": "0.45%",
+      "description": "Variance between actual and master salaries leads to over/understatement of payroll expense and liabilities."
+    },
+    {
+      "insight": "Mismatching Salary Processed, Payable and Actual",
+      "amount": 7893,
+      "percentage": "0.45%",
+      "description": "Incorrect salary processing affects expense accuracy and payroll accruals or cash balances."
+    },
+    {
+      "insight": "Ghost Employees",
+      "amount": 5321,
+      "percentage": "0.45%",
+      "description": "Payments made to non-existent employees inflate payroll expense and reduce cash assets."
+    },
+    {
+      "insight": "Unauthorized Update in Employee Master",
+      "amount": 18003,
+      "percentage": "0.45%",
+      "description": "Unauthorized changes can cause incorrect salary payments and misstated liabilities."
+    }
+  ]
+}

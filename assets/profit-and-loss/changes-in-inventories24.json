@@ -1,0 +1,34 @@
+{
+  "table": [
+    {
+      "insight": "Salary Output not as per Master",
+      "amount": 1805,
+      "description": "Variance between actual and master salaries leads to over/understatement of payroll expense and liabilities."
+    },
+    {
+      "insight": "Mismatching Salary Processed, Payable and Actual",
+      "amount": 1459,
+      "description": "Incorrect salary processing affects expense accuracy and payroll accruals or cash balances."
+    },
+    {
+      "insight": "Ghost Employees",
+      "amount": 981,
+      "description": "Payments made to non-existent employees inflate payroll expense and reduce cash assets."
+    },
+    {
+      "insight": "Unauthorized Update in Employee Master",
+      "amount": 1930,
+      "description": "Unauthorized changes can cause incorrect salary payments and misstated liabilities."
+    },
+    {
+      "insight": "Employee Benefit Obligation Adjustment",
+      "amount": 672,
+      "description": "Adjustments impact actuarial gains/losses or employee benefit obligations (e.g., gratuity, leave encashment)."
+    },
+    {
+      "insight": "Employee modifying own access",
+      "amount": 960,
+      "description": "Increases fraud risk; potential unrecorded losses if misuse of access leads to fraudulent disbursements."
+    }
+  ]
+}

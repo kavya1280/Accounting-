@@ -1,0 +1,24 @@
+{
+  "table": [
+    {
+      "insight": "Client Opening Logs",
+      "amount": 2457,
+      "description": "Missing or tampered client logs may lead to security breaches and potential compliance costs."
+    },
+    {
+      "insight": "Entry to DEVACCESS",
+      "amount": 8038,
+      "description": "Unauthorized developer access increases the risk of manipulation and potential financial loss."
+    },
+    {
+      "insight": "Usage of DEVACCESS Key",
+      "amount": 8762,
+      "description": "Improper DEVACCESS usage could lead to unauthorized system changes affecting data reliability."
+    },
+    {
+      "insight": "Access Control and Dynamic SOD Conflicts",
+      "amount": 5048,
+      "description": "Weak access control may allow manipulation of financial data or payroll processing."
+    }
+  ]
+}

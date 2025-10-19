@@ -1,0 +1,82 @@
+{
+    "table": [
+        {
+            "insight": "Vendor and Customer Names are same & not disclosed",
+            "amount": 7652,
+            "percentage": "0.57%",
+            "description": "Balances may be misstated if receivables and payables between the same party are not reconciled or offset properly."
+        },
+        {
+            "insight": "Invoice Date Prior to PO Date",
+            "amount": 2678,
+            "percentage": "0.57%",
+            "description": "Liability may be recorded before proper authorization or supporting PO documentation. Payments could be made for unapproved or premature purchases."
+        },
+        {
+            "insight": "Split PR/PO",
+            "amount": 3642,
+            "percentage": "0.57%",
+            "description": "Multiple smaller invoices or POs may obscure total vendor exposure."
+        },
+        {
+            "insight": "Delay in payment to MSME Vendor",
+            "amount": 5849,
+            "percentage": "0.57%",
+            "description": "Overdue MSME balances may not reflect accrued interest or disclosure requirements"
+        },
+        {
+            "insight": "Payment against blocked Invoice/Vendor",
+            "amount": 9874,
+            "percentage": "0.57%",
+            "description": "Payments may be made against invalid or disputed invoices, distorting liability balances. Payments to blocked vendors could result in unrecoverable funds."
+        },
+        {
+            "insight": "Some Expenses for PO and Non PO transaction",
+            "amount": 9086,
+            "percentage": "0.57%",
+            "description": "Non-PO transactions may not be properly matched to valid POs, leading to reconciliation issues. Payments may be made without adequate documentation or approval."
+        },
+        {
+            "insight": "Deviation in liability compares to base rate and quantity",
+            "amount": 8709,
+            "percentage": "0.57%",
+            "description": "Incorrect liability recognition due to deviation from contractual base rate. Material receipts valued incorrectly if based on wrong rate or quantity."
+        },
+        {
+            "insight": "Payment Beyond 60/180 Days since Due Date",
+            "amount": 8456,
+            "percentage": "0.57%",
+            "description": "Delayed payments lead to prolonged outstanding payables on the balance sheet, which may inflate current liabilities and distort liquidity ratios. Holding cash longer may temporarily overstate cash balances compared to actual operational liabilities."
+        },
+        {
+            "insight": "Repeated Vendor Invoice in the Same Fiscal Year",
+            "amount": 7789,
+            "percentage": "0.57%",
+            "description": "Duplicate vendor invoices recorded in the same fiscal year inflate the accounts payable balance, leading to an overstatement of liabilities. Overstated expenses reduce net income, thereby reducing retained earnings in the balance sheet."
+        },
+        {
+            "insight": "Active Vendor for Employees Group",
+            "amount": 12874,
+            "percentage": "0.57%",
+            "description": "Conflict of interest between employees and vendors may result in inflated expenses or fraudulent payments."
+        },
+        {
+            "insight": "Same Vendor and Employee",
+            "amount": 10745,
+            "percentage": "0.57%",
+            "description": "Payments to employees acting as vendors could lead to duplicate or fraudulent expense recognition."
+        },
+        {
+            "insight": "PO-PR-GRN Same User",
+            "amount": 7985,
+            "percentage": "0.57%",
+            "description": "Segregation of duty conflict risks fraudulent purchases or false inventory valuation."
+        },
+        {
+            "insight": "Creation of GRN and Payment by Same User",
+            "amount": 27048,
+            "percentage": "0.57%",
+            "description": "Fraud risk due to lack of control; could result in unauthorized payments and misstated liabilities."
+        }
+    ]
+}

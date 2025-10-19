@@ -1,0 +1,14 @@
+{"table":[
+  { "insight": "Direct Expense Payment", "amount": 8200, "percentage": "0.22%", "description": "High cash outflow (i.e., reduces Cash)." },
+  { "insight": "Duplicate Payment", "amount": 7421, "percentage": "0.22%", "description": "Results in unnecessary cash outflow." },
+  { "insight": "Expense Policy Violation", "amount": 5631, "percentage": "0.22%", "description": "Unnecessary/unauthorized spending." },
+  { "insight": "Suspicious Duplicate Vendor with opposite o/p balance", "amount": 6430, "percentage": "0.22%", "description": "Shows incorrect outstanding balances and cash outflow may not match." },
+  { "insight": "Dormant Vendor Account Used for Payment", "amount": 2340, "percentage": "0.22%", "description": "Risk of fraudulent payments (loss of cash) or payments to incorrect parties." },
+  { "insight": "Mismatching Updates in Master", "amount": 4309, "percentage": "0.22%", "description": "Incorrect vendor or customer information may lead to payments or billings being posted to the wrong account. Incorrect bank details could result in payments made to unauthorized or wrong accounts." },
+  { "insight": "One Time Vendor Anomalies", "amount": 5670, "percentage": "0.22%", "description": "Unauthorized or erroneous payments reduce cash balance without valid support and payments made to unverified one-time vendors may not correspond to legitimate liabilities." },
+  { "insight": "Home Account Changed and Rerouted", "amount": 8920, "percentage": "0.22%", "description": "Payments could be routed to unauthorized or fraudulent accounts. Vendor balances may not match actual payments if funds are misdirected." },
+  { "insight": "Duplicate Vendor Invoices", "amount": 12763, "percentage": "0.22%", "description": "Leads to double payment (cash outflow)." },
+  { "insight": "Payment not in name of Vendor or alternate payee", "amount": 9885, "percentage": "0.22%", "description": "Risk of misstatement and misappropriation." },
+  { "insight": "Excessive Bank Charges", "amount": 5302, "percentage": "0.22%", "description": "Higher-than-expected deductions reduce the cash balance." },
+  { "insight": "Country/Bank Validation", "amount": 5600, "percentage": "0.22%", "description": "Incorrect or unvalidated bank details may lead to errors in cash/bank balances, duplicate accounts, or misdirected payments. Wrong country or bank setup may result in payments/receipts being posted to incorrect entities or jurisdictions." }
+]}

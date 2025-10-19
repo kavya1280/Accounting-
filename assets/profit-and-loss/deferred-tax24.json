@@ -1,0 +1,69 @@
+{
+  "table": [
+    {
+      "insight": "GL Master Anomalies",
+      "amount": 170,
+      "description": "Misclassification risk of revenues and expenses."
+    },
+    {
+      "insight": "Financial Performance",
+      "amount": 159,
+      "description": "Issues in financial data analysis or setup (Master Data) mean the calculated Deferred Tax Liabilities (the tax you'll owe later) are likely wrong. The Net balance is inaccurate."
+    },
+    {
+      "insight": "Flux Analysis",
+      "amount": 147,
+      "description": "Issues in financial data analysis or setup (Master Data) mean the calculated Deferred Tax Liabilities (the tax you'll owe later) are likely wrong. The Net balance is inaccurate."
+    },
+    {
+      "insight": "Ratio Identification and Prioritization",
+      "amount": 114,
+      "description": "Issues in financial data analysis or setup (Master Data) mean the calculated Deferred Tax Liabilities (the tax you'll owe later) are likely wrong. The Net balance is inaccurate."
+    },
+    {
+      "insight": "Scenario Planning",
+      "amount": 83,
+      "description": "Depends on Scenario"
+    },
+    {
+      "insight": "Configuration Check",
+      "amount": 75,
+      "description": "If cost centers, GL codes, or project mappings are incorrect, expenses may be recorded in the wrong place or duplicated. Also can cause over/under-reported sales."
+    },
+    {
+      "insight": "Unauthorised Postings",
+      "amount": 80,
+      "description": "Risk of fraud or error that misstate any P&L account."
+    },
+    {
+      "insight": "High Value JVs",
+      "amount": 78,
+      "description": "Risk of fraud or error impacting any account used in the JV."
+    },
+    {
+      "insight": "Mismatching Updates in Master",
+      "amount": 264,
+      "description": "Errors in master data (e.g., account codes, cost centers) can cause wrong expense or revenue recognition."
+    },
+    {
+      "insight": "Unauthorised Posting",
+      "amount": 236,
+      "description": "Unauthorized entries could manipulate income or expense accounts, distorting profitability."
+    },
+    {
+      "insight": "High Value JVs",
+      "amount": 281,
+      "description": "Large JVs may be used to adjust income or expenses significantly. Incorrect or unsupported entries can distort profitability and financial performance."
+    },
+    {
+      "insight": "Changes to useful Life of Assets",
+      "amount": 194,
+      "description": "The key is the timing difference! Changing the useful life changes the gap between Accounting Depreciation and fixed Tax Depreciation, which dictates the movement in your P&L Deferred Tax Expense."
+    },
+    {
+      "insight": "Unused Super IDs",
+      "amount": 431,
+      "description": "This changes the yearly Accounting Depreciation. Since the tax depreciation rate is typically fixed, the change directly alters the size of the temporary difference between the asset's book value and its tax base. This change in the temporary difference is reflected as a movement (increase or decrease) in the Deferred Tax Liability, which in turn becomes the Deferred Tax Expense (or Credit) on the P&L."
+    }
+  ]
+}

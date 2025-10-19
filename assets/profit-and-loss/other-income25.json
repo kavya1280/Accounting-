@@ -1,0 +1,28 @@
+{
+  "table": [
+    {
+      "insight": "ROI of Strategic Initiatives",
+      "amount": 6500,
+      "percentage": "0.08%",
+      "description": "Gains or losses from strategic projects impact profit or loss recognition."
+    },
+    {
+      "insight": "Country/Bank Validation",
+      "amount": 2193,
+      "percentage": "0.08%",
+      "description": "Errors in bank or country configuration may trigger wrong currency conversion or additional bank charges, impacting P&L."
+    },
+    {
+      "insight": "Scrap Sales",
+      "amount": 3176,
+      "percentage": "0.08%",
+      "description": "Scrap generated during production, when sold, should reduce inventory value and record revenue appropriately. Incorrect posting may overstate/understate sales income or inventory valuation."
+    },
+    {
+      "insight": "Sales Return of Expired/Short Expiry Goods",
+      "amount": 4225,
+      "percentage": "0.08%",
+      "description": "Sales returns reduce sales revenue, while related COGS are reversed. If the returned goods are unsellable (expired), an inventory write-off expense is recorded, impacting profitability."
+    }
+  ]
+}

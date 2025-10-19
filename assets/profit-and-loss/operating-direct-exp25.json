@@ -1,0 +1,94 @@
+{
+  "table": [
+    {
+      "insight": "Budget Overruns",
+      "amount": 1580,
+      "percentage": "0.23%",
+      "description": "Increases total expenses and reduces profitability."
+    },
+    {
+      "insight": "Process Deviation Reports",
+      "amount": 1720,
+      "percentage": "0.23%",
+      "description": "Deviations often lead to reprocessing or additional testing, which increases manufacturing or rework costs. Non-conformance caused by deviations can increase scrap and waste, reducing overall efficiency and increasing losses."
+    },
+    {
+      "insight": "Cost Centre Variance Analysis",
+      "amount": 2180,
+      "percentage": "0.23%",
+      "description": "Variances suggest costs are not matching budget, directly affecting the P&L."
+    },
+    {
+      "insight": "Direct Expense Payment",
+      "amount": 3850,
+      "percentage": "0.23%",
+      "description": "Incorrect or unnecessary payments increase expenses."
+    },
+    {
+      "insight": "Duplicate Payment",
+      "amount": 4680,
+      "percentage": "0.23%",
+      "description": "Incorrect expense recording until recovery."
+    },
+    {
+      "insight": "Expense Policy Violation",
+      "amount": 1287,
+      "percentage": "0.23%",
+      "description": "Unnecessary/unauthorized spending."
+    },
+    {
+      "insight": "Suspicious Duplicate Vendor with opposite o/p balance",
+      "amount": 1932,
+      "percentage": "0.23%",
+      "description": "Risk of duplicate payment affects GST input tax credit claims."
+    },
+    {
+      "insight": "Dormant Vendor Account Used for Payment",
+      "amount": 2830,
+      "percentage": "0.23%",
+      "description": "Risk of fraudulent payments inflating expenses."
+    },
+    {
+      "insight": "Duplicate Vendor Invoices",
+      "amount": 1700,
+      "percentage": "0.23%",
+      "description": "Temporary loss."
+    },
+    {
+      "insight": "Payment not in name of Vendor or alternate payee",
+      "amount": 1320,
+      "percentage": "0.23%",
+      "description": "Fraud risk (Misclassification)."
+    },
+    {
+      "insight": "Change in Delivery Address",
+      "amount": 1130,
+      "percentage": "0.23%",
+      "description": "Wrong delivery address could cause sales returns, freight adjustments, or additional logistics costs, leading to revenue reduction or increased expenses. (Fraud/loss risk)"
+    },
+    {
+      "insight": "Over Stocked Material",
+      "amount": 3670,
+      "percentage": "0.23%",
+      "description": "Overstocking causes higher warehousing and obsolescence costs. If items become unsellable or expire, they may need to be written off, reducing profits."
+    },
+    {
+      "insight": "Due Diligence and Risk Rating",
+      "amount": 1900,
+      "percentage": "0.23%",
+      "description": "Weak due diligence can result in unreliable vendor performance or losses from poor contracts."
+    },
+    {
+      "insight": "PO-PR-GRN Same User",
+      "amount": 3580,
+      "percentage": "0.23%",
+      "description": "Segregation of duty conflict risks fraudulent purchases or false inventory valuation."
+    },
+    {
+      "insight": "Creation of GRN and Payment by Same User",
+      "amount": 9644,
+      "percentage": "0.23%",
+      "description": "Fraud risk due to lack of control; could result in unauthorized payments and misstated liabilities."
+    }
+  ]
+}

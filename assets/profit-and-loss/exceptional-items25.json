@@ -1,0 +1,39 @@
+{
+  "table": [
+    {
+      "insight": "Prior Period Invoice Processing",
+      "amount": 19,
+      "percentage": "0.02%",
+      "description": "Expenses or revenues may be recorded in the wrong accounting period, distorting the current year’s profitability and affecting prior period comparability."
+    },
+    {
+      "insight": "Anomalies from Physical Verification of Inventory",
+      "amount": 53,
+      "percentage": "0.02%",
+      "description": "Shortages result in write-offs (expense), while excess quantities may be recorded as gains, directly impacting profit or loss for the period."
+    },
+    {
+      "insight": "Non Routine Movement",
+      "amount": 98,
+      "percentage": "0.02%",
+      "description": "When non-routine inventory movements are recorded (e.g., scrapping obsolete stock or revaluation adjustments), they result in gains or losses that impact profitability through expense or income recognition."
+    },
+    {
+      "insight": "Idle Inventory Ageing",
+      "amount": 12,
+      "percentage": "0.02%",
+      "description": "When idle or obsolete inventory is identified, the write-down or provision expense hits the P&L, reducing net profit through increased expenses or losses."
+    },
+    {
+      "insight": "Anomalies to Sampling",
+      "amount": 26,
+      "percentage": "0.02%",
+      "description": "Sampling anomalies increase production or quality control costs. If defective items are found, related expenses (e.g., material loss, testing waste) hit the P&L as COGS or quality-related expenses."
+    },
+    {
+      "insight": "Changes to Expiry Dates",
+      "amount": 3,
+          "description": "Changes leading to write-offs or adjustments for expired goods impact P&L via increased expense recognition for obsolete or unusable inventory."
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+    "table": [
+        {
+            "insight": "GL Master Anomalies",
+            "amount": 2205,
+            "percentage": "0.16%",
+            "description": "Misclassification risk of assets and liabilities"
+        },
+        {
+            "insight": "Financial Performance",
+            "amount": 1349,
+            "percentage": "0.16%",
+            "description": "Issues in financial data analysis or setup (Master Data) mean the calculated Deferred Tax Liabilities (the tax you'll owe later) are likely wrong. The Net balance is inaccurate."
+        },
+        {
+            "insight": "Flux Analysis",
+            "amount": 3489,
+            "percentage": "0.16%",
+            "description": "Issues in financial data analysis or setup (Master Data) mean the calculated Deferred Tax Liabilities (the tax you'll owe later) are likely wrong. The Net balance is inaccurate."
+        },
+        {
+            "insight": "Ratio Identification and Prioritization",
+            "amount": 1021,
+            "percentage": "0.16%",
+            "description": "Issues in financial data analysis or setup (Master Data) mean the calculated Deferred Tax Liabilities (the tax you'll owe later) are likely wrong. The Net balance is inaccurate."
+        },
+        {
+            "insight": "Configuration Check",
+            "amount": 4122,
+            "percentage": "0.16%",
+            "description": "Inventory valuation methods (e.g., FIFO, LIFO, Weighted Avg), asset classes or depreciation methods may misstate fixed assets, impact the aging and accuracy of AR/AP."
+        },
+        {
+            "insight": "Unauthorised Postings",
+            "amount": 1011,
+            "percentage": "0.16%",
+            "description": "Risk of fraud or error that misstate any B/S Account"
+        },
+        {
+            "insight": "High Value JVs",
+            "amount": 5987,
+            "percentage": "0.16%",
+            "description": "Risk of fraud or error impacting any account used in the JV."
+        },
+        {
+            "insight": "Unauthorised Posting",
+            "amount": 4658,
+            "percentage": "0.16%",
+            "description": "Unauthorized journal entries or postings may alter asset or liability balances without valid support, leading to incorrect reporting. If unauthorized entries affect prior period adjustments or reserves, equity balances may be misstated."
+        },
+        {
+            "insight": "High Value JVs",
+            "amount": 10681,
+            "percentage": "0.16%",
+            "description": "High-value JVs may impact key asset/liability balances if posted incorrectly or without proper authorization, leading to financial misstatements. If JVs are recorded to correct or adjust prior period balances, they may alter retained earnings without proper disclosure."
+        }
+    ]
+}

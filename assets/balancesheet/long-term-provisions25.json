@@ -1,0 +1,28 @@
+{
+    "table": [
+        {
+            "insight": "Access to Critical BASIS transactions",
+            "amount": 254,
+            "percentage": "0.00%",
+            "description": "Potential financial exposure from control failures."
+        },
+        {
+            "insight": "User modified their own access",
+            "amount": 305,
+            "percentage": "0.00%",
+            "description": "Fraud-related recoveries or write-offs may impact asset balances."
+        },
+        {
+            "insight": "Access to SAP_ALL/SAP_NEW",
+            "amount": 190,
+            "percentage": "0.00%",
+            "description": "Risk exposure may require provisioning for potential misuse."
+        },
+        {
+            "insight": "API Access Management",
+            "amount": 161,
+            "percentage": "0.00%",
+            "description": "Uncontrolled API access risks data exposure or system breaches causing financial loss."
+        }
+    ]
+}

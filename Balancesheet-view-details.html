@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="images/paw.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Sheet Analytics - KPIs & Table</title>
+    <link rel="stylesheet" href="CSS/balancesheet-view-details.css">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">
+            <img src="images/complibear-logo-b.png" alt="Logo" width="100" height="100">
+        </div>
+        
+       
+        
+        <div class="date-selector">
+            <span id="selectedDateRange">Apr 1, 2024 - Mar 31 2025</span>
+        </div>
+        
+    </div>
+    <div class="main-content">
+        <div class="title">
+            <a href="Balancesheet.html" class="navigate-button" style="text-decoration: none;">
+            <h2>BALANCE SHEET</h2>
+            </a>
+        </div>
+        <div class="kpi-cards">
+    <!-- These are the 4 cards for the first row -->
+    <div class="card green">
+        <div class="icon-text">
+            <span class="material-icons">handshake</span> <!-- Changed: groups to diversity_3 for Equity -->
+            <h3>Total Equity</h3>
+        </div>
+        <p id="totalEquity">13,532 Cr</p>
+        <div class="card-icons">
+        </div>
+    </div>
+    <div class="card orange ">
+        <div class="icon-text">
+            <span class="material-icons">book</span> <!-- Changed: account_balance to money_off_csred for Liabilities -->
+            <h3>Total Liabilities</h3>
+        </div>
+        <p id="totalLiabilities">5,42,742 Cr</p>
+        <div class="card-icons">
+        </div>
+    </div>
+    <div class="card purple">
+        <div class="icon-text">
+            <span class="material-icons">account_balance</span> <!-- Changed: account_balance to paid for Assets -->
+            <h3>Total Assets</h3>
+        </div>
+        <p id="totalAssets">10,10,441 Cr</p>
+        <div class="card-icons">
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="icon-text">
+            <span class="material-icons">ssid_chart</span> <!-- Changed: assessment to ssid_chart for Net Profit -->
+            <h3>Net Profit</h3>
+        </div>
+        <p id="netProfit">27,315 Cr</p>
+        <div class="card-icons">
+        </div>
+    </div>
+</div>
+
+<div class="kpi-cards" style="margin-top: 20px;">
+    <!-- These are the 2 cards for the second row -->
+    <div>
+        <!-- This empty div maintains layout if needed, otherwise consider removing if it's not serving a purpose -->
+    </div>
+    <div class="card cyan">
+        <div class="icon-text">
+            <span class="material-icons">lightbulb</span> <!-- Changed: show_chart to lightbulb for Total Insights -->
+            <h3>Total Insights</h3>
+        </div>
+        <p id="totalInsights">160</p>
+        <div class="card-icons">
+        </div>
+    </div>
+    <div class="card red">
+        <div class="icon-text">
+            <span class="material-icons">gpp_good</span> <!-- Changed: show_chart to gpp_good for Total Impact -->
+            <h3>Total Impact </h3>
+        </div>
+        <p id="totalImpact">20,20,882 Cr</p>
+        <div class="card-icons">
+        </div>
+    </div>
+    <div>
+        <!-- This empty div maintains layout if needed, otherwise consider removing if it's not serving a purpose -->
+    </div>
+
+</div>
+    <div class="nav-buttons">
+            <button class="nav-btn" id="profitLossBtn" onclick="window.location.href='Profit-view-details.html'">Profit & Loss Account</button>
+    </div>
+        </div>
+
+        <div class="dashboard-panels">
+            <div class="left-panel">
+                <div class="equity-insights">
+                    <div class="header-equity">
+                        <h4>Equity Share Capital Insights</h4>
+                    </div>
+                    <div class="insight-category">
+                        <h5>Insight Category</h5>
+                        <ul id="insightCategoryList">
+                            <li data-category="All">All Categories</li>
+                            <li data-category="Equity Share Capital">Equity Share Capital</li>
+                            <li data-category="Long Term Borrowings">Long Term Borrowings</li>
+                            <li data-category="Deferred Tax Liabilities [Net]">Deferred Tax Liability [Net]</li>
+                            <li data-category="Long Term Provisions">Long Term Provisions</li>
+                            <li data-category="Short Term Borrowings">Short Term Borrowings</li>
+                            <li data-category="Trade Payables">Trade Payables</li>
+                            <li data-category="Other Current Liabilities">Other Current Liabilities</li>
+                            <li data-category="Short Term Provisions">Short Term Provisions</li>
+                            <li data-category="Tangible Assets">Tangible Assets</li>
+                            <li data-category="Intangible Assets">Intangible Assets</li>
+                            <li data-category="Capital Work-In-Progress">Capital Work-In-Progress</li>
+                            <li data-category="Intangible Assets Under Development">Intangible Assets Under Development</li>
+                            <li data-category="Fixed Assets">Fixed Assets</li>
+                            <li data-category="Non-Current Investments">Non-Current Investments</li>
+                            <li data-category="Long Term Loans And Advances">Long Term Loans And Advances</li>
+                            <li data-category="Other Non-Current Assets">Other Non-Current Assets</li>
+                            <li data-category="Current Investments">Current Investments</li>
+                            <li data-category="Inventories">Inventories</li>
+                            <li data-category="Trade Receivables">Trade Receivables</li>
+                            <li data-category="Cash And Cash Equivalents">Cash And Cash Equivalents</li>
+                            <li data-category="Short Term Loans And Advances">Short Term Loans And Advances</li>
+                            <li data-category="Other Current Assets">Other Current Assets</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel full-width">
+                <div class="detailed-insights-overview">
+                    <h4>Detailed Insights Overview</h4>
+                    <table id="insightsTable">
+                        <thead>
+                            <tr>
+                                <th>Insight ID</th>
+                                <th>Insight Category</th>
+                                <th>Insight</th>
+                                <th>Balance Sheet Impact</th>
+                                <th style="display: none;">Balance Sheet Element</th>
+                                <th>BS Impact Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                     <div class="pagination">
+                        <button id="prevPage">Previous</button>
+                        <span id="pageNumbers"></span>
+                        <button id="nextPage">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/balancesheet-view-details.js"></script>
+</body>
+</html>

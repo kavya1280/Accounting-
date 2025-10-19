@@ -1,0 +1,40 @@
+{
+  "table": [
+    {
+      "insight": "Insight Seasonality & Trend Analysis",
+      "amount": 5149,
+      "percentage": "0.07%",
+      "description": "Seasonal adjustments lead to timing differences in asset and liability recognition."
+    },
+    {
+      "insight": "Due Diligence and Risk Rating",
+      "amount": 4578,
+      "percentage": "0.07%",
+      "description": "Weak due diligence can result in unreliable vendor performance or losses from poor contracts."
+    },
+    {
+      "insight": "ROI Calculator",
+      "amount": 6896,
+      "percentage": "0.07%",
+      "description": "Evaluates marketing campaign effectiveness; over/under-performance affects expenses and revenue recognition, altering ROI metrics."
+    },
+    {
+      "insight": "A/B Testing Process",
+      "amount": 2527,
+      "percentage": "0.07%",
+      "description": "Experimental spend on testing ads or strategies; may increase R&D costs or deferred marketing prepayments."
+    },
+    {
+      "insight": "Click Fraud Detection",
+      "amount": 3937,
+      "percentage": "0.07%",
+      "description": "Detecting ad fraud minimizes wasted ad spend; software investment may be capitalized as an IT asset."
+    },
+    {
+      "insight": "Expense Recurrence Transactions",
+      "amount": 2096,
+      "percentage": "0.07%",
+      "description": "Repeated transactions may lead to double booking or prepaid cost buildup affecting expense recognition."
+    }
+  ]
+}

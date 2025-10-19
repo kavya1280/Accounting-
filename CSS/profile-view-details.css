@@ -1,0 +1,443 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: anchor-center;
+    padding: 15px 30px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header .title h2 {
+            font-family: 'Yatra One', sans-serif;
+            font-size: 2.5em; /* Adjust as needed for proper heading size */
+            color: #567ef5; /* Or your preferred color */
+            text-align: center; /* Center the heading if desired */
+            margin: 0;
+            padding: 10px 0;
+        }
+
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    margin-right: 10px;
+    border-radius: 30%;
+}
+
+.logo span {
+    font-size: 24px;
+    font-weight: 500;
+    color: #424242;
+}
+
+.search-bar,
+.date-selector {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border-radius: 25px;
+    padding: 8px 15px;
+    color: #757575;
+}
+
+.search-bar input,
+.date-selector input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 16px;
+    margin-left: 8px;
+    color: #333;
+    width: 150px;
+}
+
+.date-selector span:first-of-type {
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.date-selector .date-input {
+    display: none;
+}
+
+.main-content {
+    padding: 20px 30px;
+}
+
+.kpi-cards {
+    display: grid;
+    /* First row now has exactly 4 columns */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    margin-bottom: 0; 
+}
+.kpi-cards.second-row {
+    display: grid;
+    /* Second row now has exactly 2 columns */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    margin-top: 20px; 
+    /* This centers the 2 cards in the available space */
+    justify-content: center; 
+    /* Added to span the width of the main content, allowing for centering */
+    width: 100%; 
+    max-width: calc(4 * (250px + 20px) - 20px); /* Adjust max-width to align with the 4-column row above if needed */
+    /* Calculation for max-width: (number of cards * (min-width of card + gap)) - last gap */
+    /* Assuming default minmax(250px, 1fr) for card width from previous, if cards are roughly 250px */
+    /* You might need to tweak the max-width or let it span full width if you prefer */
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* --- KPI Card Specific Styling --- */
+.card.green {
+    border-left: 5px solid #4caf50;
+}
+.card.green .icon-text .material-icons,
+.card.green h3,
+.card.green p {
+    color: #4caf50; /* Green color for text and icon */
+}
+
+.card.orange {
+    border-left: 5px solid #ff9800;
+}
+.card.orange .icon-text .material-icons,
+.card.orange h3,
+.card.orange p {
+    color: #ff9800; /* Orange color for text and icon */
+}
+
+.card.blue {
+    border-left: 5px solid #2196f3;
+}
+.card.blue .icon-text .material-icons,
+.card.blue h3,
+.card.blue p {
+    color: #2196f3; /* Blue color for text and icon */
+}
+.card.purple {
+    border-left: 5px solid #9c27b0;
+}
+.card.purple .icon-text .material-icons,
+.card.purple h3,
+.card.purple p {
+    color: #9c27b0; /* Purple color for text and icon */
+}
+.card.sea-green {
+    border-left: 5px solid #16a19abf;
+}
+.card.sea-green .icon-text .material-icons,
+.card.sea-green h3,
+.card.sea-green p {
+    color: #16a19abf; /* Brown color for text and icon */
+}
+.card.red {
+    border-left: 5px solid #f44336;
+}
+.card.red .icon-text .material-icons,
+.card.red h3,
+.card.red p {
+    color: #f44336; /* Red color for text and icon */
+}
+/* --- End KPI Card Specific Styling --- */
+
+.card h3 {
+    margin: 0;
+    font-size: 18px;
+    /* color: #555; Removed general color, now defined per card type */
+}
+
+.card p {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 10px 0;
+    /* color: #333; Removed general color, now defined per card type */
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.icon-text .material-icons {
+    font-size: 28px;
+    margin-right: 10px;
+    /* color: #757575; Removed general color, now defined per card type */
+}
+
+.card-icons {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 5px;
+}
+
+.card-icons .material-icons {
+    font-size: 20px;
+    color: #9e9e9e;
+}
+
+.dashboard-panels {
+    display: flex;
+    gap: 20px;
+}
+
+.left-panel {
+    flex: 0 0 280px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    height: fit-content;
+}
+
+.right-panel {
+    flex: 1;
+}
+
+.right-panel.full-width {
+    flex: 1 1 100%;
+}
+
+.equity-insights .header-equity {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #424242;
+}
+
+.equity-insights .header-equity .material-icons {
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.equity-insights .header-equity h4 {
+    margin: 0;
+    font-size: 18px;
+    flex-grow: 1;
+}
+
+.equity-insights .header-equity .arrow {
+    transform: rotate(90deg);
+    color: #757575;
+}
+
+.insight-category h5 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #616161;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.insight-category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.insight-category li {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #555;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.insight-category {
+    max-height: 550px; /* Adjust this value as needed to control when the scrollbar appears */
+    overflow-y: auto;  /* This creates the vertical scrollbar when content overflows */
+    padding-right: 10px; /* Optional: Add some padding to prevent text from touching the scrollbar */
+}
+
+.insight-category li.active {
+    background-color: #2196f3;
+    color: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+}
+
+.detailed-insights-overview {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+}
+
+.detailed-insights-overview h4 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #424242;
+}
+
+#insightsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+#insightsTable th,
+#insightsTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eceff1;
+    font-size: 14px;
+}
+
+#insightsTable thead th {
+    background-color: #f5f7f8;
+    color: #616161;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#insightsTable tbody tr:hover {
+    background-color: #f8fcfd;
+}
+
+#insightsTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* New style for the "View Insight" button */
+.view-insight-btn {
+    background-color: #2196f3; /* Blue */
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* In case it's an anchor tag */
+    display: inline-block; /* For proper padding and margin */
+}
+
+.view-insight-btn:hover {
+    background-color: #1976d2; /* Darker blue on hover */
+}
+
+.pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .pagination button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .pagination button:hover:not(.active) {
+            background-color: #0056b3;
+        }
+
+        .pagination button.active {
+            background-color: #0056b3;
+            cursor: default;
+        }
+
+        .pagination span {
+            margin: 0 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0 20px 0;
+  text-align: center;
+}
+
+.title h2 {
+  font-family: "Yatra One", sans-serif;
+  font-size: 40px;
+  color: #072382;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.nav-buttons {
+  width: 100%;                  /* Ensures full width */
+  display: flex;
+  justify-content: flex-end;    /* Aligns buttons to the right */
+  align-items: right;
+  gap: 20px;
+  padding-right: 40px;          /* Adds space from the right edge */
+  margin-top: 20px;
+}
+
+.nav-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover Effect */
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+}
+
+/* Active (click) effect */
+.nav-btn:active {
+  transform: scale(0.98);
+}

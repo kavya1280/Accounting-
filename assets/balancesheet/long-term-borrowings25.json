@@ -1,0 +1,34 @@
+{
+    "table": [
+        {
+            "insight": "Risk Mitigation",
+            "amount": 12765,
+            "percentage": "0.75%",
+            "description": "Successful Risk Mitigation reduces the likelihood and impact of major strategic threats (e.g., market shifts, regulatory changes). This can improve the company's long-term financial stability and credit rating, making it easier and cheaper to secure large, long-term loans (e.g., bonds, term loans) for capital projects, expansion, or acquisitions."
+        },
+        {
+            "insight": "Risk Identification",
+            "amount": 37672,
+            "percentage": "0.75%",
+            "description": "Risk Identification is the foundational step. Identifying significant long-term risks (e.g., technological obsolescence, political instability) allows a company to plan financially. These risks might necessitate long-term borrowings to fund major counter-measures, such as R&D into new technologies or diversification into new markets"
+        },
+        {
+            "insight": "Risk Prioritization",
+            "amount": 28431,
+            "percentage": "0.75%",
+            "description": "Risk Prioritization focuses resources on the most critical risks. Addressing high-priority, high-impact risks often requires substantial, multi-year investments (e.g., building redundant infrastructure, significant M&A). These major, enduring expenditures are typically financed through long-term debt."
+        },
+        {
+            "insight": "Scenario Planning",
+            "amount": 61596,
+            "percentage": "0.75%",
+            "description": "Scenario Planning for major, distant events (e.g., economic downturn, litigation) allows a company to estimate potential future liabilities. Instead of borrowing, this planning leads to the establishment of Long-Term Provisions or reserves on the balance sheet, ensuring funds are available when needed without having to scramble for high-cost debt later."
+        },
+        {
+            "insight": "Scenario Planning",
+            "amount": 18671,
+            "percentage": "0.75%",
+            "description": "In Expense Management, Scenario Planning for major future investments (e.g., upgrading a factory, expanding globally) helps determine the optimal financing mix. If the most efficient long-term scenario involves significant debt for a large capital expenditure, it directly leads to securing Long-Term Borrowings to fund the project."
+        }
+    ]
+}

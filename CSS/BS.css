@@ -1,0 +1,1452 @@
+:root {
+  --primary-color: #007bff; /* Blue */
+  --secondary-color: #6c757d; /* Gray */
+  --danger-color: #dc3545; /* Red for impact table header */
+  --light-bg: #f8f9fa; /* Light page background */
+  --dark-text: #343a40; /* Dark text */
+  --card-bg: #ffffff; /* Card background */
+  --border-color: #e9ecef; /* Light border */
+  --shadow-light: rgba(0, 0, 0, 0.1); /* Standard shadow */
+  --shadow-medium: rgba(0, 0, 0, 0.12); /* Slightly stronger shadow */
+  --header-bg-light: #f1f3f5; /* Table header background */
+  --impact-header-bg: #dc3545; /* Impact table header */
+  --impact-row-even: #fdf2f2; /* Light red for even impact rows */
+  --text-muted: #6c757d;
+
+  /* New: Balance Sheet Specific Colors */
+  --balance-sheet-section-bg: #d4edda; /* Light green */
+  --balance-sheet-section-text: #155724; /* Dark green */
+  --balance-sheet-grand-total-bg: #28a745; /* Green */
+  --balance-sheet-grand-total-text: #ffffff; /* White */
+  --balance-sheet-border: #a8d7b3; /* Slightly darker green for borders */
+
+
+  /* New: Profit & Loss Specific Colors */
+  --pnl-section-bg: #ffeeba; /* Light yellow */
+  --pnl-section-text: #856404; /* Dark yellow/brown */
+  --pnl-grand-total-bg: #ffc107; /* Yellow */
+  --pnl-grand-total-text: #343a40; /* Dark text */
+  --pnl-border: #ffd700; /* Slightly darker yellow for borders */
+
+
+  /* Donut Chart Colors (aligned with previous revenue breakdown) */
+  --color-product-sales: #dc3545; /* Red */
+  --color-service-revenue: #20c997; /* Teal */
+  --color-subscriptions: #007bff; /* Blue */
+  --color-consulting: #ffc107; /* Yellow */
+  --color-licensing: #fd7e14; /* Orange */
+  --color-training: #e83e8c; /* Pink */
+  --color-misc: #6f42c1; /* Purple */
+  --color-gray: #666666; /* Dark gray */
+  --color-red: #ff4136; /* Red */
+  --color-pink: #ff80ab; /* Pink */
+  --color-purple: #8e24aa; /* Purple */
+  --color-blue: #3949ab; /* Blue */
+  --color-green: #4caf50; /* Green */
+  --color-lime: #cddc39; /* Lime */
+  
+
+  
+
+  /* Combined Chart Colors */
+  --bar-color: #79a6ed; /* Light blue for bars */
+  --bar-hover-color: #5d90e8;
+  --line-color: #28a745; /* Green for line */
+  --line-point-border: #ffffff;
+  --line-point-bg: #28a745;
+}
+/* General Body and Layout */
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  background-color: #f4f7f6; /* Light gray background */
+  color: #343a40;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(224, 230, 237, 0.8) 70%,
+    rgba(190, 200, 210, 0.9) 100%
+  );
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+h1 {
+  font-family: "Yatra One", cursive;
+  text-align: center;
+  color: #0069d9; /* Slightly darker blue for contrast, or try a bolder accent like #0099ff */
+  margin-bottom: 15px;
+  font-size: 2.5em; /* Slightly larger */
+  font-weight: 800;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Added text shadow for pop */
+  letter-spacing: 1px; /* A little more space for emphasis */
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 1;
+  position: relative;
+}
+
+.logo-placeholder {
+  width: 150px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-placeholder img {
+  max-height: 100%;
+  max-width: 80%;
+  object-fit: contain;
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  outline: none;
+}
+
+.nav-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.nav-btn.active {
+  background-color: #0056b3;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+}
+
+.nav-btn:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Container for Financial Statement */
+.container {
+  margin: 0px;
+  position: relative;
+  z-index: 5;
+  box-shadow: 0 0 100px 50px rgba(0, 0, 0, 0.1) inset;
+}
+
+.financial-statement {
+  padding: 30px;
+  background-color: #f8f9fa;
+  background-image: linear-gradient(
+      to right,
+      rgba(237, 238, 239, 0.8) 1px,
+      transparent 0px
+    ),
+    linear-gradient(to bottom, rgba(238, 241, 245, 0.8) 1px, transparent 0px);
+  background-size: 50px 50px;
+  background-attachment: fixed;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 6;
+}
+
+.circular-mask {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    circle at center,
+    transparent 20%,
+    transparent 60%,
+    rgba(255, 255, 255, 1) 95%
+  );
+  background: radial-gradient(
+    circle at center,
+    transparent 20%,
+    transparent 80%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+.currency-note {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #6c757d;
+  font-size: 0.95em;
+}
+
+/* KPI Dashboard Styles */
+.kpi-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px; /* Slightly smaller gap */
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 1300px; /* Allow a bit wider for 5 cards */
+}
+
+.kpi-card {
+  background-color: #ffffff;
+  border-radius: 12px; /* Slightly smaller border-radius */
+  padding: 20px; /* Reduced padding */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  width: calc(20% - 15px); /* Five cards per row */
+  min-width: 180px; /* Adjusted min-width for smaller cards */
+  max-width: 220px; /* Set a max width */
+  box-sizing: border-box;
+  border: 1px solid #e9ecef; /* Lighter border */
+}
+
+.kpi-card:hover {
+  transform: translateY(-5px) scale(1.01); /* Reduced hover effect */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.kpi-card .icon-text {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Reduced margin */
+}
+
+.kpi-card .material-icons {
+  font-size: 2em; /* Smaller icons */
+  margin-right: 8px; /* Reduced margin */
+  opacity: 0.7;
+}
+
+.kpi-card h3 {
+  font-size: 0.9em; /* Smaller heading font */
+  font-weight: 500; /* Lighter font-weight */
+  color: #666; /* Slightly darker grey for text */
+  margin: 0;
+  line-height: 1.2;
+}
+
+.kpi-card .kpi-value {
+  font-size: 1.8em; /* Smaller value font */
+  font-weight: 600; /* Lighter font-weight for value */
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.kpi-card .card-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px; /* Reduced gap */
+  color: #b0b0b0; /* Lighter color */
+}
+
+.kpi-card .card-icons .material-icons {
+  font-size: 1.2em; /* Smaller info/trending icons */
+  margin: 0;
+}
+
+/* Color variations for KPI cards (existing colors, but adjusted border style) */
+.kpi-total-insights {
+  border-left: 4px solid #28a745;
+}
+.kpi-total-insights .material-icons {
+  color: #28a745;
+}
+.kpi-total-insights .kpi-value {
+  color: #28a745;
+}
+
+.kpi-number-of-location {
+  border-left: 4px solid #ffc107;
+}
+.kpi-number-of-location .material-icons {
+  color: #ffc107;
+}
+.kpi-number-of-location .kpi-value {
+  color: #ffc107;
+}
+
+.kpi-number-of-plans {
+  border-left: 4px solid #007bff;
+}
+.kpi-number-of-plans .material-icons {
+  color: #007bff;
+}
+.kpi-number-of-plans .kpi-value {
+  color: #007bff;
+}
+
+.kpi-total-vendor {
+  border-left: 4px solid #dc3545;
+}
+.kpi-total-vendor .material-icons {
+  color: #dc3545;
+}
+.kpi-total-vendor .kpi-value {
+  color: #dc3545;
+}
+
+.kpi-total-impacts {
+  border-left: 4px solid #20c997;
+}
+.kpi-total-impacts .material-icons {
+  color: #20c997;
+}
+.kpi-total-impacts .kpi-value {
+  color: #20c997;
+}
+
+.kpi-equity {
+  border-left: 4px solid #6f42c1;
+}
+.kpi-equity .material-icons {
+  color: #6f42c1;
+}
+.kpi-equity .kpi-value {
+  color: #6f42c1;
+}
+
+.kpi-total-liabilities {
+  border-left: 4px solid #fd7e14;
+}
+.kpi-total-liabilities .material-icons {
+  color: #fd7e14;
+}
+.kpi-total-liabilities .kpi-value {
+  color: #fd7e14;
+}
+
+.kpi-total-assets {
+  border-left: 4px solid #17a2b8;
+}
+.kpi-total-assets .material-icons {
+  color: #17a2b8;
+}
+.kpi-total-assets .kpi-value {
+  color: #17a2b8;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 25px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+th,
+td {
+  border: 1px solid #e9ecef;
+  padding: 14px 15px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+th:first-child {
+  border-top-left-radius: 8px;
+}
+th:last-child {
+  text-align: center;
+  border-top-right-radius: 8px;
+}
+
+td {
+  color: #495057;
+  font-size: 0.95em;
+}
+
+/* Make clickable insight numbers visually distinct */
+.insight-trigger {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.insight-trigger:hover {
+  color: #007bff;
+  text-decoration: underline dotted #007bff;
+}
+
+.data-input {
+  width: calc(100% - 10px);
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  text-align: right;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.95em;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #ffffff;
+  color: #343a40;
+}
+
+.data-input:focus {
+  border-color: #007bff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Existing .collapsible styles */
+.collapsible {
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  width: 100%;
+  color: #212529;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.collapsible:hover {
+  color: #128cd7;
+}
+
+/* Hide the toggle icon */
+.toggle-icon {
+  display: none;
+}
+
+/* The .explanation styles remain largely the same, but its display will be controlled by JS */
+.explanation {
+  display: none;
+  padding: 10px 0 0 25px;
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.85em;
+  border-left: 3px solid #007bff;
+  margin-top: 5px;
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+/* Default Section Title and Category */
+tr.section-title td,
+tr.category td {
+  background-color: #e9ecef; /* Default light gray */
+  font-weight: bold;
+  color: #212529;
+  border-bottom: 2px solid #ced4da;
+  font-size: 1.05em;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+/* New: Balance Sheet Section Titles and Categories */
+tr.balance-sheet-section-title td,
+tr.balance-sheet-category td {
+  background-color: var(--balance-sheet-section-bg);
+  color: var(--balance-sheet-section-text);
+  border-bottom: 2px solid var(--balance-sheet-border);
+}
+
+/* New: Profit & Loss Section Titles and Categories */
+tr.pnl-section-title td,
+tr.pnl-category td {
+  background-color: var(--pnl-section-bg);
+  color: var(--pnl-section-text);
+  border-bottom: 2px solid var(--pnl-border);
+}
+
+/* Adjust padding for .collapsible within these cells if needed */
+tr.section-title .collapsible,
+tr.category .collapsible {
+  padding-right: 15px;
+}
+
+tr.sub-total td {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  border-top: 1px dashed #dee2e6;
+  color: #343a40;
+}
+
+/* Default Grand Total */
+tr.grand-total td {
+  background-color: #e2e6ea;
+  font-weight: bold;
+  color: #0056b3;
+  border-top: 2px solid #adb5bd;
+  font-size: 1.05em;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+/* New: Balance Sheet Grand Total */
+tr.balance-sheet-grand-total td {
+  background-color: var(--balance-sheet-grand-total-bg);
+  color: var(--balance-sheet-grand-total-text);
+  border-top: 2px solid var(--balance-sheet-border); /* Consistent border color */
+}
+
+/* New: Profit & Loss Grand Total */
+tr.pnl-grand-total td {
+  background-color: var(--pnl-grand-total-bg);
+  color: var(--pnl-grand-total-text);
+  border-top: 2px solid var(--pnl-border); /* Consistent border color */
+}
+
+
+/* Column Widths and Alignment */
+/* Adjust td:first-child to accommodate the widest content */
+td:first-child {
+  /* PARTICULARS */
+  width: auto;
+  min-width: 250px; /* Adjusted as per your original CSS */
+  max-width: 400px; /* Add a max-width to prevent it from becoming too wide */
+}
+
+/* Target only the first visible year data cell for specific styling */
+td.year-data[data-year="24-25"] {
+  /* Assuming '24-25' is your primary year */
+  text-align: left;
+  width: 14%; /* Adjust width as needed */
+  white-space: nowrap;
+  padding-right: 10px;
+}
+
+/* General styling for all other year-data cells */
+td.year-data {
+  text-align: left;
+  width: 14%; /* Adjust width as needed for other years */
+  white-space: nowrap;
+  padding-right: 10px;
+}
+
+/* Override for specific year columns if you need different widths */
+/* For example, if you have many years, you might want them all to be narrower */
+td:nth-child(2), /* FY 24-25 */
+td:nth-child(3), /* FY 23-24 */
+td:nth-child(4), /* FY 22-23 */
+td:nth-child(5) {
+  /* FY 21-22 */
+  /* Remove text-align: right and width here if you want .year-data to control it */
+  /* If year-data always has width 14%, these aren't strictly needed for width/align */
+  /* Keep padding-right if consistent across all data columns */
+  padding-right: 10px;
+}
+
+.impact-cell {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.85em;
+  white-space: nowrap;
+  color: #6c757d;
+}
+
+/* New: Styles for percentage impact color coding */
+.percentage-impact.red {
+  color: #dc3545; /* Red */
+}
+
+.percentage-impact.yellow {
+  color: #ffc107; /* Yellow */
+}
+
+.percentage-impact.green {
+  color: #28a745; /* Green */
+}
+
+/* Style for the navigation button within the explanation */
+.explanation .navigate-button {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 44px;
+  font-size: 0.9em;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.explanation .navigate-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+/* --- Modal/Popup Styles --- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  height: 80%;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #343a40;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8em;
+  color: #6c757d;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  color: #dc3545;
+}
+
+.modal-iframe-container {
+  flex-grow: 1;
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
+  overflow-y: scroll;
+}
+
+.modal-iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background-color: transparent;
+}
+
+/* Animations for modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1400px) {
+  /* Adjust for 5 cards in a row */
+  .kpi-card {
+    width: calc(20% - 15px); /* Five cards per row */
+    min-width: 170px;
+    max-width: 200px;
+    padding: 18px;
+  }
+  .kpi-card .material-icons {
+    font-size: 1.8em;
+  }
+  .kpi-card h3 {
+    font-size: 0.85em;
+  }
+  .kpi-card .kpi-value {
+    font-size: 1.6em;
+  }
+  .kpi-card .card-icons .material-icons {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 20px;
+    margin: 15px auto;
+  }
+
+  .kpi-dashboard {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .kpi-card {
+    width: calc(25% - 15px); /* Four cards per row */
+    min-width: 180px;
+    max-width: 220px;
+    padding: 18px;
+  }
+
+  .kpi-card .material-icons {
+    font-size: 1.8em;
+    margin-right: 10px;
+  }
+
+  .kpi-card h3 {
+    font-size: 0.9em;
+  }
+
+  .kpi-card .kpi-value {
+    font-size: 1.7em;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-width: 700px;
+    height: 75%;
+    max-height: 550px;
+  }
+}
+
+@media (max-width: 992px) {
+  /* Tablet breakpoint for 3 cards per row */
+  .kpi-card {
+    width: calc(33.33% - 15px); /* Three cards per row */
+    min-width: 200px;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+
+  .nav-buttons {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .nav-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .currency-note {
+    font-size: 0.85em;
+    margin-bottom: 20px;
+  }
+
+  .kpi-dashboard {
+    flex-direction: row; /* Keep as row but wrap */
+    justify-content: center;
+    padding: 0;
+    gap: 12px; /* Even smaller gap for mobile */
+  }
+
+  .kpi-card {
+    width: calc(50% - 12px); /* Two cards per row on mobile */
+    max-width: 300px; /* Limit individual card width */
+    margin: 0; /* Remove auto margin */
+    padding: 15px;
+  }
+  .kpi-card .material-icons {
+    font-size: 1.6em;
+  }
+  .kpi-card h3 {
+    font-size: 0.8em;
+  }
+  .kpi-card .kpi-value {
+    font-size: 1.5em;
+  }
+  .kpi-card .card-icons .material-icons {
+    font-size: 1em;
+  }
+
+  table {
+    margin-top: 20px;
+    font-size: 0.9em;
+  }
+
+  th,
+  td {
+    padding: 10px 12px;
+  }
+
+  td:first-child {
+    min-width: unset;
+    width: 60%;
+  }
+  /* Updated to target .year-data for specific years */
+  td.year-data[data-year="24-25"],
+  td.year-data[data-year="23-24"],
+  td.year-data[data-year="22-23"],
+  td.year-data[data-year="21-22"] {
+    width: 10%;
+  }
+
+  td.impact-cell {
+    width: 10%;
+  }
+
+  .explanation {
+    padding-left: 15px;
+  }
+
+  .modal-content {
+    width: 98%;
+    height: 90%;
+    max-height: unset;
+  }
+
+  .modal-header h2 {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even smaller screens, one card per row */
+  .kpi-card {
+    width: 90%; /* Almost full width */
+    min-width: unset;
+    max-width: 350px;
+  }
+  .kpi-dashboard {
+    gap: 10px;
+  }
+}
+
+/* Ensure impact column is aligned properly */
+td.impact-cell {
+  text-align: center;
+}
+
+/* Adjust th for the new impact column */
+th:last-child {
+  text-align: center;
+}
+
+/* Adjustments for the insight-trigger span */
+/* This ensures the trigger itself doesn't introduce extra spacing if not needed */
+.insight-trigger {
+  display: inline-block; /* Changed to inline-block to allow appending the percentage span correctly */
+  text-decoration: none;
+  color: inherit;
+  /* Removed margin-right to prevent extra space before percentage */
+}
+
+/* --- New Styles for Controls Container --- */
+.controls-container {
+  display: flex;
+  justify-content: space-between; /* Pushes search to left, filters to right */
+  align-items: center;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#searchInput {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 300px; /* Adjust width as needed */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+.year-filter-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.year-filter-btn {
+  padding: 8px 15px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #007bff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.year-filter-btn:hover {
+  background-color: #e9f5ff;
+}
+
+.year-filter-btn.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* --- Table specific changes for year visibility --- */
+
+/* Hide all year columns and data by default (JS will show active ones) */
+.year-column,
+.year-data {
+  display: none;
+}
+
+/* Show only the active year column header (controlled by JS adding 'active' class) */
+.year-column.active {
+  display: table-cell;
+}
+
+/* Show only the active year data cells (controlled by JS adding 'active' class) */
+td.year-data.active {
+  display: table-cell;
+}
+
+/* Ensure the PARTICULARS column remains visible */
+table thead tr th:first-child,
+table tbody tr td:first-child {
+  display: table-cell !important;
+}
+
+/* For section titles and categories spanning all columns */
+/* This requires JavaScript to dynamically update the colspan attribute for correct spanning */
+
+/* Ensure sub-total and grand-total value cells are styled */
+.sub-total td {
+  font-weight: bold;
+  background-color: #f8f9fa; /* Reverted to your original sub-total background */
+  border-top: 1px dashed #dee2e6;
+}
+.grand-total td {
+  font-weight: bold;
+  /* Background and color now handled by specific classes */
+}
+
+/* --- Footer Styles --- */
+.footer {
+  background-color: #212529; /* Dark background */
+  color: #f8f9fa; /* Light text */
+  padding: 40px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px; /* Space between sections */
+  border-top: 5px solid #007bff; /* Accent color border */
+  position: relative;
+  z-index: 5; /* Ensure it's above the blurred background */
+  margin-top: 40px; /* Space above the footer */
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 220px; /* Minimum width for each section before wrapping */
+  max-width: 300px;
+}
+
+.footer-section h4 {
+  color: #007bff; /* Accent color for headings */
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Footer About Section */
+.footer-about .footer-logo img {
+  max-height: 70px; /* Adjust logo size */
+  margin-bottom: 15px;
+  filter: brightness(0) invert(1); /* Make logo white/light */
+}
+.footer-about p {
+  font-size: 0.9em;
+  line-height: 1.8;
+  color: #ced4da;
+}
+
+/* Footer Links Section */
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.impact-table th,
+.impact-table td {
+  padding: 14px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.95em;
+  word-wrap: break-word; /* Prevents long text from breaking layout */
+}
+
+/* Specific column widths for Business Impact table */
+.impact-table th:nth-child(1),
+.impact-table td:nth-child(1) {
+  width: 28%;
+} /* Insight Name */
+.impact-table th:nth-child(2),
+.impact-table td:nth-child(2) {
+  width: 17%;
+  text-align: right;
+} /* Amount */
+.impact-table th:nth-child(3),
+.impact-table td:nth-child(3) {
+  width: 15%;
+  text-align: right;
+} /* Percentage */
+.impact-table th:nth-child(4),
+.impact-table td:nth-child(4) {
+  width: 40%;
+} /* Description */
+
+.impact-table th {
+  background-color: var(--impact-header-bg); /* Red header for impact table */
+  color: #ffffff;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+.impact-table tr:last-child td {
+  border-bottom: none;
+}
+
+.impact-table tbody tr:hover {
+  background-color: #f6f8fa;
+}
+
+.impact-table tbody tr:nth-child(even) {
+  background-color: var(--impact-row-even);
+}
+
+.impact-table tbody tr:nth-child(odd) {
+  background-color: var(--card-bg);
+}
+
+.chart-summary-card {
+  background-color: var(--header-bg-light);
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center chart and total */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03);
+  text-align: center;
+  height: 100%;
+  opacity: 0; /* Hidden by default for scroll animation */
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s; /* Delayed animation */
+  position: relative; /* For total amount overlay */
+}
+
+.chart-summary-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chart-and-legend-wrapper {
+  display: flex;
+  flex-direction: column; /* Stack chart and legend vertically */
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px; /* Space between chart area and total */
+}
+
+.chart-container {
+  position: relative; /* For the text overlay */
+  width: 100%;
+  max-width: 250px; /* Increased chart size */
+  margin-bottom: 15px; /* Space between chart and legend */
+  flex-shrink: 0; /* Don't let it shrink */
+}
+
+.donut-total-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none; /* Allows clicks to pass through to the chart */
+}
+
+.donut-total-overlay .total-label {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.donut-total-overlay .total-value {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+}
+
+.chart-legend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 280px; /* Limit legend width */
+  text-align: left;
+}
+
+.chart-legend li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  color: var(--dark-text);
+}
+
+.chart-legend .legend-color-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* Combined Line & Bar Chart Specific Styles */
+.combined-chart-section {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out 0.6s, transform 0.6s ease-out 0.6s; /* Delayed animation */
+}
+
+.combined-chart-section.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.combined-chart-section .chart-section-header {
+  border-bottom: none;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.combined-chart-container {
+  position: relative;
+  width: 100%;
+  height: 350px; /* Fixed height for consistency */
+}
+
+.chart-section-header {
+  font-size: 1.4em;
+  font-weight: 600; /* Increased font weight */
+  color: var(--dark-text);
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.chart-main-title {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .top-content-grid {
+    grid-template-columns: 1fr; /* Stack on smaller screens */
+  }
+  .combined-insight-card {
+    padding: 25px;
+    gap: 20px;
+  }
+  .chart-main-title {
+    font-size: 1.6em;
+  }
+  .chart-section-header {
+    font-size: 1.2em;
+  }
+  .chart-summary-card {
+    padding: 20px;
+  }
+  .chart-and-legend-wrapper {
+    flex-direction: row; /* Legend next to chart on medium screens */
+    flex-wrap: wrap; /* Allow legend to wrap if space is tight */
+    justify-content: center;
+    gap: 20px;
+  }
+  .chart-legend {
+    max-width: none; /* Allow legend to use more width */
+  }
+  .chart-container {
+    max-width: 200px; /* Adjusted for smaller screens */
+    margin-bottom: 0;
+  }
+  .donut-total-overlay .total-value {
+    font-size: 1.6em;
+  }
+  .impact-table th,
+  .impact-table td {
+    padding: 12px 15px;
+    font-size: 0.9em;
+  }
+  .impact-table th:nth-child(1),
+  .impact-table td:nth-child(1) {
+    width: 30%;
+  }
+  .impact-table th:nth-child(2),
+  .impact-table td:nth-child(2) {
+    width: 20%;
+  }
+  .impact-table th:nth-child(3),
+  .impact-table td:nth-child(3) {
+    width: 15%;
+  }
+  .impact-table th:nth-child(4),
+  .impact-table td:nth-child(4) {
+    width: 35%;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  .combined-insight-card {
+    max-width: 100%;
+    margin: 0 10px;
+    padding: 20px;
+  }
+  .chart-and-legend-wrapper {
+    flex-direction: column; /* Stack again on very small screens */
+    gap: 15px;
+  }
+  .chart-container {
+    max-width: 180px; /* Adjusted for very small screens */
+  }
+  .donut-total-overlay .total-value {
+    font-size: 1.4em;
+  }
+  .impact-table th:nth-child(1),
+  .impact-table td:nth-child(1) {
+    width: 35%;
+  }
+  .impact-table th:nth-child(2),
+  .impact-table td:nth-child(2) {
+    width: 20%;
+  }
+  .impact-table th:nth-child(3),
+  .impact-table td:nth-child(3) {
+    width: 15%;
+  }
+  .impact-table th:nth-child(4),
+  .impact-table td:nth-child(4) {
+    width: 30%;
+  }
+}
+
+.kpi-total-insights {
+  border-left: 4px solid #28a745; /* Green */
+}
+.kpi-number-of-location {
+  border-left: 4px solid #ffc107; /* Yellow */
+}
+.kpi-number-of-plans {
+  border-left: 4px solid #007bff; /* Blue */
+}
+.kpi-total-vendor {
+  border-left: 4px solid #dc3545; /* Red */
+}
+.kpi-total-impacts {
+  border-left: 4px solid #20c997; /* Teal */
+}
+.kpi-equity {
+  border-left: 4px solid #6f42c1;
+}
+.kpi-total-liabilities {
+  border-left: 4px solid #fd7e14;
+}
+.kpi-total-assets {
+  border-left: 4px solid #17a2b8;
+}
+
+/* Add or modify these rules to color the icons */
+.kpi-card .kpi-icon i { /* Assuming the icon is an <i> tag inside a .kpi-icon div */
+  font-size: 2em; /* Keep your desired icon size */
+  margin-right: 8px; /* Keep your desired margin */
+  /* This is the key part: explicitly set the color for each icon based on its parent card */
+}
+
+/* Example for Total Insights: */
+.kpi-total-insights .kpi-icon i {
+  color: #28a745; /* Green, matching the border-left */
+}
+
+/* Example for Number of Locations: */
+.kpi-number-of-location .kpi-icon i {
+  color: #ffc107; /* Yellow, matching the border-left */
+}
+
+/* You would repeat this for all your KPI card types */
+.kpi-number-of-plans .kpi-icon i {
+  color: #007bff;
+}
+.kpi-total-vendor .kpi-icon i {
+  color: #dc3545;
+}
+.kpi-total-impacts .kpi-icon i {
+  color: #20c997;
+}
+.kpi-equity .kpi-icon i { /* This might be for "Total Shareholder's Funds" based on your image */
+  color: #6f42c1;
+}
+.kpi-total-liabilities .kpi-icon i { /* This might be for "Total Liabilities" based on your image */
+  color: #fd7e14;
+}
+.kpi-total-assets .kpi-icon i { /* This might be for "Total Assets" based on your image */
+  color: #17a2b8;
+}
+
+/* If you have the icons directly inside the .kpi-card with a common class like .fas */
+.kpi-total-insights .fas {
+  color: #28a745;
+}
+
+
+.btn-container {
+  text-align: right;
+  margin: 20px;
+}
+
+.gradient-btn {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+}
+
+.gradient-btn:hover {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 114, 255, 0.5);
+}
+
+.gradient-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(0, 114, 255, 0.4);
+}
+
+#insightCategoryList li.active {
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  padding-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.navigate-button {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 10px;
+}

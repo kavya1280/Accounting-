@@ -1,0 +1,109 @@
+{
+  "table": [
+    {
+      "insight": "Demand Volatility Analysis",
+      "amount": 38000,
+      "description": "Demand fluctuations impact revenue consistency and cost matching."
+    },
+    {
+      "insight": "Defect vs Return Rate",
+      "amount": 26474,
+      "description": "Increased defect or return rates directly increase sales return and warranty costs, and may lead to higher production rework or scrap costs, impacting overall profitability."
+    },
+    {
+      "insight": "On Time Delivery Performance",
+      "amount": 20790,
+      "description": "Late deliveries may cause revenue deferral or cancellation of orders, directly impacting sales. Expedited shipping to meet delayed commitments can increase freight or logistics costs."
+    },
+    {
+      "insight": "Vendor and Customer Names are same & not disclosed",
+      "amount": 30879,
+      "description": "Income and expenses may be overstated or understated if transactions are not at arm’s length — revenue recognition errors."
+    },
+    {
+      "insight": "Duplicate Customers",
+      "amount": 24826,
+      "description": "This stops the revenue cycle. It leads to inaccurate invoicing or tracking of customer payments. The company may stop shipping goods to customers with unclear accounts, directly causing lost sales and unrecognised revenue."
+    },
+    {
+      "insight": "Customer Recon Account not defined",
+      "amount": 29478,
+      "description": "Missing data (e.g., revenue account or recognition key) can cause incorrect or delayed posting of sales revenue."
+    },
+    {
+      "insight": "Key Fields Missing",
+      "amount": 24640,
+      "description": "Incorrect or mismatched pricing/tax data may result in overstatement or understatement of sales revenue."
+    },
+    {
+      "insight": "Mismatching Updates in Master",
+      "amount": 18920,
+      "description": "Incorrect or mismatched pricing/tax data may result in overstatement or understatement of sales revenue."
+    },
+    {
+      "insight": "Sales Return quantity greater than Sales Quantity",
+      "amount": 73799,
+      "description": "Invalid returns reduce revenue."
+    },
+    {
+      "insight": "Sales Return price greater than Sales Price",
+      "amount": 2750,
+      "description": "Excessive return value reduces net revenue more than actual, leading to revenue understatement."
+    },
+    {
+      "insight": "Sales Return of Expired/Short Expiry Material",
+      "amount": 9790,
+      "description": "Sales returns reduce revenue recognized earlier. If the return is due to expiry, it reflects poor sales planning and may distort revenue trends. Returned goods may not be reusable, resulting in additional write-offs or destruction costs."
+    },
+    {
+      "insight": "Delivery in excess of Sales Order Tolerance Limit",
+      "amount": 24233,
+      "description": "Deliveries beyond agreed limits may be billed without valid customer authorization, inflating revenue. Cost recognition increases due to additional goods issued, possibly reducing gross margin."
+    },
+    {
+      "insight": "Excess Delivery to Customer",
+      "amount": 29370,
+      "description": "Over-delivery inflates sales and COGS; impacts gross margin accuracy."
+    },
+    {
+      "insight": "Anomalies to Credit Notes",
+      "amount": 24860,
+      "description": "Incorrect revenue reversal leads to misstated revenue and profit."
+    },
+    {
+      "insight": "Sale Price of Same Material with 2 prices in Same Invoice",
+      "amount": 31900,
+      "description": "Risk of understating revenue if the lower price is used incorrectly."
+    },
+    {
+      "insight": "Sale Order Price set manual",
+      "amount": 33770,
+      "description": "Manual override can over/understate sales; distorts profitability."
+    },
+    {
+      "insight": "Sale of product at Free of Cost",
+      "amount": 44891,
+      "description": "Revenue is zero for these items."
+    },
+    {
+      "insight": "Business Partner Credit Check Missing",
+      "amount": 22914,
+      "description": "Potential non-recovery of receivables leads to increased bad debt expense and write-offs, reducing profitability."
+    },
+    {
+      "insight": "TAT - Sales Order to Invoice to Dispatch",
+      "amount": 13172,
+      "description": "Delay in invoicing postpones sales recognition, affecting reported revenue and profitability within the accounting period."
+    },
+    {
+      "insight": "Customer to Customer/Vendor Transfers",
+      "amount": 31900,
+      "description": "Generally, these transfers affect only balance sheet accounts; however, if write-offs or adjustments occur due to errors, they may impact P&L through bad debt expense or other income/expense accounts."
+    },
+    {
+      "insight": "Dynamic Pricing",
+      "amount": 17600,
+      "description": "Risk of mispricing/loss of margin."
+    }
+  ]
+}
