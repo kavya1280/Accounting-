@@ -20,14 +20,12 @@
   --balance-sheet-grand-total-text: #ffffff; /* White */
   --balance-sheet-border: #a8d7b3; /* Slightly darker green for borders */
 
-
   /* New: Profit & Loss Specific Colors */
   --pnl-section-bg: #ffeeba; /* Light yellow */
   --pnl-section-text: #856404; /* Dark yellow/brown */
   --pnl-grand-total-bg: #ffc107; /* Yellow */
   --pnl-grand-total-text: #343a40; /* Dark text */
   --pnl-border: #ffd700; /* Slightly darker yellow for borders */
-
 
   /* Donut Chart Colors (aligned with previous revenue breakdown) */
   --color-product-sales: #dc3545; /* Red */
@@ -44,9 +42,6 @@
   --color-blue: #3949ab; /* Blue */
   --color-green: #4caf50; /* Green */
   --color-lime: #cddc39; /* Lime */
-  
-
-  
 
   /* Combined Chart Colors */
   --bar-color: #79a6ed; /* Light blue for bars */
@@ -87,10 +82,20 @@ body::before {
   opacity: 0.7;
 }
 
+/* New: Container for the main content to hold the table centered */
+.main-content-wrapper {
+  max-width: 1400px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center the content */
+  padding: 20px;
+  position: relative;
+  z-index: 10; /* Ensure content is above background effects */
+}
+
 h1 {
   font-family: "Yatra One", cursive;
   text-align: center;
   color: #0069d9; /* Slightly darker blue for contrast, or try a bolder accent like #0099ff */
+  margin-top: 50px; /* Add margin-top for spacing */
   margin-bottom: 15px;
   font-size: 2.5em; /* Slightly larger */
   font-weight: 800;
@@ -165,12 +170,12 @@ h1 {
   outline-offset: 2px;
 }
 
-/* Container for Financial Statement */
+/* Container for Financial Statement (now contained within .main-content-wrapper) */
 .container {
-  margin: 0px;
+  margin: 0; /* Reset margins */
   position: relative;
   z-index: 5;
-  box-shadow: 0 0 100px 50px rgba(0, 0, 0, 0.1) inset;
+  padding: 0; /* Remove padding here, controlled by main-content-wrapper */
 }
 
 .financial-statement {
@@ -223,7 +228,7 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px; /* Slightly smaller gap */
-  margin: 40px auto;
+  margin: 40px auto; /* Center within the main-content-wrapper */
   padding: 20px;
   max-width: 1300px; /* Allow a bit wider for 5 cards */
 }
@@ -374,42 +379,46 @@ h1 {
 
 /* Table Styles */
 table {
-  width: 100%;
+  width: 90%; /* Keep table width somewhat constrained */
+  max-width: 1200px; /* Max width for the table */
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 25px;
-  border-radius: 8px;
+  margin: 40px auto 25px auto; /* Center the table horizontally */
+  border-radius: 12px; /* More rounded corners */
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  background-color: #ffffff; /* Explicit white background for table */
+  position: relative;
+  z-index: 10;
 }
 
 th,
 td {
   border: 1px solid #e9ecef;
-  padding: 14px 15px;
+  padding: 14px 18px; /* Slightly more padding */
   text-align: left;
   vertical-align: middle;
 }
 
 th {
-  background-color: #f8f9fa;
+  background-color: var(--header-bg-light); /* Lighter blue-ish header */
   font-weight: 600;
-  color: #495057;
+  color: #343a40;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 11; /* Ensure header is above table content */
 }
 th:first-child {
-  border-top-left-radius: 8px;
+  border-top-left-radius: 12px;
 }
 th:last-child {
   text-align: center;
-  border-top-right-radius: 8px;
+  border-top-right-radius: 12px;
 }
 
 td {
   color: #495057;
-  font-size: 0.95em;
+  font-size: 0.98em; /* Slightly larger text in cells */
 }
 
 /* Make clickable insight numbers visually distinct */
@@ -549,44 +558,44 @@ tr.pnl-grand-total td {
   border-top: 2px solid var(--pnl-border); /* Consistent border color */
 }
 
-
 /* Column Widths and Alignment */
 /* Adjust td:first-child to accommodate the widest content */
 td:first-child {
   /* PARTICULARS */
   width: auto;
-  min-width: 250px; /* Adjusted as per your original CSS */
-  max-width: 400px; /* Add a max-width to prevent it from becoming too wide */
+  min-width: 280px; /* Increased min-width for better readability */
+  max-width: 450px; /* Add a max-width to prevent it from becoming too wide */
 }
 
 /* Target only the first visible year data cell for specific styling */
 td.year-data[data-year="24-25"] {
   /* Assuming '24-25' is your primary year */
-  text-align: left;
-  width: 14%; /* Adjust width as needed */
+  text-align: right; /* Align numbers to the right */
+  width: 18%; /* Adjust width as needed */
   white-space: nowrap;
-  padding-right: 10px;
+  padding-right: 15px; /* More padding */
 }
 
 /* General styling for all other year-data cells */
 td.year-data {
-  text-align: left;
-  width: 14%; /* Adjust width as needed for other years */
+  text-align: right; /* Align numbers to the right */
+  width: 18%; /* Adjust width as needed for other years */
   white-space: nowrap;
-  padding-right: 10px;
+  padding-right: 15px; /* More padding */
 }
 
 /* Override for specific year columns if you need different widths */
 /* For example, if you have many years, you might want them all to be narrower */
+th:nth-child(2),
 td:nth-child(2), /* FY 24-25 */
+th:nth-child(3),
 td:nth-child(3), /* FY 23-24 */
+th:nth-child(4),
 td:nth-child(4), /* FY 22-23 */
+th:nth-child(5),
 td:nth-child(5) {
-  /* FY 21-22 */
-  /* Remove text-align: right and width here if you want .year-data to control it */
-  /* If year-data always has width 14%, these aren't strictly needed for width/align */
-  /* Keep padding-right if consistent across all data columns */
-  padding-right: 10px;
+  text-align: right;
+  padding-right: 15px;
 }
 
 .impact-cell {
@@ -749,9 +758,8 @@ td:nth-child(5) {
 }
 
 @media (max-width: 1200px) {
-  .container {
-    padding: 20px;
-    margin: 15px auto;
+  .main-content-wrapper {
+    padding: 15px;
   }
 
   .kpi-dashboard {
@@ -777,6 +785,16 @@ td:nth-child(5) {
 
   .kpi-card .kpi-value {
     font-size: 1.7em;
+  }
+
+  table {
+    width: 95%; /* Make table slightly wider on smaller screens */
+    margin: 30px auto;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
   }
 
   .modal-content {
@@ -819,6 +837,7 @@ td:nth-child(5) {
 
   h1 {
     font-size: 2em;
+    margin-top: 30px;
     margin-bottom: 15px;
   }
 
@@ -854,7 +873,9 @@ td:nth-child(5) {
   }
 
   table {
-    margin-top: 20px;
+    width: 100%; /* Full width on small screens */
+    margin: 20px 0;
+    border-radius: 8px; /* Slightly smaller border radius */
     font-size: 0.9em;
   }
 
@@ -865,14 +886,15 @@ td:nth-child(5) {
 
   td:first-child {
     min-width: unset;
-    width: 60%;
+    width: 50%;
   }
+
   /* Updated to target .year-data for specific years */
   td.year-data[data-year="24-25"],
   td.year-data[data-year="23-24"],
   td.year-data[data-year="22-23"],
   td.year-data[data-year="21-22"] {
-    width: 10%;
+    width: 25%; /* Adjust for 2 columns */
   }
 
   td.impact-cell {
@@ -904,6 +926,20 @@ td:nth-child(5) {
   .kpi-dashboard {
     gap: 10px;
   }
+  table {
+    font-size: 0.85em;
+  }
+  th,
+  td {
+    padding: 8px 10px;
+  }
+  td:first-child {
+    width: 60%; /* Adjust for better text wrapping */
+  }
+  td.year-data[data-year="24-25"],
+  td.year-data[data-year="23-24"] {
+    width: 20%; /* Even narrower */
+  }
 }
 
 /* Ensure impact column is aligned properly */
@@ -930,11 +966,14 @@ th:last-child {
   display: flex;
   justify-content: space-between; /* Pushes search to left, filters to right */
   align-items: center;
-  margin: 20px 0;
+  margin: 20px auto; /* Centered within main-content-wrapper */
   padding: 10px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1200px; /* Match table max-width */
+  z-index: 10;
+  position: relative;
 }
 
 #searchInput {
@@ -1365,7 +1404,8 @@ table tbody tr td:first-child {
 }
 
 /* Add or modify these rules to color the icons */
-.kpi-card .kpi-icon i { /* Assuming the icon is an <i> tag inside a .kpi-icon div */
+.kpi-card .kpi-icon i {
+  /* Assuming the icon is an <i> tag inside a .kpi-icon div */
   font-size: 2em; /* Keep your desired icon size */
   margin-right: 8px; /* Keep your desired margin */
   /* This is the key part: explicitly set the color for each icon based on its parent card */
@@ -1391,13 +1431,16 @@ table tbody tr td:first-child {
 .kpi-total-impacts .kpi-icon i {
   color: #20c997;
 }
-.kpi-equity .kpi-icon i { /* This might be for "Total Shareholder's Funds" based on your image */
+.kpi-equity .kpi-icon i {
+  /* This might be for "Total Shareholder's Funds" based on your image */
   color: #6f42c1;
 }
-.kpi-total-liabilities .kpi-icon i { /* This might be for "Total Liabilities" based on your image */
+.kpi-total-liabilities .kpi-icon i {
+  /* This might be for "Total Liabilities" based on your image */
   color: #fd7e14;
 }
-.kpi-total-assets .kpi-icon i { /* This might be for "Total Assets" based on your image */
+.kpi-total-assets .kpi-icon i {
+  /* This might be for "Total Assets" based on your image */
   color: #17a2b8;
 }
 
@@ -1406,9 +1449,8 @@ table tbody tr td:first-child {
   color: #28a745;
 }
 
-
 .btn-container {
-  text-align: right;
+  text-align: center;
   margin: 20px;
 }
 

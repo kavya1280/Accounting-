@@ -6,9 +6,9 @@
   --dark-text: #343a40; /* Dark text */
   --card-bg: #ffffff; /* Card background */
   --border-color: #e9ecef; /* Light border */
-  --shadow-light: rgba(0, 0, 0, 0.1); /* Standard shadow */
-  --shadow-medium: rgba(0, 0, 0, 0.12); /* Slightly stronger shadow */
-  --header-bg-light: #f1f3f5; /* Table header background */
+  --shadow-light: rgba(0, 0, 0, 0.05); /* Softer shadow */
+  --shadow-medium: rgba(0, 0, 0, 0.08); /* Slightly stronger shadow */
+  --header-bg-light: #f0f8ff; /* Table header background, adjusted */
   --impact-header-bg: #dc3545; /* Impact table header */
   --impact-row-even: #fdf2f2; /* Light red for even impact rows */
   --text-muted: #6c757d;
@@ -20,14 +20,12 @@
   --balance-sheet-grand-total-text: #ffffff; /* White */
   --balance-sheet-border: #a8d7b3; /* Slightly darker green for borders */
 
-
   /* New: Profit & Loss Specific Colors */
   --pnl-section-bg: #ffeeba; /* Light yellow */
   --pnl-section-text: #856404; /* Dark yellow/brown */
   --pnl-grand-total-bg: #ffc107; /* Yellow */
   --pnl-grand-total-text: #343a40; /* Dark text */
   --pnl-border: #ffd700; /* Slightly darker yellow for borders */
-
 
   /* Donut Chart Colors (aligned with previous revenue breakdown) */
   --color-product-sales: #dc3545; /* Red */
@@ -44,9 +42,6 @@
   --color-blue: #3949ab; /* Blue */
   --color-green: #4caf50; /* Green */
   --color-lime: #cddc39; /* Lime */
-  
-
-  
 
   /* Combined Chart Colors */
   --bar-color: #79a6ed; /* Light blue for bars */
@@ -59,47 +54,55 @@
 body {
   font-family: "Roboto", sans-serif;
   margin: 0;
-  background-color: #f4f7f6; /* Light gray background */
   color: #343a40;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
   position: relative;
   overflow-x: hidden;
+  /* Updated Background Gradient and Pattern */
+  /* This is the key change for the background effect */
+  background: #ffffff; /* Start with a white background */
+  background-image: linear-gradient(
+      to bottom,
+      #e0f2f7 0%,
+      #f0faff 50%,
+      #ffffff 100%
+    ),
+    /* Light blue top, white bottom */
+      radial-gradient(
+        at 50% 0%,
+        rgba(200, 230, 240, 0.4) 0%,
+        rgba(255, 255, 255, 0) 70%
+      ); /* Soft radial highlight at the top */
+  background-size: 100% 100%, 100% 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(224, 230, 237, 0.8) 70%,
-    rgba(190, 200, 210, 0.9) 100%
-  );
-  filter: blur(80px);
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.7;
+/* New: Container for the main content to hold the table centered */
+.main-content-wrapper {
+  max-width: 1400px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center the content */
+  padding: 20px;
+  position: relative;
+  z-index: 10; /* Ensure content is above background effects */
 }
 
 h1 {
   font-family: "Yatra One", cursive;
   text-align: center;
-  color: #0069d9; /* Slightly darker blue for contrast, or try a bolder accent like #0099ff */
+  color: #004d99; /* Darker blue for contrast */
   margin-bottom: 15px;
   font-size: 2.5em; /* Slightly larger */
   font-weight: 800;
   z-index: 1;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Added text shadow for pop */
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.25); /* More prominent text shadow */
   letter-spacing: 1px; /* A little more space for emphasis */
 }
 
-/* Header Styles */
+/* Header Styles - Removed for this specific design iteration as per the image */
+/* Keeping the rules commented out in case they are needed for other parts of the site */
 .header {
   display: flex;
   justify-content: space-between;
@@ -126,7 +129,7 @@ h1 {
   object-fit: contain;
 }
 
-/* Navigation Buttons */
+/* Navigation Buttons - Removed for this specific design iteration as per the image */
 .nav-buttons {
   display: flex;
   gap: 15px;
@@ -167,54 +170,98 @@ h1 {
 
 /* Container for Financial Statement */
 .container {
-  margin: 0px;
+  margin: 0px; /* Reset margins */
   position: relative;
   z-index: 5;
-  box-shadow: 0 0 100px 50px rgba(0, 0, 0, 0.1) inset;
+  padding: 0; /* Remove padding here, controlled by main-content-wrapper */
 }
 
-.financial-statement {
-  padding: 30px;
-  background-color: #f8f9fa;
-  background-image: linear-gradient(
-      to right,
-      rgba(237, 238, 239, 0.8) 1px,
-      transparent 0px
-    ),
-    linear-gradient(to bottom, rgba(238, 241, 245, 0.8) 1px, transparent 0px);
-  background-size: 50px 50px;
-  background-attachment: fixed;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  position: relative;
-  z-index: 6;
-}
-
-.circular-mask {
-  pointer-events: none;
+/* Specific styling for the new overall page background */
+body::before {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    circle at center,
-    transparent 20%,
-    transparent 60%,
-    rgba(255, 255, 255, 1) 95%
-  );
-  background: radial-gradient(
-    circle at center,
-    transparent 20%,
-    transparent 80%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  z-index: -1; /* Place behind content */
+  /* Complex background pattern */
+  background-image:
+    /* Top-left rounded shape */
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(150, 200, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 70%
+    ),
+    /* Top-right rounded shape */
+    radial-gradient(
+      circle at 90% 5%,
+      rgba(150, 200, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 70%
+    ),
+    /* Central large white shape, simulating the "white side" */
+    radial-gradient(
+      ellipse at 50% 60%,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  background-size: 300px 300px, 400px 400px, 100% 120%; /* Adjust size of shapes */
+  background-position: -50px -50px, calc(100% + 50px) -100px, 0% 0%; /* Position shapes */
+  background-repeat: no-repeat;
+  opacity: 1;
 }
+
+/* Background overlay for subtle geometric pattern */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2; /* Even further behind */
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(220, 240, 255, 0.15) 0px,
+      rgba(220, 240, 255, 0.15) 1px,
+      rgba(255, 255, 255, 0) 1px,
+      rgba(255, 255, 255, 0) 20px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(220, 240, 255, 0.15) 0px,
+      rgba(220, 240, 255, 0.15) 1px,
+      rgba(255, 255, 255, 0) 1px,
+      rgba(255, 255, 255, 0) 20px
+    );
+  background-size: 20px 20px; /* Size of the pattern grid */
+  background-attachment: fixed;
+}
+
+/* Updated main title styling to match the image */
+.page-title {
+  font-family: "Yatra One", cursive; /* Assuming Yatra One or similar bold, playful font */
+  text-align: center;
+  color: #004d99; /* Darker blue for strong contrast */
+  font-size: 3em; /* Larger to be the focal point */
+  font-weight: 800; /* Extra bold */
+  margin-top: 50px; /* Space from the top of the page */
+  margin-bottom: 10px;
+  letter-spacing: 2px; /* More spaced out */
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* More prominent shadow */
+  position: relative; /* For z-index to be above subtle background patterns */
+  z-index: 10;
+}
+
 .currency-note {
   text-align: center;
   margin-bottom: 25px;
-  color: #6c757d;
+  color: #5a5a5a; /* Darker gray for better visibility */
   font-size: 0.95em;
+  position: relative;
+  z-index: 10;
 }
 
 /* KPI Dashboard Styles */
@@ -222,194 +269,195 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px; /* Slightly smaller gap */
+  gap: 20px; /* Increased gap between cards */
   margin: 40px auto;
   padding: 20px;
-  max-width: 1300px; /* Allow a bit wider for 5 cards */
+  max-width: 1400px; /* Adjusted max-width */
+  position: relative;
+  z-index: 10; /* Ensure KPIs are above background */
 }
 
 .kpi-card {
   background-color: #ffffff;
-  border-radius: 12px; /* Slightly smaller border-radius */
-  padding: 20px; /* Reduced padding */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Slightly stronger shadow */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  width: calc(20% - 15px); /* Five cards per row */
-  min-width: 180px; /* Adjusted min-width for smaller cards */
-  max-width: 220px; /* Set a max width */
+  width: calc(20% - 20px); /* Five cards per row, adjusting for gap */
+  min-width: 200px; /* Adjusted min-width */
+  max-width: 240px; /* Set a max width */
   box-sizing: border-box;
-  border: 1px solid #e9ecef; /* Lighter border */
+  border: 1px solid #e0e0e0; /* Softer border */
 }
 
 .kpi-card:hover {
-  transform: translateY(-5px) scale(1.01); /* Reduced hover effect */
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.02); /* More pronounced hover effect */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
-.kpi-card .icon-text {
+.kpi-card .kpi-info {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px; /* Reduced margin */
+  flex-direction: column;
+  align-items: center; /* Center align text */
+  margin-top: 10px; /* Space between icon and text */
 }
 
-.kpi-card .material-icons {
-  font-size: 2em; /* Smaller icons */
-  margin-right: 8px; /* Reduced margin */
-  opacity: 0.7;
-}
-
-.kpi-card h3 {
-  font-size: 0.9em; /* Smaller heading font */
-  font-weight: 500; /* Lighter font-weight */
-  color: #666; /* Slightly darker grey for text */
-  margin: 0;
-  line-height: 1.2;
+.kpi-card .kpi-label {
+  font-size: 1em; /* Slightly larger heading font */
+  font-weight: 600; /* Bolder font-weight */
+  color: #444; /* Darker grey for text */
+  margin: 0 0 5px 0;
+  line-height: 1.3;
+  text-align: center; /* Center align label */
 }
 
 .kpi-card .kpi-value {
-  font-size: 1.8em; /* Smaller value font */
-  font-weight: 600; /* Lighter font-weight for value */
+  font-size: 2em; /* Larger value font */
+  font-weight: 700; /* Bolder font-weight for value */
   color: #333;
-  margin-bottom: 10px;
-}
-
-.kpi-card .card-icons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px; /* Reduced gap */
-  color: #b0b0b0; /* Lighter color */
-}
-
-.kpi-card .card-icons .material-icons {
-  font-size: 1.2em; /* Smaller info/trending icons */
   margin: 0;
+  text-align: center; /* Center align value */
+}
+
+.kpi-card .kpi-icon {
+  text-align: center; /* Center the icon */
+  margin-bottom: 10px; /* Space between icon and info */
+}
+
+.kpi-card .kpi-icon i {
+  font-size: 2.5em; /* Larger icons */
+  margin-right: 0; /* No right margin needed as it's centered */
 }
 
 /* Color variations for KPI cards (existing colors, but adjusted border style) */
 .kpi-total-insights {
-  border-left: 4px solid #28a745;
+  border-left: 5px solid #4caf50; /* Green */
 }
-.kpi-total-insights .material-icons {
-  color: #28a745;
+.kpi-total-insights .kpi-icon i {
+  color: #4caf50;
 }
 .kpi-total-insights .kpi-value {
-  color: #28a745;
+  color: #4caf50;
 }
 
 .kpi-number-of-location {
-  border-left: 4px solid #ffc107;
+  border-left: 5px solid #ffd700; /* Gold Yellow */
 }
-.kpi-number-of-location .material-icons {
-  color: #ffc107;
+.kpi-number-of-location .kpi-icon i {
+  color: #ffd700;
 }
 .kpi-number-of-location .kpi-value {
-  color: #ffc107;
+  color: #ffd700;
 }
 
 .kpi-number-of-plans {
-  border-left: 4px solid #007bff;
+  border-left: 5px solid #2196f3; /* Bright Blue */
 }
-.kpi-number-of-plans .material-icons {
-  color: #007bff;
+.kpi-number-of-plans .kpi-icon i {
+  color: #2196f3;
 }
 .kpi-number-of-plans .kpi-value {
-  color: #007bff;
+  color: #2196f3;
 }
 
 .kpi-total-vendor {
-  border-left: 4px solid #dc3545;
+  border-left: 5px solid #f44336; /* Bright Red */
 }
-.kpi-total-vendor .material-icons {
-  color: #dc3545;
+.kpi-total-vendor .kpi-icon i {
+  color: #f44336;
 }
 .kpi-total-vendor .kpi-value {
-  color: #dc3545;
+  color: #f44336;
 }
 
 .kpi-total-impacts {
-  border-left: 4px solid #20c997;
+  border-left: 5px solid #00bcd4; /* Cyan/Teal */
 }
-.kpi-total-impacts .material-icons {
-  color: #20c997;
+.kpi-total-impacts .kpi-icon i {
+  color: #00bcd4;
 }
 .kpi-total-impacts .kpi-value {
-  color: #20c997;
+  color: #00bcd4;
 }
 
 .kpi-equity {
-  border-left: 4px solid #6f42c1;
+  border-left: 5px solid #9c27b0; /* Deep Purple */
 }
-.kpi-equity .material-icons {
-  color: #6f42c1;
+.kpi-equity .kpi-icon i {
+  color: #9c27b0;
 }
 .kpi-equity .kpi-value {
-  color: #6f42c1;
+  color: #9c27b0;
 }
 
 .kpi-total-liabilities {
-  border-left: 4px solid #fd7e14;
+  border-left: 5px solid #ff9800; /* Orange */
 }
-.kpi-total-liabilities .material-icons {
-  color: #fd7e14;
+.kpi-total-liabilities .kpi-icon i {
+  color: #ff9800;
 }
 .kpi-total-liabilities .kpi-value {
-  color: #fd7e14;
+  color: #ff9800;
 }
 
 .kpi-total-assets {
-  border-left: 4px solid #17a2b8;
+  border-left: 5px solid #03a9f4; /* Light Blue */
 }
-.kpi-total-assets .material-icons {
-  color: #17a2b8;
+.kpi-total-assets .kpi-icon i {
+  color: #03a9f4;
 }
 .kpi-total-assets .kpi-value {
-  color: #17a2b8;
+  color: #03a9f4;
 }
 
 /* Table Styles */
 table {
-  width: 100%;
+  width: 90%; /* Keep table width somewhat constrained */
+  max-width: 1200px; /* Max width for the table */
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 25px;
-  border-radius: 8px;
+  margin: 40px auto 25px auto; /* Center the table horizontally */
+  border-radius: 12px; /* More rounded corners */
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  background-color: #ffffff; /* Explicit white background for table */
+  position: relative;
+  z-index: 10;
 }
 
 th,
 td {
   border: 1px solid #e9ecef;
-  padding: 14px 15px;
+  padding: 14px 18px; /* Slightly more padding */
   text-align: left;
   vertical-align: middle;
 }
 
 th {
-  background-color: #f8f9fa;
+  background-color: var(--header-bg-light); /* Lighter blue-ish header */
   font-weight: 600;
-  color: #495057;
+  color: #343a40;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 11; /* Ensure header is above table content */
 }
 th:first-child {
-  border-top-left-radius: 8px;
+  border-top-left-radius: 12px;
 }
 th:last-child {
   text-align: center;
-  border-top-right-radius: 8px;
+  border-top-right-radius: 12px;
 }
 
 td {
   color: #495057;
-  font-size: 0.95em;
+  font-size: 0.98em; /* Slightly larger text in cells */
 }
 
 /* Make clickable insight numbers visually distinct */
@@ -549,44 +597,44 @@ tr.pnl-grand-total td {
   border-top: 2px solid var(--pnl-border); /* Consistent border color */
 }
 
-
 /* Column Widths and Alignment */
 /* Adjust td:first-child to accommodate the widest content */
 td:first-child {
   /* PARTICULARS */
   width: auto;
-  min-width: 250px; /* Adjusted as per your original CSS */
-  max-width: 400px; /* Add a max-width to prevent it from becoming too wide */
+  min-width: 280px; /* Increased min-width for better readability */
+  max-width: 450px; /* Add a max-width to prevent it from becoming too wide */
 }
 
 /* Target only the first visible year data cell for specific styling */
 td.year-data[data-year="24-25"] {
   /* Assuming '24-25' is your primary year */
-  text-align: left;
-  width: 14%; /* Adjust width as needed */
+  text-align: right; /* Align numbers to the right */
+  width: 18%; /* Adjust width as needed */
   white-space: nowrap;
-  padding-right: 10px;
+  padding-right: 15px; /* More padding */
 }
 
 /* General styling for all other year-data cells */
 td.year-data {
-  text-align: left;
-  width: 14%; /* Adjust width as needed for other years */
+  text-align: right; /* Align numbers to the right */
+  width: 18%; /* Adjust width as needed for other years */
   white-space: nowrap;
-  padding-right: 10px;
+  padding-right: 15px; /* More padding */
 }
 
 /* Override for specific year columns if you need different widths */
 /* For example, if you have many years, you might want them all to be narrower */
+th:nth-child(2),
 td:nth-child(2), /* FY 24-25 */
+th:nth-child(3),
 td:nth-child(3), /* FY 23-24 */
+th:nth-child(4),
 td:nth-child(4), /* FY 22-23 */
+th:nth-child(5),
 td:nth-child(5) {
-  /* FY 21-22 */
-  /* Remove text-align: right and width here if you want .year-data to control it */
-  /* If year-data always has width 14%, these aren't strictly needed for width/align */
-  /* Keep padding-right if consistent across all data columns */
-  padding-right: 10px;
+  text-align: right;
+  padding-right: 15px;
 }
 
 .impact-cell {
@@ -729,33 +777,28 @@ td:nth-child(5) {
 @media (max-width: 1400px) {
   /* Adjust for 5 cards in a row */
   .kpi-card {
-    width: calc(20% - 15px); /* Five cards per row */
-    min-width: 170px;
-    max-width: 200px;
+    width: calc(20% - 20px);
+    min-width: 180px;
+    max-width: 220px;
     padding: 18px;
   }
-  .kpi-card .material-icons {
-    font-size: 1.8em;
+  .kpi-card .kpi-icon i {
+    font-size: 2em;
   }
-  .kpi-card h3 {
-    font-size: 0.85em;
+  .kpi-card .kpi-label {
+    font-size: 0.95em;
   }
   .kpi-card .kpi-value {
-    font-size: 1.6em;
-  }
-  .kpi-card .card-icons .material-icons {
-    font-size: 1.1em;
+    font-size: 1.8em;
   }
 }
 
 @media (max-width: 1200px) {
-  .container {
-    padding: 20px;
-    margin: 15px auto;
+  .main-content-wrapper {
+    padding: 15px;
   }
 
   .kpi-dashboard {
-    justify-content: center;
     gap: 15px;
   }
 
@@ -766,17 +809,26 @@ td:nth-child(5) {
     padding: 18px;
   }
 
-  .kpi-card .material-icons {
+  .kpi-card .kpi-icon i {
     font-size: 1.8em;
-    margin-right: 10px;
   }
 
-  .kpi-card h3 {
+  .kpi-card .kpi-label {
     font-size: 0.9em;
   }
 
   .kpi-card .kpi-value {
     font-size: 1.7em;
+  }
+
+  table {
+    width: 95%; /* Make table slightly wider on smaller screens */
+    margin: 30px auto;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
   }
 
   .modal-content {
@@ -794,68 +846,50 @@ td:nth-child(5) {
     min-width: 200px;
     max-width: 250px;
   }
+  .page-title {
+    font-size: 2.5em;
+  }
 }
 
 @media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 20px;
-    gap: 15px;
+  body {
+    padding: 10px;
   }
 
-  .nav-buttons {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .nav-btn {
-    padding: 8px 15px;
-    font-size: 14px;
-    flex-grow: 1;
-    text-align: center;
-  }
-
-  h1 {
+  .page-title {
     font-size: 2em;
-    margin-bottom: 15px;
+    margin-top: 30px;
   }
 
   .currency-note {
     font-size: 0.85em;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .kpi-dashboard {
-    flex-direction: row; /* Keep as row but wrap */
-    justify-content: center;
-    padding: 0;
-    gap: 12px; /* Even smaller gap for mobile */
+    padding: 10px;
+    gap: 10px; /* Even smaller gap for mobile */
   }
 
   .kpi-card {
-    width: calc(50% - 12px); /* Two cards per row on mobile */
-    max-width: 300px; /* Limit individual card width */
-    margin: 0; /* Remove auto margin */
+    width: calc(50% - 10px); /* Two cards per row on mobile */
+    max-width: 300px;
     padding: 15px;
   }
-  .kpi-card .material-icons {
+  .kpi-card .kpi-icon i {
     font-size: 1.6em;
   }
-  .kpi-card h3 {
+  .kpi-card .kpi-label {
     font-size: 0.8em;
   }
   .kpi-card .kpi-value {
     font-size: 1.5em;
   }
-  .kpi-card .card-icons .material-icons {
-    font-size: 1em;
-  }
 
   table {
-    margin-top: 20px;
-    font-size: 0.9em;
+    width: 100%; /* Full width on small screens */
+    margin: 20px 0;
+    border-radius: 8px; /* Slightly smaller border radius */
   }
 
   th,
@@ -865,18 +899,12 @@ td:nth-child(5) {
 
   td:first-child {
     min-width: unset;
-    width: 60%;
-  }
-  /* Updated to target .year-data for specific years */
-  td.year-data[data-year="24-25"],
-  td.year-data[data-year="23-24"],
-  td.year-data[data-year="22-23"],
-  td.year-data[data-year="21-22"] {
-    width: 10%;
+    width: 50%;
   }
 
-  td.impact-cell {
-    width: 10%;
+  td.year-data[data-year="24-25"],
+  td.year-data[data-year="23-24"] {
+    width: 25%; /* Adjust for 2 columns */
   }
 
   .explanation {
@@ -897,12 +925,29 @@ td:nth-child(5) {
 @media (max-width: 480px) {
   /* Even smaller screens, one card per row */
   .kpi-card {
-    width: 90%; /* Almost full width */
+    width: 95%; /* Almost full width */
     min-width: unset;
     max-width: 350px;
   }
   .kpi-dashboard {
-    gap: 10px;
+    gap: 8px;
+  }
+  .page-title {
+    font-size: 1.8em;
+  }
+  table {
+    font-size: 0.85em;
+  }
+  th,
+  td {
+    padding: 8px 10px;
+  }
+  td:first-child {
+    width: 60%; /* Adjust for better text wrapping */
+  }
+  td.year-data[data-year="24-25"],
+  td.year-data[data-year="23-24"] {
+    width: 20%; /* Even narrower */
   }
 }
 
@@ -917,24 +962,25 @@ th:last-child {
 }
 
 /* Adjustments for the insight-trigger span */
-/* This ensures the trigger itself doesn't introduce extra spacing if not needed */
 .insight-trigger {
-  display: inline-block; /* Changed to inline-block to allow appending the percentage span correctly */
+  display: inline-block;
   text-decoration: none;
   color: inherit;
-  /* Removed margin-right to prevent extra space before percentage */
 }
 
-/* --- New Styles for Controls Container --- */
+/* --- New Styles for Controls Container (if used, currently not in image) --- */
 .controls-container {
   display: flex;
-  justify-content: space-between; /* Pushes search to left, filters to right */
+  justify-content: space-between;
   align-items: center;
-  margin: 20px 0;
-  padding: 10px;
+  margin: 20px auto; /* Center with auto margins */
+  padding: 10px 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1200px; /* Match table max-width */
+  z-index: 10;
+  position: relative;
 }
 
 #searchInput {
@@ -942,13 +988,13 @@ th:last-child {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
-  width: 300px; /* Adjust width as needed */
-  box-sizing: border-box; /* Include padding and border in the element's total width */
+  width: 300px;
+  box-sizing: border-box;
 }
 
 .year-filter-buttons {
   display: flex;
-  gap: 10px; /* Space between buttons */
+  gap: 10px;
 }
 
 .year-filter-btn {
@@ -1002,47 +1048,45 @@ table tbody tr td:first-child {
 /* Ensure sub-total and grand-total value cells are styled */
 .sub-total td {
   font-weight: bold;
-  background-color: #f8f9fa; /* Reverted to your original sub-total background */
+  background-color: #f8f9fa;
   border-top: 1px dashed #dee2e6;
 }
 .grand-total td {
   font-weight: bold;
-  /* Background and color now handled by specific classes */
 }
 
-/* --- Footer Styles --- */
+/* --- Footer Styles (if used, currently not in image) --- */
 .footer {
-  background-color: #212529; /* Dark background */
-  color: #f8f9fa; /* Light text */
+  background-color: #212529;
+  color: #f8f9fa;
   padding: 40px 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 30px; /* Space between sections */
-  border-top: 5px solid #007bff; /* Accent color border */
+  gap: 30px;
+  border-top: 5px solid #007bff;
   position: relative;
-  z-index: 5; /* Ensure it's above the blurred background */
-  margin-top: 40px; /* Space above the footer */
+  z-index: 5;
+  margin-top: 40px;
 }
 
 .footer-section {
   flex: 1;
-  min-width: 220px; /* Minimum width for each section before wrapping */
+  min-width: 220px;
   max-width: 300px;
 }
 
 .footer-section h4 {
-  color: #007bff; /* Accent color for headings */
+  color: #007bff;
   font-size: 1.2em;
   margin-bottom: 20px;
   font-weight: 700;
 }
 
-/* Footer About Section */
 .footer-about .footer-logo img {
-  max-height: 70px; /* Adjust logo size */
+  max-height: 70px;
   margin-bottom: 15px;
-  filter: brightness(0) invert(1); /* Make logo white/light */
+  filter: brightness(0) invert(1);
 }
 .footer-about p {
   font-size: 0.9em;
@@ -1050,7 +1094,6 @@ table tbody tr td:first-child {
   color: #ced4da;
 }
 
-/* Footer Links Section */
 .footer-links ul {
   list-style: none;
   padding: 0;
@@ -1067,31 +1110,30 @@ table tbody tr td:first-child {
   text-align: left;
   border-bottom: 1px solid var(--border-color);
   font-size: 0.95em;
-  word-wrap: break-word; /* Prevents long text from breaking layout */
+  word-wrap: break-word;
 }
 
-/* Specific column widths for Business Impact table */
 .impact-table th:nth-child(1),
 .impact-table td:nth-child(1) {
   width: 28%;
-} /* Insight Name */
+}
 .impact-table th:nth-child(2),
 .impact-table td:nth-child(2) {
   width: 17%;
   text-align: right;
-} /* Amount */
+}
 .impact-table th:nth-child(3),
 .impact-table td:nth-child(3) {
   width: 15%;
   text-align: right;
-} /* Percentage */
+}
 .impact-table th:nth-child(4),
 .impact-table td:nth-child(4) {
   width: 40%;
-} /* Description */
+}
 
 .impact-table th {
-  background-color: var(--impact-header-bg); /* Red header for impact table */
+  background-color: var(--impact-header-bg);
   color: #ffffff;
   font-weight: 600;
   position: sticky;
@@ -1120,14 +1162,14 @@ table tbody tr td:first-child {
   padding: 25px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center chart and total */
+  align-items: center;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03);
   text-align: center;
   height: 100%;
-  opacity: 0; /* Hidden by default for scroll animation */
+  opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s; /* Delayed animation */
-  position: relative; /* For total amount overlay */
+  transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s;
+  position: relative;
 }
 
 .chart-summary-card.animate-in {
@@ -1137,18 +1179,18 @@ table tbody tr td:first-child {
 
 .chart-and-legend-wrapper {
   display: flex;
-  flex-direction: column; /* Stack chart and legend vertically */
+  flex-direction: column;
   width: 100%;
   align-items: center;
-  margin-bottom: 20px; /* Space between chart area and total */
+  margin-bottom: 20px;
 }
 
 .chart-container {
-  position: relative; /* For the text overlay */
+  position: relative;
   width: 100%;
-  max-width: 250px; /* Increased chart size */
-  margin-bottom: 15px; /* Space between chart and legend */
-  flex-shrink: 0; /* Don't let it shrink */
+  max-width: 250px;
+  margin-bottom: 15px;
+  flex-shrink: 0;
 }
 
 .donut-total-overlay {
@@ -1157,7 +1199,7 @@ table tbody tr td:first-child {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  pointer-events: none; /* Allows clicks to pass through to the chart */
+  pointer-events: none;
 }
 
 .donut-total-overlay .total-label {
@@ -1178,7 +1220,7 @@ table tbody tr td:first-child {
   padding: 0;
   margin: 0;
   width: 100%;
-  max-width: 280px; /* Limit legend width */
+  max-width: 280px;
   text-align: left;
 }
 
@@ -1207,7 +1249,7 @@ table tbody tr td:first-child {
   text-align: center;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease-out 0.6s, transform 0.6s ease-out 0.6s; /* Delayed animation */
+  transition: opacity 0.6s ease-out 0.6s, transform 0.6s ease-out 0.6s;
 }
 
 .combined-chart-section.animate-in {
@@ -1224,12 +1266,12 @@ table tbody tr td:first-child {
 .combined-chart-container {
   position: relative;
   width: 100%;
-  height: 350px; /* Fixed height for consistency */
+  height: 350px;
 }
 
 .chart-section-header {
   font-size: 1.4em;
-  font-weight: 600; /* Increased font weight */
+  font-weight: 600;
   color: var(--dark-text);
   margin-bottom: 15px;
   padding-bottom: 5px;
@@ -1248,7 +1290,7 @@ table tbody tr td:first-child {
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .top-content-grid {
-    grid-template-columns: 1fr; /* Stack on smaller screens */
+    grid-template-columns: 1fr;
   }
   .combined-insight-card {
     padding: 25px;
@@ -1264,16 +1306,16 @@ table tbody tr td:first-child {
     padding: 20px;
   }
   .chart-and-legend-wrapper {
-    flex-direction: row; /* Legend next to chart on medium screens */
-    flex-wrap: wrap; /* Allow legend to wrap if space is tight */
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
   }
   .chart-legend {
-    max-width: none; /* Allow legend to use more width */
+    max-width: none;
   }
   .chart-container {
-    max-width: 200px; /* Adjusted for smaller screens */
+    max-width: 200px;
     margin-bottom: 0;
   }
   .donut-total-overlay .total-value {
@@ -1303,20 +1345,17 @@ table tbody tr td:first-child {
 }
 
 @media (max-width: 768px) {
-  body {
-    padding: 15px;
-  }
   .combined-insight-card {
     max-width: 100%;
     margin: 0 10px;
     padding: 20px;
   }
   .chart-and-legend-wrapper {
-    flex-direction: column; /* Stack again on very small screens */
+    flex-direction: column;
     gap: 15px;
   }
   .chart-container {
-    max-width: 180px; /* Adjusted for very small screens */
+    max-width: 180px;
   }
   .donut-total-overlay .total-value {
     font-size: 1.4em;
@@ -1339,76 +1378,15 @@ table tbody tr td:first-child {
   }
 }
 
-.kpi-total-insights {
-  border-left: 4px solid #28a745; /* Green */
-}
-.kpi-number-of-location {
-  border-left: 4px solid #ffc107; /* Yellow */
-}
-.kpi-number-of-plans {
-  border-left: 4px solid #007bff; /* Blue */
-}
-.kpi-total-vendor {
-  border-left: 4px solid #dc3545; /* Red */
-}
-.kpi-total-impacts {
-  border-left: 4px solid #20c997; /* Teal */
-}
-.kpi-equity {
-  border-left: 4px solid #6f42c1;
-}
-.kpi-total-liabilities {
-  border-left: 4px solid #fd7e14;
-}
-.kpi-total-assets {
-  border-left: 4px solid #17a2b8;
-}
-
 /* Add or modify these rules to color the icons */
-.kpi-card .kpi-icon i { /* Assuming the icon is an <i> tag inside a .kpi-icon div */
-  font-size: 2em; /* Keep your desired icon size */
-  margin-right: 8px; /* Keep your desired margin */
-  /* This is the key part: explicitly set the color for each icon based on its parent card */
-}
-
-/* Example for Total Insights: */
-.kpi-total-insights .kpi-icon i {
-  color: #28a745; /* Green, matching the border-left */
-}
-
-/* Example for Number of Locations: */
-.kpi-number-of-location .kpi-icon i {
-  color: #ffc107; /* Yellow, matching the border-left */
-}
-
-/* You would repeat this for all your KPI card types */
-.kpi-number-of-plans .kpi-icon i {
-  color: #007bff;
-}
-.kpi-total-vendor .kpi-icon i {
-  color: #dc3545;
-}
-.kpi-total-impacts .kpi-icon i {
-  color: #20c997;
-}
-.kpi-equity .kpi-icon i { /* This might be for "Total Shareholder's Funds" based on your image */
-  color: #6f42c1;
-}
-.kpi-total-liabilities .kpi-icon i { /* This might be for "Total Liabilities" based on your image */
-  color: #fd7e14;
-}
-.kpi-total-assets .kpi-icon i { /* This might be for "Total Assets" based on your image */
-  color: #17a2b8;
-}
-
-/* If you have the icons directly inside the .kpi-card with a common class like .fas */
-.kpi-total-insights .fas {
-  color: #28a745;
-}
-
+/* Icons are now centered in their own div */
+/* .kpi-card .kpi-icon i {
+  font-size: 2em;
+  margin-right: 8px;
+} */
 
 .btn-container {
-  text-align: right;
+  text-align: center;
   margin: 20px;
 }
 
