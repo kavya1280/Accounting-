@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balance Sheet Analytics - KPIs & Table</title>
-    <link rel="stylesheet" href="CSS/balancesheet-view-details.css">
+    <link rel="stylesheet" href="CSS/profile-view-details.css"> 
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
@@ -50,7 +50,7 @@
         <div class="card-icons">
         </div>
     </div>
-    <div class="card purple">
+    <div class="card blue">
         <div class="icon-text">
             <span class="material-icons">account_balance</span> <!-- Changed: account_balance to paid for Assets -->
             <h3>Total Assets</h3>
@@ -59,9 +59,9 @@
         <div class="card-icons">
         </div>
     </div>
-    <div class="card blue">
+    <div class="card red">
         <div class="icon-text">
-            <span class="material-icons">ssid_chart</span> <!-- Changed: assessment to ssid_chart for Net Profit -->
+            <span class="material-icons">moving</span> <!-- Changed: assessment to ssid_chart for Net Profit -->
             <h3>Net Profit</h3>
         </div>
         <p id="netProfit">27,315 Cr</p>
@@ -75,18 +75,18 @@
     <div>
         <!-- This empty div maintains layout if needed, otherwise consider removing if it's not serving a purpose -->
     </div>
-    <div class="card cyan">
+    <div class="card purple">
         <div class="icon-text">
-            <span class="material-icons">lightbulb</span> <!-- Changed: show_chart to lightbulb for Total Insights -->
+            <span class="material-icons">credit_score</span> <!-- Changed: show_chart to lightbulb for Total Insights -->
             <h3>Total Insights</h3>
         </div>
         <p id="totalInsights">160</p>
         <div class="card-icons">
         </div>
     </div>
-    <div class="card red">
+    <div class="card yellow">
         <div class="icon-text">
-            <span class="material-icons">gpp_good</span> <!-- Changed: show_chart to gpp_good for Total Impact -->
+            <span class="material-icons">deblur</span> <!-- Changed: show_chart to gpp_good for Total Impact -->
             <h3>Total Impact </h3>
         </div>
         <p id="totalImpact">20,20,882 Cr</p>
@@ -96,18 +96,18 @@
     <div>
         <!-- This empty div maintains layout if needed, otherwise consider removing if it's not serving a purpose -->
     </div>
-
+<div class="kpi-cards" style="margin-top: 20px"></div>
 </div>
-    <div class="nav-buttons">
-            <button class="nav-btn" id="profitLossBtn" onclick="window.location.href='Profit-view-details.html?selected=Purchase Of Stock-In Trade'">Profit & Loss Account</button>
+    <div class="btn-container">
+            <button class="gradient-btn" id="profitLossBtn" onclick="window.location.href='Profit-view-details.html?selected=Purchase Of Stock-In Trade'">Profit & Loss Account</button>
     </div>
         </div>
-
+        <div class="kpi-cards" style="margin-top: 20px"></div>
         <div class="dashboard-panels">
             <div class="left-panel">
                 <div class="equity-insights">
                     <div class="header-equity">
-                        <h4>Equity Share Capital Insights</h4>
+                        
                     </div>
                     <div class="insight-category">
                         <h5>Insight Category</h5>

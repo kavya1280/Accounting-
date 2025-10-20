@@ -54,13 +54,25 @@
 body {
   font-family: "Roboto", sans-serif;
   margin: 0;
-  background-color: #f4f7f6; /* Light gray background */
+  background-color: #e0f2f7; /* Changed background color to a light blue-green */
   color: #343a40;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-smoothing: grayscale;
   position: relative;
   overflow-x: hidden;
+  /* Page Load Animation */
+  opacity: 0;
+  transform: translateY(10px);
+  animation: pageFadeIn 0.8s ease-out forwards;
+}
+
+/* Page Load Animation Keyframes */
+@keyframes pageFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 body::before {
@@ -73,8 +85,8 @@ body::before {
   background: radial-gradient(
     circle at center,
     rgba(255, 255, 255, 0) 0%,
-    rgba(224, 230, 237, 0.8) 70%,
-    rgba(190, 200, 210, 0.9) 100%
+    rgba(200, 220, 230, 0.7) 70%, /* Adjusted color to match new background */
+    rgba(170, 190, 200, 0.8) 100% /* Adjusted color to match new background */
   );
   filter: blur(80px);
   z-index: 0;
@@ -1444,11 +1456,6 @@ table tbody tr td:first-child {
   color: #17a2b8;
 }
 
-/* If you have the icons directly inside the .kpi-card with a common class like .fas */
-.kpi-total-insights .fas {
-  color: #28a745;
-}
-
 .btn-container {
   text-align: center;
   margin: 20px;
@@ -1465,17 +1472,33 @@ table tbody tr td:first-child {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+  animation: pulseButton 2s infinite ease-in-out; /* Pulsing button animation */
 }
 
 .gradient-btn:hover {
   background: linear-gradient(135deg, #0072ff, #00c6ff);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02); /* Added slight scale on hover */
   box-shadow: 0 6px 20px rgba(0, 114, 255, 0.5);
 }
 
 .gradient-btn:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98); /* Added slight scale on active */
   box-shadow: 0 3px 10px rgba(0, 114, 255, 0.4);
+}
+
+@keyframes pulseButton {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(0, 114, 255, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+  }
 }
 
 #insightCategoryList li.active {
