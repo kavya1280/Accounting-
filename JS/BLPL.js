@@ -103,101 +103,108 @@ document.addEventListener("DOMContentLoaded", () => {
           impactTableBody.appendChild(row);
         });
 
-        // Set the total in the donut chart overlay
-        document.getElementById("donutTotalAmount").textContent =
-          new Intl.NumberFormat("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }).format(totalImpactAmount);
+// Set the total in the donut chart overlay
+document.getElementById("donutTotalAmount").textContent =
+  new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(totalImpactAmount);
 
-        // --- Balance Sheet Impact Distribution Donut Chart ---
-        const ctxDonut = document
-          .getElementById("revenueDonutChart")
-          .getContext("2d");
+// --- Balance Sheet Impact Distribution Donut Chart ---
+const ctxDonut = document
+  .getElementById("revenueDonutChart")
+  .getContext("2d");
 
-        const donutData = impactRows.map((item) => ({
-          label: item.insight,
-          amount: item.amount,
-        }));
+// Map and sort the data (smallest → largest)
+const donutData = impactRows
+  .map((item) => ({
+    label: item.insight,
+    amount: item.amount,
+  }))
+  .sort((a, b) => a.amount - b.amount); // 🔹 Sort ascending order
 
-        const chartColors = [
-          getCssVar("--color-product-sales"), // Red (for first item)
-          getCssVar("--color-service-revenue"), // Teal (for second item)
-          getCssVar("--color-subscriptions"),
-          getCssVar("--color-consulting"),
-          getCssVar("--color-licensing"),
-          getCssVar("--color-training"),
-          getCssVar("--color-misc"),
-          getCssVar("--color-gray"),
-          getCssVar("--color-red"),
-          getCssVar("--color-pink"),
-          getCssVar("--color-purple"),
-          // Add more colors if more insights are added
-        ];
+const chartColors = [
+  getCssVar("--color-product-sales"), // Red
+  getCssVar("--color-service-revenue"), // Teal
+  getCssVar("--color-subscriptions"),
+  getCssVar("--color-consulting"),
+  getCssVar("--color-licensing"),
+  getCssVar("--color-training"),
+  getCssVar("--color-misc"),
+  getCssVar("--color-gray"),
+  getCssVar("--color-red"),
+  getCssVar("--color-pink"),
+  getCssVar("--color-purple"),
+  // Add more colors if needed
+];
 
-        revenueDonutChart = new Chart(ctxDonut, {
-          type: "doughnut",
-          data: {
-            labels: donutData.map((d) => d.label),
-            datasets: [
-              {
-                data: donutData.map((d) => d.amount),
-                backgroundColor: chartColors.slice(0, donutData.length), // Use colors based on data length
-                hoverOffset: 8,
-              },
-            ],
+// Create the chart
+revenueDonutChart = new Chart(ctxDonut, {
+  type: "doughnut",
+  data: {
+    labels: donutData.map((d) => d.label),
+    datasets: [
+      {
+        data: donutData.map((d) => d.amount),
+        backgroundColor: chartColors.slice(0, donutData.length),
+        hoverOffset: 8,
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = context.label || "";
+            if (label) label += ": ";
+            if (context.parsed !== null) {
+              const value = new Intl.NumberFormat("en-US").format(
+                context.parsed
+              );
+              const currentTotal = context.dataset.data.reduce(
+                (sum, val) => sum + val,
+                0
+              );
+              const percentage = (
+                (context.parsed / currentTotal) *
+                100
+              ).toFixed(2);
+              label += `Rs. ${value} (${percentage}%)`;
+            }
+            return label;
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              tooltip: {
-                callbacks: {
-                  label: function (context) {
-                    let label = context.label || "";
-                    if (label) {
-                      label += ": ";
-                    }
-                    if (context.parsed !== null) {
-                      const value = new Intl.NumberFormat("en-US").format(
-                        context.parsed
-                      );
-                      // Calculate actual percentage for tooltip from current data
-                      const currentTotal = context.dataset.data.reduce(
-                        (sum, val) => sum + val,
-                        0
-                      );
-                      const percentage = (
-                        (context.parsed / currentTotal) *
-                        100
-                      ).toFixed(2);
-                      label += `Rs. ${value} (${percentage}%)`;
-                    }
-                    return label;
-                  },
-                },
-              },
-            },
-            cutout: "70%",
-            animation: {
-              animateRotate: true,
-              animateScale: true,
-              duration: 1000,
-              easing: "easeOutQuart",
-            },
-          },
-        });
+        },
+      },
+    },
+    cutout: "70%",
+    animation: {
+      animateRotate: true,
+      animateScale: true,
+      duration: 1000,
+      easing: "easeOutQuart",
+    },
+  },
+});
 
-        const legendContainer = document.getElementById("revenueChartLegend");
-        legendContainer.innerHTML = ""; // Clear existing legend
-        donutData.forEach((item, index) => {
-          const li = document.createElement("li");
-          legendContainer.appendChild(li);
-        });
+// --- Legend Setup ---
+const legendContainer = document.getElementById("revenueChartLegend");
+legendContainer.innerHTML = ""; // Clear existing legend
 
+donutData.forEach((item, index) => {
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <span class="legend-color" style="background-color: ${
+      chartColors[index]
+    }"></span>
+  `;
+  legendContainer.appendChild(li);
+});
         // --- Combined Line & Bar Chart (Balance Sheet Impact Over Time) ---
         const ctxCombined = document
           .getElementById("exceptionCombinedChart")
@@ -212,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "FY 24-25",
         ];
 
-        const monthlyImpactAmounts = [5, 10, 5, 10, firstImpactPercentage];
+        const monthlyImpactAmounts = [5, 5, 5, 5, firstImpactPercentage];
         // Example: Number of new insights/issues identified per month
         const monthlyInsightCounts = [2, 2, 2, 2, firstImpactPercentage];
 
