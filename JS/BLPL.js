@@ -219,9 +219,9 @@ donutData.forEach((item, index) => {
           "FY 24-25",
         ];
 
-        const monthlyImpactAmounts = [5, 5, 5, 5, firstImpactPercentage];
+        const monthlyImpactAmounts = [1, 1, 1, 2, firstImpactPercentage];
         // Example: Number of new insights/issues identified per month
-        const monthlyInsightCounts = [2, 2, 2, 2, firstImpactPercentage];
+        const monthlyInsightCounts = [0, 0, 0, 0, firstImpactPercentage];
 
         exceptionCombinedChart = new Chart(ctxCombined, {
           data: {
