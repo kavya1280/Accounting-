@@ -1,0 +1,157 @@
+{
+  "Equity Share Capital": {
+    "FY 24-25": { "amount": 13532.00, "percentage": 0.09, "impact_data_url": "balancesheet/esc25.json" },
+    "FY 23-24": { "amount": 6766.00, "impact_data_url": "balancesheet/esc24.json" },
+    "FY 22-23": { "amount": 6766.00 },
+    "FY 21-22": { "amount": 6765.00 },
+    "FY 20-21": { "amount": 6445.00 }
+  },
+  "Reserves and Surplus": {
+    "FY 24-25": { "amount": 430530.00, "percentage": 0.03 },
+    "FY 23-24": { "amount": 411207.00 },
+    "FY 22-23": { "amount": 472328.00 },
+    "FY 21-22": { "amount": 464762.00 },
+    "FY 20-21": { "amount": 468038.00 }
+  },
+  
+  "Long Term Borrowings": {
+    "FY 24-25": { "amount": 182772.00, "percentage": 0.75, "impact_data_url": "balancesheet/long-term-borrowings25.json" },
+    "FY 23-24": { "amount": 181146.00, "impact_data_url": "balancesheet/long-term-borrowings24.json" },
+    "FY 22-23": { "amount": 135561.00 },
+    "FY 21-22": { "amount": 167231.00 },
+    "FY 20-21": { "amount": 160788.00 }
+  },
+  "Deferred Tax Liabilities [Net]": {
+    "FY 24-25": { "amount": 34523.00, "percentage": 0.16, "impact_data_url": "balancesheet/deferred-tax-net25.json" },
+    "FY 23-24": { "amount": 33449.00, "impact_data_url": "balancesheet/deferred-tax-net24.json" },
+    "FY 22-23": { "amount": 33968.00 },
+    "FY 21-22": { "amount": 30832.00 },
+    "FY 20-21": { "amount": 30598.00 }
+  },
+  "Long Term Provisions": {
+    "FY 24-25": { "amount": 910.00, "percentage": 0.00, "impact_data_url": "balancesheet/long-term-provision25.json" },
+    "FY 23-24": { "amount": 853.00, "impact_data_url": "balancesheet/long-term-provision24.json" },
+    "FY 22-23": { "amount": 1296.00 },
+    "FY 21-22": { "amount": 1598.00 },
+    "FY 20-21": { "amount": 1499.00 }
+  },
+  "Short Term Borrowings": {
+    "FY 24-25": { "amount": 129117.00, "percentage": 0.60, "impact_data_url": "balancesheet/short-term-borrowings25.json" },
+    "FY 23-24": { "amount": 100708.00, "impact_data_url": "balancesheet/short-term-borrowings24.json" },
+    "FY 22-23": { "amount": 80262.00 },
+    "FY 21-22": { "amount": 27332.00 },
+    "FY 20-21": { "amount": 33152.00 }
+  },
+  "Trade Payables": {
+    "FY 24-25": { "amount": 122387.00, "percentage": 0.57, "impact_data_url": "balancesheet/trade-payables25.json" },
+    "FY 23-24": { "amount": 129859.00, "impact_data_url": "balancesheet/trade-payables24.json" },
+    "FY 22-23": { "amount": 110722.00 },
+    "FY 21-22": { "amount": 134005.00 },
+    "FY 20-21": { "amount": 86999.00 }
+  },
+  "Other Current Liabilities": {
+    "FY 24-25": { "amount": 95514.00, "percentage": 0.45, "impact_data_url": "balancesheet/other-current-liabilities25.json" },
+    "FY 23-24": { "amount": 52282.00, "impact_data_url": "balancesheet/other-current-liabilities24.json" },
+    "FY 22-23": { "amount": 45366.00 },
+    "FY 21-22": { "amount": 38749.00 },
+    "FY 20-21": { "amount": 80735.00 }
+  },
+  "Short Term Provisions": {
+    "FY 24-25": { "amount": 1156.00, "percentage": 0.01, "impact_data_url": "balancesheet/short-term-provisions25.json" },
+    "FY 23-24": { "amount": 972.00, "impact_data_url": "balancesheet/short-term-provisions24.json" },
+    "FY 22-23": { "amount": 926.00 },
+    "FY 21-22": { "amount": 896.00 },
+    "FY 20-21": { "amount": 901.00 }
+  },
+  "Tangible Assets": {
+    "FY 24-25": { "amount": 267096.00, "percentage": 0.73, "impact_data_url": "balancesheet/tangiable-assets25.json" },
+    "FY 23-24": { "amount": 237351.00, "impact_data_url": "balancesheet/tangiable-assets24.json" },
+    "FY 22-23": { "amount": 232238.00 },
+    "FY 21-22": { "amount": 223824.00 },
+    "FY 20-21": { "amount": 292092.00 }
+  },
+  "Intangible Assets": {
+    "FY 24-25": { "amount": 43951.00, "percentage": 0.12, "impact_data_url": "balancesheet/intangible-assets25.json" },
+    "FY 23-24": { "amount": 40719.00, "impact_data_url": "balancesheet/intangible-assets24.json" },
+    "FY 22-23": { "amount": 12926.00 },
+    "FY 21-22": { "amount": 15802.00 },
+    "FY 20-21": { "amount": 14741.00 }
+  },
+  "Capital Work-In-Progress": {
+    "FY 24-25": { "amount": 76322.00, "percentage": 0.21, "impact_data_url": "balancesheet/work-in-progress25.json" },
+    "FY 23-24": { "amount": 44294.00, "impact_data_url": "balancesheet/work-in-progress24.json" },
+    "FY 22-23": { "amount": 30958.00 },
+    "FY 21-22": { "amount": 19267.00 },
+    "FY 20-21": { "amount": 20765.00 }
+  },
+  "Intangible Assets Under Development": {
+    "FY 24-25": { "amount": 6095.00, "percentage": 0.02, "impact_data_url": "balancesheet/assets-under-develop25.json" },
+    "FY 23-24": { "amount": 17338.00, "impact_data_url": "balancesheet/assets-under-develop24.json" },
+    "FY 22-23": { "amount": 17957.00 },
+    "FY 21-22": { "amount": 15395.00 },
+    "FY 20-21": { "amount": 12070.00 }
+  },
+  "Non-Current Investments": {
+    "FY 24-25": { "amount": 333258.00, "percentage": 0.91, "impact_data_url": "balancesheet/non-current-investments25.json" },
+    "FY 23-24": { "amount": 301400.00, "impact_data_url": "balancesheet/non-current-investments24.json" },
+    "FY 22-23": { "amount": 303558.00 },
+    "FY 21-22": { "amount": 330493.00 },
+    "FY 20-21": { "amount": 252620.00 }
+  },
+  "Long Term Loans And Advances": {
+    "FY 24-25": { "amount": 4941.00, "percentage": 0.01, "impact_data_url": "balancesheet/loans&advance25.json" },
+    "FY 23-24": { "amount": 10051.00, "impact_data_url": "balancesheet/loans&advance24.json" },
+    "FY 22-23": { "amount": 22448.00 },
+    "FY 21-22": { "amount": 41951.00 },
+    "FY 20-21": { "amount": 65968.00 }
+  },
+  "Other Non-Current Assets": {
+    "FY 24-25": { "amount": 21175.00, "percentage": 0.06, "impact_data_url": "balancesheet/other-non-current-assets25.json" },
+    "FY 23-24": { "amount": 24305.00, "impact_data_url": "balancesheet/other-non-current-assets24.json" },
+    "FY 22-23": { "amount": 4548.00 },
+    "FY 21-22": { "amount": 9544.00 },
+    "FY 20-21": { "amount": 4698.00 }
+  },
+  "Current Investments": {
+    "FY 24-25": { "amount": 57102.00, "percentage": 0.16, "impact_data_url": "balancesheet/current-investments25.json" },
+    "FY 23-24": { "amount": 68663.00, "impact_data_url": "balancesheet/current-investments24.json" },
+    "FY 22-23": { "amount": 86074.00 },
+    "FY 21-22": { "amount": 78304.00 },
+    "FY 20-21": { "amount": 94665.00 }
+  },
+  "Inventories": {
+    "FY 24-25": { "amount": 82756.00, "percentage": 0.23, "impact_data_url": "balancesheet/inventories25.json" },
+    "FY 23-24": { "amount": 78704.00, "impact_data_url": "balancesheet/inventories24.json" },
+    "FY 22-23": { "amount": 48926.00 },
+    "FY 21-22": { "amount": 45923.00 },
+    "FY 20-21": { "amount": 37437.00 }
+  },
+  "Trade Receivables": {
+    "FY 24-25": { "amount": 15591.00, "percentage": 0.04, "impact_data_url": "balancesheet/trade-receivables25.json" },
+    "FY 23-24": { "amount": 17470.00, "impact_data_url": "balancesheet/trade-receivables24.json" },
+    "FY 22-23": { "amount": 16898.00 },
+    "FY 21-22": { "amount": 14394.00 },
+    "FY 20-21": { "amount": 4159.00 }
+  },
+  "Cash And Cash Equivalents": {
+    "FY 24-25": { "amount": 82471.00, "percentage": 0.22, "impact_data_url": "balancesheet/c&c-25.json" },
+    "FY 23-24": { "amount": 69248.00, "impact_data_url": "balancesheet/c&c-24.json" },
+    "FY 22-23": { "amount": 56811.00 },
+    "FY 21-22": { "amount": 21714.00 },
+    "FY 20-21": { "amount": 5573.00 }
+  },
+  "Short Term Loans And Advances": {
+    "FY 24-25": { "amount": 595.00, "percentage": 0.00, "impact_data_url": "balancesheet/short-term-loans25.json" },
+    "FY 23-24": { "amount": 161.00, "impact_data_url": "balancesheet/short-term-loans24.json" },
+    "FY 22-23": { "amount": 595.00 },
+    "FY 21-22": { "amount": 161.00 },
+    "FY 20-21": { "amount": 993.00 }
+  },
+  "Other Current Assets": {
+    "FY 24-25": { "amount": 25183.00, "percentage": 0.07, "impact_data_url": "balancesheet/other-current-assets25.json" },
+    "FY 23-24": { "amount": 24874.00, "impact_data_url": "balancesheet/other-current-assets24.json" },
+    "FY 22-23": { "amount": 56628.00 },
+    "FY 21-22": { "amount": 61902.00 },
+    "FY 20-21": { "amount": 67892.00 }
+  }
+}

@@ -523,6 +523,13 @@ donutData.forEach((item, index) => {
 
       for (let i = 0; i < dataCells.length; i++) {
         const currentCell = dataCells[i];
+        let currentCellValueText =
+          currentCell.querySelector(".insight-trigger")?.textContent ||
+          currentCell.textContent;
+        currentCellValueText = currentCellValueText
+          .replace(/\s\(.*?\%\)$/, "")
+          .trim();
+        const currentYearValue = cleanValue(currentCellValueText);
 
         if (currentCell.style.display === "none") {
           const existingPercentageSpan =
@@ -639,7 +646,73 @@ donutData.forEach((item, index) => {
     });
   }
 
-});
+// --- Slider Functionality ---
+  const impactSlider = document.getElementById("impactSlider");
+  const sliderValueSpan = document.getElementById("sliderValue");
   
+  const profitLossRows = document.querySelectorAll( 
+    "#profitLossContent tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
+  );
+
+  // Store original values for FY 24-25 for all relevant cells
+  const originalFy2425Values = new Map();
+  profitLossRows.forEach((row) => { 
+    const fy2425Cell = row.querySelector(".year-column.fy-24-25 .insight-trigger");
+    if (fy2425Cell) {
+      const originalValue = cleanValue(fy2425Cell.textContent);
+      originalFy2425Values.set(fy2425Cell, originalValue);
+    }
+  });
+
+  // Set initial slider value to the HTML defined value
+  const months = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
+  
+  // Ensure the slider starts at a valid value (e.g., 1 for April if initial is 0)
+  const initialSliderHtmlValue = parseFloat(impactSlider.value);
+  const correctedInitialSliderValue = initialSliderHtmlValue === 0 ? 1 : initialSliderHtmlValue; 
+  impactSlider.value = correctedInitialSliderValue; 
+  sliderValueSpan.textContent = months[correctedInitialSliderValue - 1]; 
 
 
+  impactSlider.addEventListener("input", function() {
+    const sliderCurrentValue = parseFloat(this.value);
+    sliderValueSpan.textContent = months[sliderCurrentValue - 1]; // Adjust for 0-indexed array
+
+    // Apply random impact based on slider value
+    profitLossRows.forEach((row) => { 
+      const fy2425Cell = row.querySelector(".year-column.fy-24-25 .insight-trigger");
+      if (fy2425Cell) {
+        const originalValue = originalFy2425Values.get(fy2425Cell);
+        
+        let newValue = originalValue; // Start with the original value
+
+        // Only apply deviation if the original value is not 0
+        if (originalValue !== 0) {
+            const sliderMidpoint = (parseFloat(impactSlider.max) + parseFloat(impactSlider.min)) / 2;
+            const deviationRange = parseFloat(impactSlider.max) - parseFloat(impactSlider.min);
+            const deviationFactor = Math.abs(sliderCurrentValue - sliderMidpoint) / (deviationRange / 2); // Scales from 0 to 1
+
+            const maxImpactPercentage = 0.50; // Max 50% deviation
+            const randomFactor = 1 + (Math.random() * 2 - 1) * maxImpactPercentage * deviationFactor; 
+            newValue = originalValue * randomFactor;
+        }
+        
+        // Update the displayed value
+        const formattedValue = new Intl.NumberFormat("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(newValue);
+
+        // Keep the percentage span if it exists, otherwise just set the number
+        let percentageSpan = fy2425Cell.querySelector(".percentage-impact");
+        if (percentageSpan) {
+            fy2425Cell.innerHTML = `${formattedValue} ${percentageSpan.outerHTML}`;
+        } else {
+            fy2425Cell.textContent = formattedValue;
+        }
+      }
+    });
+    calculateAndDisplayPercentages(); // Recalculate percentages after value changes
+  });
+
+});

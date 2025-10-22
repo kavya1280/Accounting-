@@ -35,8 +35,8 @@
           ><img src="images/ajalabs-black.png" alt="Company Logo"
         /></a>
       </div>
-      <h1>Dashboard View</h1>
-      
+      <h1> Cockpit View</h1>
+
       <div class="logo-placeholder right-logo">
         <!-- Add product logo here -->
         <img src="images/complibear-logo-b.png" alt="Product Logo" />
@@ -128,11 +128,14 @@
         <div class="btn-container">
           <button class="gradient-btn" onclick="window.location.href='duplicate-pl.html'">View More</button>
         </div>
-<div class="month-slider-container">
-  <label for="monthSlider">Select Month (FY 2024-2025):</label>
-  <input type="range" id="monthSlider" min="0" max="11" value="0" step="1">
-  <div id="selectedMonthDisplay">Jan 2024</div>
-</div>     
+ <div class="slider-container">
+            <h3>Adjust Impact for <span id="sliderYear">FY 24-25</span></h3>
+            <div class="slider-wrapper">
+                <label for="impactSlider">Impact Value:</label>
+                <input type="range" min="1" max="12" value="0" class="slider" id="impactSlider">
+                <span id="sliderValue">April</span>
+            </div>
+        </div>     
 
 
         <table>
@@ -1432,7 +1435,7 @@
       </div>
     </main>
 
-    <script src="JS/BLPL.js"></script>
+    <script src="JS/PL.js"></script>
     <div id="insightModal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
