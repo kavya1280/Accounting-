@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let revenueDonutChart;
-    let exceptionCombinedChart;
+  let revenueDonutChart;
+  let exceptionCombinedChart;
+  let totalImpactPercentage = 0;
+  let firstImpactPercentage = 0;
   // --- Existing Collapsible Functionality ---
   const collapsibles = document.querySelectorAll(".collapsible");
   collapsibles.forEach((collapsible) => {
@@ -26,10 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
   insightTriggers.forEach((trigger) => {
     trigger.addEventListener("click", async function (event) {
       event.preventDefault();
-      if(revenueDonutChart){
+      if (revenueDonutChart) {
         revenueDonutChart.destroy();
       }
-      if(exceptionCombinedChart){
+      if (exceptionCombinedChart) {
         exceptionCombinedChart.destroy();
       }
       const url = "/assets/" + this.dataset.insightUrl;
@@ -51,20 +53,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // --- Business Impact Table Data ---
         const impactRows = json.table;
-          
 
         const totalImpactAmount = impactRows.reduce(
           (sum, item) => sum + item.amount,
           0
         );
-        let totalImpactPercentage = 0;
 
         const impactTableBody = document.querySelector(".impact-table tbody");
         impactTableBody.innerHTML = "";
 
-        impactRows.forEach((item) => {
-          const impactPercentage = (item.amount/totalImpactAmount*100).toFixed(2); 
+        impactRows.forEach((item, index) => {
+          const impactPercentage = (
+            (item.amount / totalImpactAmount) *
+            100
+          ).toFixed(2);
+
+          // Store the first item's percentage in a separate variable
+          if (index === 0) {
+            firstImpactPercentage = parseFloat(impactPercentage);
+          }
+
           totalImpactPercentage += parseFloat(impactPercentage);
+
+          console.log("First Impact Percentage:", firstImpactPercentage);
+
+          
+
+          // create and append rows...
+
           let percentageClass = "green"; // Default color
           // Example: Apply 'red' for higher impact, 'yellow' for medium
           if (impactPercentage > 70) {
@@ -81,109 +97,114 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td class="impact-amount" style="text-align: right;">${new Intl.NumberFormat(
                   "en-US"
                 ).format(item.amount)}</td>
-                <td class="percentage-impact ${percentageClass}" style="text-align: right;">${
-                  impactPercentage
-                }%</td>
+                <td class="percentage-impact ${percentageClass}" style="text-align: right;">${impactPercentage}%</td>
                 <td>${item.description}</td>
             `;
           impactTableBody.appendChild(row);
         });
 
-        // Set the total in the donut chart overlay
-        document.getElementById("donutTotalAmount").textContent =
-          new Intl.NumberFormat("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }).format(totalImpactAmount);
+// Set the total in the donut chart overlay
+document.getElementById("donutTotalAmount").textContent =
+  new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(totalImpactAmount);
 
-        // --- Balance Sheet Impact Distribution Donut Chart ---
-        const ctxDonut = document
-          .getElementById("revenueDonutChart")
-          .getContext("2d");
+// --- Balance Sheet Impact Distribution Donut Chart ---
+const ctxDonut = document
+  .getElementById("revenueDonutChart")
+  .getContext("2d");
 
-        const donutData = impactRows.map((item) => ({
-          label: item.insight,
-          amount: item.amount,
-        }));
+// Map and sort the data (smallest → largest)
+const donutData = impactRows
+  .map((item) => ({
+    label: item.insight,
+    amount: item.amount,
+  }))
+  .sort((a, b) => a.amount - b.amount); // 🔹 Sort ascending order
 
-        const chartColors = [
-          getCssVar("--color-product-sales"), // Red (for first item)
-          getCssVar("--color-service-revenue"), // Teal (for second item)
-          getCssVar("--color-subscriptions"),
-          getCssVar("--color-consulting"),
-          getCssVar("--color-licensing"),
-          getCssVar("--color-training"),
-          getCssVar("--color-misc"),
-          getCssVar("--color-gray"),
-          getCssVar("--color-red"),
-          getCssVar("--color-pink"),
-          getCssVar("--color-purple"),
-          // Add more colors if more insights are added
-        ];
+const chartColors = [
+  getCssVar("--color-product-sales"), // Red
+  getCssVar("--color-service-revenue"), // Teal
+  getCssVar("--color-subscriptions"),
+  getCssVar("--color-consulting"),
+  getCssVar("--color-licensing"),
+  getCssVar("--color-training"),
+  getCssVar("--color-misc"),
+  getCssVar("--color-gray"),
+  getCssVar("--color-red"),
+  getCssVar("--color-pink"),
+  getCssVar("--color-purple"),
+  // Add more colors if needed
+];
 
-         revenueDonutChart = new Chart(ctxDonut, {
-          type: "doughnut",
-          data: {
-            labels: donutData.map((d) => d.label),
-            datasets: [
-              {
-                data: donutData.map((d) => d.amount),
-                backgroundColor: chartColors.slice(0, donutData.length), // Use colors based on data length
-                hoverOffset: 8,
-              },
-            ],
+// Create the chart
+revenueDonutChart = new Chart(ctxDonut, {
+  type: "doughnut",
+  data: {
+    labels: donutData.map((d) => d.label),
+    datasets: [
+      {
+        data: donutData.map((d) => d.amount),
+        backgroundColor: chartColors.slice(0, donutData.length),
+        hoverOffset: 8,
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = context.label || "";
+            if (label) label += ": ";
+            if (context.parsed !== null) {
+              const value = new Intl.NumberFormat("en-US").format(
+                context.parsed
+              );
+              const currentTotal = context.dataset.data.reduce(
+                (sum, val) => sum + val,
+                0
+              );
+              const percentage = (
+                (context.parsed / currentTotal) *
+                100
+              ).toFixed(2);
+              label += `Rs. ${value} (${percentage}%)`;
+            }
+            return label;
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-              tooltip: {
-                callbacks: {
-                  label: function (context) {
-                    let label = context.label || "";
-                    if (label) {
-                      label += ": ";
-                    }
-                    if (context.parsed !== null) {
-                      const value = new Intl.NumberFormat("en-US").format(
-                        context.parsed
-                      );
-                      // Calculate actual percentage for tooltip from current data
-                      const currentTotal = context.dataset.data.reduce(
-                        (sum, val) => sum + val,
-                        0
-                      );
-                      const percentage = (
-                        (context.parsed / currentTotal) *
-                        100
-                      ).toFixed(2);
-                      label += `Rs. ${value} (${percentage}%)`;
-                    }
-                    return label;
-                  },
-                },
-              },
-            },
-            cutout: "70%",
-            animation: {
-              animateRotate: true,
-              animateScale: true,
-              duration: 1000,
-              easing: "easeOutQuart",
-            },
-          },
-        });
+        },
+      },
+    },
+    cutout: "70%",
+    animation: {
+      animateRotate: true,
+      animateScale: true,
+      duration: 1000,
+      easing: "easeOutQuart",
+    },
+  },
+});
 
-        const legendContainer = document.getElementById("revenueChartLegend");
-        legendContainer.innerHTML = ""; // Clear existing legend
-        donutData.forEach((item, index) => {
-          const li = document.createElement("li");
-          legendContainer.appendChild(li);
-        });
+// --- Legend Setup ---
+const legendContainer = document.getElementById("revenueChartLegend");
+legendContainer.innerHTML = ""; // Clear existing legend
 
+donutData.forEach((item, index) => {
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <span class="legend-color" style="background-color: ${
+      chartColors[index]
+    }"></span>
+  `;
+  legendContainer.appendChild(li);
+});
         // --- Combined Line & Bar Chart (Balance Sheet Impact Over Time) ---
         const ctxCombined = document
           .getElementById("exceptionCombinedChart")
@@ -197,18 +218,12 @@ document.addEventListener("DOMContentLoaded", () => {
           "FY 23-24",
           "FY 24-25",
         ];
-        // Example: Monthly distribution of the total impact (summing up to totalImpactAmount annually)
-        const monthlyImpactAmounts = [
-          10,
-          10,
-          20,
-          30,
-          totalImpactPercentage,
-        ]; // Sums to 14,482
-        // Example: Number of new insights/issues identified per month
-        const monthlyInsightCounts = [0,0,1,1,2];
 
-         exceptionCombinedChart = new Chart(ctxCombined, {
+        const monthlyImpactAmounts = [1, 1, 1, 2, firstImpactPercentage];
+        // Example: Number of new insights/issues identified per month
+        const monthlyInsightCounts = [0, 0, 0, 0, firstImpactPercentage];
+
+        exceptionCombinedChart = new Chart(ctxCombined, {
           data: {
             labels: combinedChartLabels,
             datasets: [
@@ -224,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
               },
               {
                 type: "line",
-              label: "Number of Insights",
+                label: "Number of Insights",
                 data: monthlyInsightCounts,
                 borderColor: getCssVar("--line-color"),
                 backgroundColor: "transparent",
@@ -286,65 +301,32 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             scales: {
               x: {
-                grid: {
-                  display: false,
-                },
+                grid: { display: false },
                 ticks: {
-                  font: {
-                    size: 12,
-                  },
+                  font: { size: 12 },
                   color: getCssVar("--text-muted"),
                 },
-                title: {
-                  display: false,
-                },
+                title: { display: false },
               },
               y: {
                 type: "linear",
                 position: "left",
                 beginAtZero: true,
-                grid: {
-                  color: getCssVar("--border-color"),
-                },
+                grid: { color: getCssVar("--border-color") },
                 ticks: {
-                  callback: function (value) {
-                    return ` ${new Intl.NumberFormat("en-US").format(
-                      value
-                    )}`;
-                  },
-                  font: {
-                    size: 12,
-                  },
-                  color: getCssVar("--text-muted"),
+                  display: false, // 👈 hides left y-axis numbers
                 },
-                title: {
-                  display: false,
-                },
+                title: { display: false },
               },
               y1: {
                 type: "linear",
                 position: "right",
                 beginAtZero: true,
-                grid: {
-                  drawOnChartArea: false,
-                },
+                grid: { drawOnChartArea: false },
                 ticks: {
-                  // Ensure Y1 axis ticks are integers for insight counts
-                  callback: function (value) {
-                    if (Number.isInteger(value)) {
-                      return value;
-                    }
-                    return null; // Hide non-integer ticks
-                  },
-                  precision: 0, // Ensure no decimal points
-                  font: {
-                    size: 12,
-                  },
-                  color: getCssVar("--text-muted"),
+                  display: false, // 👈 hides right y-axis numbers
                 },
-                title: {
-                  display: false,
-                },
+                title: { display: false },
               },
             },
           },
@@ -656,5 +638,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
 });
+
+

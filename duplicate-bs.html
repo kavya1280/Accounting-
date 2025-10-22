@@ -26,11 +26,7 @@
         <div class="logo-placeholder left-logo">
             <img src="images/ajalabs-black.png" alt="Company Logo">
         </div>
-        <div class="nav-buttons">
-            <button class="nav-btn active" id="balanceSheetBtn">Balance Sheet</button>
-            <!-- Using a direct link for navigation is fine, but JS could also handle it via window.location.href -->
-            <button class="nav-btn" id="profitLossBtn" onclick="window.location.href='profit&loss.html'">Profit & Loss Account</button>
-        </div>
+            <h1> Cockpit View</h1>
         <div class="logo-placeholder right-logo">
             <img src="images/complibear-logo-b.png" alt="Product Logo">
         </div>
@@ -39,7 +35,12 @@
     <main class="container">
         <div id="balanceSheetContent" class="financial-statement active">
             <h1> BALANCE SHEET</h1>
-            <p class="currency-note">(All amounts are in Rupees crores unless otherwise stated)</p>
+            <p class="currency-note">(All amounts are in millions unless otherwise stated)</p>
+        <div class="nav-buttons">
+            <button class="nav-btn active" id="balanceSheetBtn">Balance Sheet</button>
+            <!-- Using a direct link for navigation is fine, but JS could also handle it via window.location.href -->
+            <button class="nav-btn" id="profitLossBtn" onclick="window.location.href='profit&loss.html'">Profit & Loss Account</button>
+        </div>
 
             <div class="kpi-dashboard">
     <!-- Total Insights KPI Card with Checkbox Design Element -->
@@ -76,21 +77,21 @@
         <div class="kpi-icon"><i class="fas fa-exclamation-triangle"></i></div>
         <div class="kpi-info">
             <div class="kpi-label">Total Impacts</div>
-            <div class="kpi-value">202882 Cr</div>
+            <div class="kpi-value">2,02,882 M</div>
         </div>
     </div>
     <div class="kpi-card kpi-equity">
         <div class="kpi-icon"><i class="fas fa-chart-line"></i></div>
         <div class="kpi-info">
             <div class="kpi-label">Total<br> Shareholder's Funds</div>
-            <div class="kpi-value">₹467699 Cr</div>
+            <div class="kpi-value">4,67,699 M</div>
         </div>
     </div>
     <div class="kpi-card kpi-total-liabilities">
         <div class="kpi-icon"><i class="fas fa-inr"></i></div>
         <div class="kpi-info">
             <div class="kpi-label">Total Liabilities</div>
-            <div class="kpi-value">₹542742 Cr</div>
+            <div class="kpi-value">5,42,742 M</div>
         </div>
     </div>
     <!-- Combined Net Profit and Net Profit Margin KPI -->
@@ -98,7 +99,7 @@
         <div class="kpi-icon"><i class="fas fa-money-bill-wave"></i></div>
         <div class="kpi-info">
             <div class="kpi-label">Total Assets</div>
-            <div class="kpi-value">₹1010441 Cr</div>
+            <div class="kpi-value">10,10,441 M</div>
         </div>
     </div>
 </div>
@@ -144,17 +145,17 @@
                                 <i>The value of shares issued to equity holders. It directly increases Shareholder's Funds, representing direct investment by owners.</i>
                             </div>
                         </td>
-                        <td class="value-good">13,532.00</td><td class="value-good">6,766.00</td><td class="value-good">6,766.00</td><td class="value-good">6,765.00</td><td class="value-good">6,445.00</td>
+                        <td >13,532.00<span class="percentage-impact green">(0.09%)</span></td><td >6,766.00</td><td >6,766.00</td><td >6,765.00</td><td >6,445.00</td>
                     </tr>
                     <tr class="sub-total">
                         <td>
                             <!-- Removed inline style 'color:blue' and added a class if styling is needed -->
-                            <span class="collapsible sub-total-collapsible">Total Share Capital </span>
+                            <span class="collapsible sub-total-collapsible" style="color:blue">Total Share Capital </span>
                             <div class="explanation">
                                 <i>The sum of all equity and preference share capital. It is a direct component of Shareholder's Funds, reflecting the total par value of shares outstanding.</i>
                             </div>
                         </td>
-                        <td class="value-good">13,532.00</td><td class="value-good">6,766.00</td><td class="value-good">6,766.00</td><td class="value-good">6,765.00</td><td class="value-good">6,445.00</td>
+                        <td >13,532.00</td><td >6,766.00</td><td >6,766.00</td><td >6,765.00</td><td >6,445.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -163,25 +164,25 @@
                                 <i>Accumulated profits not distributed as dividends, and other reserves. Increases in this account directly boost Shareholder's Funds, strengthening the company's financial position.</i>
                             </div>
                         </td>
-                        <td class="value-good">4,30,530.00</td><td class="value-good">4,11,207.00</td><td class="value-good">472,328.00</td><td class="value-good">464,762.00</td><td class="value-good">468,038.00</td>
+                        <td >4,30,530.00<span class="percentage-impact green">(0.03%)</span></td><td >4,11,207.00</td><td >472,328.00</td><td >464,762.00</td><td >468,038.00</td>
                     </tr>
                     <tr class="sub-total">
                         <td>
-                            <span class="collapsible sub-total-collapsible">Total Reserves and Surplus </span>
+                            <span class="collapsible sub-total-collapsible" style="color:blue">Total Reserves and Surplus </span>
                             <div class="explanation">
                                 <i>The aggregate of retained earnings and various reserve accounts. This balance is a key driver of Shareholder's Funds and indicates the company's ability to retain profits for growth.</i>
                             </div>
                         </td>
-                        <td class="value-good">4,30,530.00</td><td class="value-good">4,11,207.00</td><td class="value-good">472,328.00</td><td class="value-good">464,762.00</td><td class="value-good">468,038.00</td>
+                        <td >4,30,530.00</td><td >4,11,207.00</td><td >472,328.00</td><td >464,762.00</td><td >468,038.00</td>
                     </tr>
                     <tr class="grand-total">
                         <td>
-                            <span class="collapsible grand-total-collapsible">Total Shareholders Funds </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Shareholders Funds </span>
                             <div class="explanation">
                                 <i>The total equity capital and accumulated earnings. This figure directly represents the owners' residual claim on the company's assets and impacts the company's overall financial strength.</i>
                             </div>
                         </td>
-                        <td class="value-good">4,44,062.00</td><td class="value-good">4,17,973.00</td><td class="value-good">479,094.00</td><td class="value-good">471,527.00</td><td class="value-good">474,483.00</td>
+                        <td >4,44,062.00</td><td >4,17,973.00</td><td >479,094.00</td><td >471,527.00</td><td >474,483.00</td>
                     </tr>
 
                     <tr class="category">
@@ -199,7 +200,7 @@
                                 <i>Debts due beyond one year, such as bonds or term loans. An increase boosts total liabilities, financing long-term investments but also increasing financial leverage.</i>
                             </div>
                         </td>
-                        <td class="value-bad">1,82,772.00</td><td class="value-bad">1,81,146.00</td><td class="value-bad">135,561.00</td><td class="value-bad">167,231.00</td><td class="value-bad">160,788.00</td>
+                        <td class="value-bad">1,82,772.00<span class="percentage-impact red">(0.75%)</span></td><td class="value-bad">1,81,146.00</td><td class="value-bad">135,561.00</td><td class="value-bad">167,231.00</td><td class="value-bad">160,788.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -208,7 +209,7 @@
                                 <i>Future tax payments resulting from temporary differences between accounting and tax treatment. It increases long-term liabilities as a recognition of future tax obligations.</i>
                             </div>
                         </td>
-                        <td class="value-bad">34,523.00</td><td class="value-bad">33,449.00</td><td class="value-bad">33,968.00</td><td class="value-bad">30,832.00</td><td class="value-bad">30,598.00</td>
+                        <td class="value-bad">34,523.00<span class="percentage-impact green">(0.16%)</span></td><td class="value-bad">33,449.00</td><td class="value-bad">33,968.00</td><td class="value-bad">30,832.00</td><td class="value-bad">30,598.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -217,7 +218,7 @@
                                 <i>Miscellaneous long-term obligations not categorized elsewhere. These increase the overall liability burden, impacting the company's long-term solvency.</i>
                             </div>
                         </td>
-                        <td class="value-bad">910.00</td><td class="value-bad">853.00</td><td class="value-bad">3,370.00</td><td class="value-bad">6,504.00</td><td class="value-bad">4,518.00</td>
+                        <td class="value-bad">910.00<span class="percentage-impact green">(0.00%)</span></td><td class="value-bad">853.00</td><td class="value-bad">3,370.00</td><td class="value-bad">6,504.00</td><td class="value-bad">4,518.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -230,7 +231,7 @@
                     </tr>
                     <tr class="grand-total">
                         <td>
-                            <span class="collapsible grand-total-collapsible">Total Non-Current Liabilities </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Non-Current Liabilities </span>
                             <div class="explanation">
                                 <i>The total of all long-term debts and obligations. This figure contributes significantly to the financing of assets and affects the company's capital structure and risk profile.</i>
                             </div>
@@ -253,7 +254,7 @@
                                 <i>Debts repayable within one year. An increase boosts current liabilities and impacts short-term liquidity, requiring prompt repayment from current assets.</i>
                             </div>
                         </td>
-                        <td class="value-bad">26,788.00</td><td class="value-bad">50,731.00</td><td class="value-bad">80,262.00</td><td class="value-bad">27,332.00</td><td class="value-bad">33,152.00</td>
+                        <td class="value-bad">26,788.00<span class="percentage-impact red">(0.60%)</span></td><td class="value-bad">50,731.00</td><td class="value-bad">80,262.00</td><td class="value-bad">27,332.00</td><td class="value-bad">33,152.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -262,7 +263,7 @@
                                 <i>Amounts owed to suppliers for goods/services on credit. An increase shows more reliance on supplier credit, impacting cash flow and working capital.</i>
                             </div>
                         </td>
-                        <td class="value-bad">122,379.00</td><td class="value-bad">129,859.00</td><td class="value-bad">110,722.00</td><td class="value-bad">134,005.00</td><td class="value-bad">86,999.00</td>
+                        <td class="value-bad">122,379.00<span class="percentage-impact red">(0.57%)</span></td><td class="value-bad">129,859.00</td><td class="value-bad">110,722.00</td><td class="value-bad">134,005.00</td><td class="value-bad">86,999.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -271,7 +272,7 @@
                                 <i>Diverse short-term obligations not explicitly listed. An increase raises current liabilities, demanding attention to short-term financial management.</i>
                             </div>
                         </td>
-                        <td class="value-bad">107,612.00</td><td class="value-bad">58,452.00</td><td class="value-bad">45,366.00</td><td class="value-bad">38,749.00</td><td class="value-bad">80,735.00</td>
+                        <td class="value-bad">1,07,612.00<span class="percentage-impact yellow">(0.45%)</span></td><td class="value-bad">58,452.00</td><td class="value-bad">45,366.00</td><td class="value-bad">38,749.00</td><td class="value-bad">80,735.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -280,11 +281,11 @@
                                 <i>Estimates for future expenses due within one year. These are recorded as current liabilities, representing expected near-term cash outflows.</i>
                             </div>
                         </td>
-                        <td class="value-bad">1,156.00</td><td class="value-bad">972.00</td><td class="value-bad">926.00</td><td class="value-bad">896.00</td><td class="value-bad">901.00</td>
+                        <td class="value-bad">1,156.00<span class="percentage-impact green">(0.01%)</span></td><td class="value-bad">972.00</td><td class="value-bad">926.00</td><td class="value-bad">896.00</td><td class="value-bad">901.00</td>
                     </tr>
                     <tr class="grand-total">
                         <td>
-                            <span class="collapsible grand-total-collapsible">Total Current Liabilities </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Current Liabilities </span>
                             <div class="explanation">
                                 <i>The sum of all obligations due within one year. This figure is crucial for assessing a company's ability to cover its short-term liabilities and manage working capital.</i>
                             </div>
@@ -292,16 +293,14 @@
                         <td class="value-bad">257,935.00</td><td class="value-bad">240,014.00</td><td class="value-bad">237,276.00</td><td class="value-bad">200,982.00</td><td class="value-bad">201,787.00</td>
                     </tr>
 
-                    <tr class="grand-total">
-                        <td colspan="6">
-                            <span class="collapsible grand-total-collapsible">Total Capital And Liabilities </span>
+
+                     <tr class="grand-total">
+                        <td>
+                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Capital And Liabilities  </span>
                             <div class="explanation">
                                 <i>The grand total of all financing sources (equity and debt). This value *must* equal Total Assets to maintain the fundamental accounting equation (Assets = Liabilities + Equity).</i>
                             </div>
                         </td>
-                    </tr>
-                    <tr>
-                        <td><span class="collapsible grand-total-collapsible">Total Capital And Liabilities </span></td>
                         <td class="value-bad">1,022,401.00</td><td class="value-bad">959,643.00</td><td class="value-bad">890,565.00</td><td class="value-bad">878,674.00</td><td class="value-bad">873,673.00</td>
                     </tr>
 
@@ -329,7 +328,7 @@
                                 <i>Physical assets (e.g., land, machinery) used in operations. Increases reflect investment in productive capacity, impacting depreciation and future earnings potential.</i>
                             </div>
                         </td>
-                        <td class="value-good">267,096.00</td><td class="value-good">258,911.00</td><td class="value-good">232,238.00</td><td class="value-good">223,824.00</td><td class="value-good">292,092.00</td>
+                        <td >2,67,096.00<span class="percentage-impact red">(0.73%)</span></td><td >258,911.00</td><td >232,238.00</td><td >223,824.00</td><td >292,092.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -338,7 +337,7 @@
                                 <i>Non-physical assets (e.g., patents, goodwill) with long-term value. Acquiring these assets boosts total non-current assets and impacts amortization expenses.</i>
                             </div>
                         </td>
-                        <td class="value-good">43,951.00</td><td class="value-good">40,719.00</td><td class="value-good">12,926.00</td><td class="value-good">15,802.00</td><td class="value-good">14,741.00</td>
+                        <td >43,951.00<span class="percentage-impact green">(0.12%)</span></td><td >40,719.00</td><td >12,926.00</td><td >15,802.00</td><td >14,741.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -347,7 +346,7 @@
                                 <i>Costs incurred on assets under construction. This temporarily increases non-current assets until completion, at which point it's reclassified as a tangible or intangible asset.</i>
                             </div>
                         </td>
-                        <td class="value-good">76,322.00</td><td class="value-good">44,294.00</td><td class="value-good">30,958.00</td><td class="value-good">19,267.00</td><td class="value-good">20,765.00</td>
+                        <td >76,322.00<span class="percentage-impact yellow">(0.21%)</span></td><td >44,294.00</td><td >30,958.00</td><td >19,267.00</td><td >20,765.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -356,7 +355,7 @@
                                 <i>Costs associated with developing new intangible assets. Similar to CWIP, it reflects ongoing investment in future intangible resources.</i>
                             </div>
                         </td>
-                        <td class="value-good">6,095.00</td><td class="value-good">17,338.00</td><td class="value-good">17,957.00</td><td class="value-good">15,395.00</td><td class="value-good">12,070.00</td>
+                        <td >6,095.00<span class="percentage-impact green">(0.02%)</span></td><td >17,338.00</td><td >17,957.00</td><td >15,395.00</td><td >12,070.00</td>
                     </tr>
                     <tr class="sub-total">
                         <td>
@@ -365,7 +364,7 @@
                                 <i>The total value of property, plant, and equipment, plus intangible assets. This represents the core operational assets and impacts the company's long-term earning capacity.</i>
                             </div>
                         </td>
-                        <td class="value-good">393,464.00</td><td class="value-good">361,262.00</td><td class="value-good">294,079.00</td><td class="value-good">274,288.00</td><td class="value-good">339,668.00</td>
+                        <td >393,464.00</td><td >361,262.00</td><td >294,079.00</td><td >274,288.00</td><td >339,668.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -374,7 +373,7 @@
                                 <i>Strategic investments held for over a year. An increase boosts long-term assets, reflecting capital allocated for growth or influence in other entities.</i>
                             </div>
                         </td>
-                        <td class="value-good">333,258.00</td><td class="value-good">301,400.00</td><td class="value-good">303,558.00</td><td class="value-good">330,493.00</td><td class="value-good">252,620.00</td>
+                        <td >3,33,258.00<span class="percentage-impact red">(0.91%)</span></td><td >301,400.00</td><td >303,558.00</td><td >330,493.00</td><td >252,620.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -383,7 +382,7 @@
                                 <i>Funds provided by the company, recoverable after one year. These are assets representing future economic benefits from lending activities.</i>
                             </div>
                         </td>
-                        <td class="value-good">4,941.00</td><td class="value-good">10,051.00</td><td class="value-good">22,448.00</td><td class="value-good">41,951.00</td><td class="value-good">65,968.00</td>
+                        <td >4,941.00<span class="percentage-impact green">(0.01%)</span></td><td >10,051.00</td><td >22,448.00</td><td >41,951.00</td><td >65,968.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -392,16 +391,16 @@
                                 <i>Miscellaneous long-term assets. An increase here adds to the company's total resources, potentially supporting various long-term strategies.</i>
                             </div>
                         </td>
-                        <td class="value-good">21,175.00</td><td class="value-good">24,305.00</td><td class="value-good">4,548.00</td><td class="value-good">9,544.00</td><td class="value-good">4,698.00</td>
+                        <td >21,175.00<span class="percentage-impact green">(0.06%)</span></td><td >24,305.00</td><td >4,548.00</td><td >9,544.00</td><td >4,698.00</td>
                     </tr>
                     <tr class="grand-total">
                         <td>
-                            <span class="collapsible grand-total-collapsible">Total Non-Current Assets </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Non-Current Assets </span>
                             <div class="explanation">
                                 <i>The aggregate value of all long-term resources. This figure is critical for assessing a company's investment in its future operations and strategic growth.</i>
                             </div>
                         </td>
-                        <td class="value-good">752,838.00</td><td class="value-good">697,018.00</td><td class="value-good">624,633.00</td><td class="value-good">656,276.00</td><td class="value-good">662,954.00</td>
+                        <td >752,838.00</td><td >697,018.00</td><td >624,633.00</td><td >656,276.00</td><td >662,954.00</td>
                     </tr>
 
                     <tr class="category">
@@ -409,8 +408,7 @@
                             <span class="collapsible">CURRENT ASSETS </span>
                             <div class="explanation">
                                 <i>Assets expected to be converted to cash or consumed within one year. Growth in these assets indicates improved short-term liquidity and operational efficiency.</i>
-                            </div>
-                        </td>
+                            </div>                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -419,7 +417,7 @@
                                 <i>Short-term liquid investments. An increase enhances liquidity and may generate short-term returns, boosting overall current assets.</i>
                             </div>
                         </td>
-                        <td class="value-good">57,102.00</td><td class="value-good">68,663.00</td><td class="value-good">86,074.00</td><td class="value-good">78,304.00</td><td class="value-good">94,665.00</td>
+                        <td >57,102.00<span class="percentage-impact green">(0.16%)</span></td><td >68,663.00</td><td >86,074.00</td><td >78,304.00</td><td >94,665.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -428,7 +426,7 @@
                                 <i>Raw materials, work-in-progress, and finished goods. An increase indicates higher stock levels, impacting working capital and potential obsolescence risks.</i>
                             </div>
                         </td>
-                        <td class="value-good">89,216.00</td><td class="value-good">85,100.00</td><td class="value-good">48,926.00</td><td class="value-good">45,923.00</td><td class="value-good">37,437.00</td>
+                        <td >89,216.00<span class="percentage-impact yellow">(0.23%)</span></td><td >85,100.00</td><td >48,926.00</td><td >45,923.00</td><td >37,437.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -437,7 +435,7 @@
                                 <i>Amounts owed by customers. An increase shows more sales on credit, boosting current assets but also increasing credit risk and impacting cash flow collection.</i>
                             </div>
                         </td>
-                        <td class="value-good">15,591.00</td><td class="value-good">14,740.00</td><td class="value-good">16,898.00</td><td class="value-good">14,394.00</td><td class="value-good">4,159.00</td>
+                        <td >15,591.00<span class="percentage-impact green">(0.04%)</span></td><td >14,740.00</td><td >16,898.00</td><td >14,394.00</td><td >4,159.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -446,7 +444,7 @@
                                 <i>Highly liquid resources. An increase directly boosts current assets and is vital for short-term liquidity, enabling the company to meet immediate obligations.</i>
                             </div>
                         </td>
-                        <td class="value-good">82,471.00</td><td class="value-good">69,248.00</td><td class="value-good">56,811.00</td><td class="value-good">21,714.00</td><td class="value-good">5,573.00</td>
+                        <td >82,471.00<span class="percentage-impact yellow">(0.22%)</span></td><td >69,248.00</td><td >56,811.00</td><td >21,714.00</td><td >5,573.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -455,7 +453,7 @@
                                 <i>Funds lent by the company, recoverable within one year. These are current assets, representing expected cash inflows from lending.</i>
                             </div>
                         </td>
-                        <td class="value-good">0.00</td><td class="value-good">0.00</td><td class="value-good">595.00</td><td class="value-good">161.00</td><td class="value-good">993.00</td>
+                        <td >595.00<span class="percentage-impact green">(0.00%)</span>   </td><td >0.00</td><td >595.00</td><td >161.00</td><td >993.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -464,16 +462,16 @@
                                 <i>Miscellaneous assets convertible to cash within one year. An increase adds to current assets, enhancing the company's short-term resource base.</i>
                             </div>
                         </td>
-                        <td class="value-good">25,183.00</td><td class="value-good">24,874.00</td><td class="value-good">56,628.00</td><td class="value-good">61,902.00</td><td class="value-good">67,892.00</td>
+                        <td >25,183.00<span class="percentage-impact green">(0.07%)</span></td><td >24,874.00</td><td >56,628.00</td><td >61,902.00</td><td >67,892.00</td>
                     </tr>
                     <tr class="grand-total">
                         <td>
-                            <span class="collapsible grand-total-collapsible">Total Current Assets </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Current Assets </span>
                             <div class="explanation">
                                 <i>The total value of all short-term resources. This figure is critical for assessing the company's ability to cover its short-term liabilities and manage working capital.</i>
                             </div>
                         </td>
-                        <td class="value-good">129,562.00</td><td class="value-good">129,562.00</td><td class="value-good">129,562.00</td><td class="value-good">129,562.00</td><td class="value-good">129,562.00</td>  
+                        <td >129,562.00</td><td >129,562.00</td><td >129,562.00</td><td >129,562.00</td><td >129,562.00</td>  
                     </tr>
                 </table>
             </div>

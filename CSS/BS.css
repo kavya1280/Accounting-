@@ -147,6 +147,7 @@ h1 {
 .nav-buttons {
   display: flex;
   gap: 15px;
+  justify-content: center;
 }
 
 .nav-btn {
@@ -191,7 +192,7 @@ h1 {
 }
 
 .financial-statement {
-  padding: 30px;
+  padding: 5px;
   background-color: #f8f9fa;
   background-image: linear-gradient(
       to right,
@@ -1514,4 +1515,77 @@ table tbody tr td:first-child {
   color: #fff;
   text-decoration: none;
   margin-left: 10px;
+}
+
+
+
+.month-slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #283e51, #485563);
+  color: #fff;
+  padding: 25px 35px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  width: 340px;
+  margin: 30px auto;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.month-slider-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.month-slider-container label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+#monthSlider {
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #56ccf2, #2f80ed);
+  outline: none;
+  transition: background 0.3s ease;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+/* Slider thumb styling */
+#monthSlider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 3px solid #56ccf2;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(86, 204, 242, 0.7);
+}
+
+#monthSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(86, 204, 242, 1);
+}
+
+/* Display text */
+#selectedMonthDisplay {
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 15px;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  letter-spacing: 0.3px;
 }

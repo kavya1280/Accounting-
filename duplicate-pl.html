@@ -22,10 +22,7 @@
             <!-- Add company logo here -->
             <img src="images/ajalabs-black.png" alt="Company Logo">
         </div>
-        <div class="nav-buttons">
-            <button class="nav-btn" id="balanceSheetBtn" onclick="location.href='Balancesheet.html'">Balance Sheet</button>
-            <button class="nav-btn active" id="profitLossBtn">Profit & Loss Account</button>
-        </div>
+              <h1>Dashboard View</h1>
         <div class="logo-placeholder right-logo">
             <!-- Add product logo here -->
             <img src="images/complibear-logo-b.png" alt="Product Logo">
@@ -36,7 +33,11 @@
         
         <div id="profitLossContent" class="financial-statement active">
             <h1>STATEMENT OF PROFIT AND LOSS</h1>
-            <p class="currency-note">(All amounts are in Rupees crores unless otherwise stated)</p>
+            <p class="currency-note">(All amounts are in millions unless otherwise stated)</p>
+                    <div class="nav-buttons">
+            <button class="nav-btn" id="balanceSheetBtn" onclick="location.href='Balancesheet.html'">Balance Sheet</button>
+            <button class="nav-btn active" id="profitLossBtn">Profit & Loss Account</button>
+        </div>
 
         <div class="kpi-dashboard">
           <!-- Total Insights KPI Card with Checkbox Design Element -->
@@ -75,14 +76,14 @@
             </div>
             <div class="kpi-info">
               <div class="kpi-label">Total Impacts</div>
-              <div class="kpi-value">1039149 Cr</div>
+              <div class="kpi-value">10,39,149 M</div>
             </div>
           </div>
           <div class="kpi-card kpi-equity">
             <div class="kpi-icon"><i class="fas fa-chart-line"></i></div>
             <div class="kpi-info">
               <div class="kpi-label">Revenue (FY24-25)</div>
-              <div class="kpi-value">533443 Cr</div>
+              <div class="kpi-value">5,33,443 M</div>
             </div>
           </div>
           <div class="kpi-card kpi-total-liabilities">
@@ -97,7 +98,7 @@
             <div class="kpi-icon"><i class="fas fa-money-bill-wave"></i></div>
             <div class="kpi-info">
               <div class="kpi-label">Net Profit (FY24-25)</div>
-              <div class="kpi-value">19323 Cr</div>
+              <div class="kpi-value">19,323 M</div>
             </div>
           </div>
         </div>
@@ -133,7 +134,7 @@
                                 <i>The total income generated from the company's primary business activities, before any deductions. This figure is crucial for assessing core business performance.</i>
                             </div>
                         </td>
-                        <td>557,163.00</td><td>574,956.00</td><td>565,347.00</td><td>466,425.00</td>
+                        <td>5,57,163.00<span class="percentage-impact red">(2.88%)</span></td><td>5,74,956.00</td><td>5,65,347.00</td><td>4,66,425.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -142,7 +143,7 @@
                                 <i>Deductions for various indirect taxes and government levies directly impacting the gross revenue. This reduces the revenue effectively realized from sales.</i>
                             </div>
                         </td>
-                        <td>39,814.00</td><td>40,422.00</td><td>37,032.00</td><td>42,722.00</td>
+                        <td>39,814.00<span class="percentage-impact yellow">(0.21%)</span></td><td>40,422.00</td><td>37,032.00</td><td>42,722.00</td>
                     </tr>
                     <tr class="sub-total">
                         <td>
@@ -151,7 +152,7 @@
                                 <i>The income generated from primary business activities after deducting direct taxes and levies. This is a more accurate representation of actual sales revenue.</i>
                             </div>
                         </td>
-                        <td>517,349.00</td><td>534,534.00</td><td>528,315.00</td><td>423,703.00</td>
+                        <td>5,17,349.00</td><td>5,34,534.00</td><td>5,28,315.00</td><td>4,23,703.00</td>
                     </tr>
                     <tr class="grand-total">
                         <td>
@@ -160,7 +161,7 @@
                                 <i>The final total revenue earned from the core operations of the business. This is a key indicator of the company's size and market activity.</i>
                             </div>
                         </td>
-                        <td>517,349.00</td><td>534,534.00</td><td>528,315.00</td><td>423,703.00</td>
+                        <td>5,17,349.00</td><td>5,34,534.00</td><td>5,28,315.00</td><td>4,23,703.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -169,7 +170,7 @@
                                 <i>Income generated from non-operating activities (e.g., interest, dividends, asset sales). This supplements operating revenue but isn't from the core business.</i>
                             </div>
                         </td>
-                        <td>16,094.00</td><td>12,128.00</td><td>11,229.00</td><td>13,872.00</td>
+                        <td>16,094.00<span class="percentage-impact green">(0.08%)</span></td><td>12,128.00</td><td>11,229.00</td><td>13,872.00</td>
                     </tr>
                     <tr class="grand-total">
                         <td>
@@ -178,7 +179,7 @@
                                 <i>The sum of all operating and non-operating income, representing the company's total earnings before expenses. This is the ultimate top-line figure.</i>
                             </div>
                         </td>
-                        <td>533,443.00</td><td>546,662.00</td><td>539,544.00</td><td>437,575.00</td>
+                        <td>5,33,443.00</td><td>5,46,661.00</td><td>539,544.00</td><td>437,575.00</td>
                     </tr>
 
                     <tr class="category">
@@ -196,7 +197,7 @@
                                 <i>The direct cost of raw materials used in production. A high figure here indicates a significant portion of revenue is consumed by input costs.</i>
                             </div>
                         </td>
-                        <td>384,021.00</td><td>376,418.00</td><td>391,508.00</td><td>320,852.00</td>
+                        <td>3,84,021.00<span class="percentage-impact red">(2.07%)</span></td><td>3,76,418.00</td><td>3,91,508.00</td><td>320,852.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -205,7 +206,7 @@
                                 <i>The cost of goods bought for resale. This is a direct cost for trading businesses and reduces gross profit.</i>
                             </div>
                         </td>
-                        <td>15,864.00</td><td>13,453.00</td><td>9,974.00</td><td>10,691.00</td>
+                        <td>15,864.00<span class="percentage-impact green">(0.09%)</span></td><td>13,453.00</td><td>9,974.00</td><td>10,691.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -214,7 +215,7 @@
                                 <i>Expenses directly attributable to core operations but not raw materials. These reduce operational efficiency if not managed well.</i>
                             </div>
                         </td>
-                        <td>43,003.00</td><td>40,027.00</td><td>44,396.00</td><td>27,155.00</td>
+                        <td>43,003.00<span class="percentage-impact yellow">(0.23%)</span></td><td>40,027.00</td><td>44,396.00</td><td>27,155.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -223,7 +224,7 @@
                                 <i>Reflects the net increase or decrease in inventory values. A decrease adds to cost of goods sold, while an increase reduces it, impacting gross profit.</i>
                             </div>
                         </td>
-                        <td>-10,679.00</td><td>2,700.00</td><td>-6,487.00</td><td>-7,962.00</td>
+                        <td>4,052.00<span class="percentage-impact green">(0.02%)</span></td><td>3,205.00</td><td>-6,487.00</td><td>-7,962.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -232,7 +233,7 @@
                                 <i>Costs related to employee compensation and benefits. This is a significant operating expense for most businesses, impacting overall profitability.</i>
                             </div>
                         </td>
-                        <td>8,690.00</td><td>7,807.00</td><td>5,691.00</td><td>5,426.00</td>
+                        <td>8,690.00<span class="percentage-impact green">(0.05%)</span></td><td>7,807.00</td><td>5,691.00</td><td>5,426.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -241,7 +242,7 @@
                                 <i>The cost of borrowing (interest expense). This impacts profitability, especially for highly leveraged companies, and is deducted before tax.</i>
                             </div>
                         </td>
-                        <td>10,054.00</td><td>13,430.00</td><td>12,626.00</td><td>9,123.00</td>
+                        <td>10,054.00<span class="percentage-impact green">(0.05%)</span></td><td>13,430.00</td><td>12,626.00</td><td>9,123.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -250,7 +251,7 @@
                                 <i>Non-cash expenses allocating the cost of long-term assets over their useful lives. These reduce taxable income but don't involve immediate cash outflow.</i>
                             </div>
                         </td>
-                        <td>17,981.00</td><td>17,690.00</td><td>10,118.00</td><td>10,276.00</td>
+                        <td>31,105.00<span class="percentage-impact green">(0.17%)</span></td><td>27,807.00</td><td>10,118.00</td><td>10,276.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -259,9 +260,9 @@
                                 <i>Miscellaneous operating expenses not fitting other categories. Their magnitude can indicate efficiency or unusual expenditures.</i>
                             </div>
                         </td>
-                        <td>21,228.00</td><td>21,523.00</td><td>18,665.00</td><td>15,951.00</td>
+                        <td>21,228.00<span class="percentage-impact green">(0.11%)</span></td><td>21,523.00</td><td>18,665.00</td><td>15,951.00</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>
                             <span class="collapsible">Less: Transfer To / From Investment / Fixed Assets / Others</span>
                             <div class="explanation">
@@ -278,7 +279,7 @@
                             </div>
                         </td>
                         <td>2,847.00</td><td>0.00</td><td>0.00</td><td>0.00</td>
-                    </tr>
+                    </tr> -->
                     <tr class="grand-total">
                         <td>
                             <span class="collapsible" style="color:blue">Total Expenses</span>
@@ -286,7 +287,7 @@
                                 <i>The sum of all costs incurred by the company. This figure is subtracted from total revenue to arrive at profit before tax, indicating overall cost management.</i>
                             </div>
                         </td>
-                        <td>487,315.00</td><td>491,389.00</td><td>485,411.00</td><td>390,789.00</td>
+                        <td>5,09,913.00</td><td>5,03,670.00</td><td>485,411.00</td><td>390,789.00</td>
                     </tr>
 
                     <tr class="grand-total">
@@ -296,7 +297,7 @@
                                 <i>The operating profit or loss before unusual items and taxes. This is a strong indicator of core operational performance.</i>
                             </div>
                         </td>
-                        <td>46,128.00</td><td>55,273.00</td><td>54,133.00</td><td>46,786.00</td>
+                        <td>23,530.00</td><td>42,992.00</td><td>54,133.00</td><td>46,786.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -305,7 +306,7 @@
                                 <i>Significant, non-recurring items that are unusual but not outside normal operations (e.g., large restructuring costs). These impact net profit but are separately disclosed for clarity.</i>
                             </div>
                         </td>
-                        <td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td>
+                        <td>211.00<span class="percentage-impact green">(0.02%)</span></td><td>156.00</td><td>0.00</td><td>0.00</td>
                     </tr>
                     <tr class="grand-total">
                         <td>
@@ -314,7 +315,7 @@
                                 <i>The profit or loss after all operating and non-operating revenues and expenses (including exceptional items), but before income tax. This is a key measure of pre-tax profitability.</i>
                             </div>
                         </td>
-                        <td>46,128.00</td><td>55,273.00</td><td>54,133.00</td><td>46,786.00</td>
+                        <td>23,319.00</td><td>42,836.00</td><td>54,133.00</td><td>46,786.00</td>
                     </tr>
 
                     <tr class="category">
@@ -332,7 +333,7 @@
                                 <i>The amount of income tax payable on the current period's taxable profit. This is a direct outflow or liability.</i>
                             </div>
                         </td>
-                        <td>9,399.00</td><td>10,922.00</td><td>6,186.00</td><td>787.00</td>
+                        <td>5,463.00<span class="percentage-impact red">(0.55%)</span></td><td>10,132.00</td><td>6,186.00</td><td>787.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -350,7 +351,7 @@
                                 <i>The sum of current and deferred tax expenses for the period. This represents the total tax burden on the company's profits.</i>
                             </div>
                         </td>
-                        <td>10,866.00</td><td>13,231.00</td><td>11,116.00</td><td>7,702.00</td>
+                        <td>3,996.00</td><td>7,823.00</td><td>11,116.00</td><td>7,702.00</td>
                     </tr>
 
                     <tr class="grand-total">
@@ -360,7 +361,7 @@
                                 <i>The profit or loss after deducting tax expenses but before considering any extraordinary items. This provides a clear view of post-tax operational earnings.</i>
                             </div>
                         </td>
-                        <td>35,262.00</td><td>42,042.00</td><td>43,017.00</td><td>39,084.00</td>
+                        <td>19,323.00</td><td>35,013.00</td><td>43,017.00</td><td>39,084.00</td>
                     </tr>
                     <tr class="grand-total">
                         <td>
@@ -369,8 +370,8 @@
                                 <i>The net profit or loss generated from the ongoing core business activities. This highlights the performance of the sustainable parts of the business.</i>
                             </div>
                         </td>
-                        <td>35,262.00</td><td>42,042.00</td><td>43,017.00</td><td>39,084.00</td>
-                    </tr>
+                        <td>19,323.00</td><td>35,013.00</td><td>43,017.00</td><td>39,084.00</td>
+                    </tr>   
                     <tr>
                         <td>
                             <span class="collapsible">Profit Loss From Discontinuing Operations</span>
@@ -378,7 +379,7 @@
                                 <i>The profit or loss generated from segments of the business that have been disposed of or are held for sale. This separates the impact of divested businesses.</i>
                             </div>
                         </td>
-                        <td>0.00</td><td>0.00</td><td>1,188.00</td><td>0.00</td>
+                        <td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td>
                     </tr>
                     <tr>
                         <td>
@@ -387,9 +388,9 @@
                                 <i>The profit or loss from discontinued operations after deducting related tax effects. This gives the final impact of divested segments on net income.</i>
                             </div>
                         </td>
-                        <td>0.00</td><td>0.00</td><td>1,188.00</td><td>0.00</td>
+                        <td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td>
                     </tr>
-                    <tr class="grand-total">
+                    <!-- <tr class="grand-total">
                         <td>
                             <span class="collapsible">Profit/Loss For The Period</span>
                             <div class="explanation">
@@ -400,7 +401,7 @@
                     </tr>
 
                     <tr class="section-title">
-                        <td colspan="5"> <!-- Changed to colspan="5" -->
+                        <td colspan="5"> 
                             <span class="collapsible">OTHER ADDITIONAL INFORMATION</span>
                             <div class="explanation">
                                 <i>This section provides supplementary financial details important for a complete understanding of the company's performance and financial health.</i>
@@ -408,7 +409,7 @@
                         </td>
                     </tr>
                     <tr class="category">
-                        <td colspan="5"> <!-- Changed to colspan="5" -->
+                        <td colspan="5">
                             <span class="collapsible">EARNINGS PER SHARE</span>
                             <div class="explanation">
                                 <i>A key metric for investors, indicating the portion of a company's profit allocated to each outstanding share of common stock. Higher EPS generally signals better profitability per share.</i>
@@ -435,7 +436,7 @@
                     </tr>
 
                     <tr class="category">
-                        <td colspan="5"> <!-- Changed to colspan="5" -->
+                        <td colspan="5"> 
                             <span class="collapsible">VALUE OF IMPORTED AND INDIGENOUS RAW MATERIALS</span>
                             <div class="explanation">
                                 <i>Details on the cost of raw materials sourced from foreign countries (imported) and domestically (indigenous). This provides insight into supply chain strategy and cost structure.</i>
@@ -453,7 +454,7 @@
                     </tr>
 
                     <tr class="category">
-                        <td colspan="5"> <!-- Changed to colspan="5" -->
+                        <td colspan="5"> 
                             <span class="collapsible">DIVIDEND AND DIVIDEND PERCENTAGE</span>
                             <div class="explanation">
                                 <i>Information regarding the dividend declared per share and its percentage relative to the face value of shares. This impacts shareholder returns and retained earnings.</i>
@@ -477,7 +478,7 @@
                             </div>
                         </td>
                         <td>55.00</td><td>100.00</td><td>90.00</td><td>80.00</td>
-                    </tr>
+                    </tr> --> 
                 </tbody>
             </table>
         </div>
