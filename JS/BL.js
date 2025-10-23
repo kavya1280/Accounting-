@@ -229,7 +229,7 @@ donutData.forEach((item, index) => {
             datasets: [
               {
                 type: "bar",
-                label: "Impact Percentage",
+                label: "Impact Amount",
                 data: monthlyImpactAmounts,
                 backgroundColor: getCssVar("--bar-color"),
                 hoverBackgroundColor: getCssVar("--bar-hover-color"),
@@ -239,7 +239,7 @@ donutData.forEach((item, index) => {
               },
               {
                 type: "line",
-                label: "Number of Insights",
+                label: "% of total impact",
                 data: monthlyInsightCounts,
                 borderColor: getCssVar("--line-color"),
                 backgroundColor: "transparent",
