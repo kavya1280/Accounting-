@@ -36,9 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       const url = "/assets/" + this.dataset.insightUrl;
       if (url) {
-        // insightIframe.src = url;
-        // const originalText = this.textContent.replace(/\s\(.*?\%\)$/, '').trim();
-        // modalTitle.textContent = originalText + " Insights";
         const response = await fetch(url);
         const json = await response.json();
         insightModal.style.display = "flex";
@@ -48,8 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .getPropertyValue(varName)
             .trim();
         }
-
-        // Update the header insight category name
 
         // --- Business Impact Table Data ---
         const impactRows = json.table;
@@ -77,10 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
           console.log("First Impact Percentage:", firstImpactPercentage);
 
-          
-
-          // create and append rows...
-
           let percentageClass = "green"; // Default color
           // Example: Apply 'red' for higher impact, 'yellow' for medium
           if (impactPercentage > 70) {
@@ -103,108 +94,109 @@ document.addEventListener("DOMContentLoaded", () => {
           impactTableBody.appendChild(row);
         });
 
-// Set the total in the donut chart overlay
-document.getElementById("donutTotalAmount").textContent =
-  new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(totalImpactAmount);
+        // Set the total in the donut chart overlay
+        document.getElementById("donutTotalAmount").textContent =
+          new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(totalImpactAmount);
 
-// --- Balance Sheet Impact Distribution Donut Chart ---
-const ctxDonut = document
-  .getElementById("revenueDonutChart")
-  .getContext("2d");
+        // --- Balance Sheet Impact Distribution Donut Chart ---
+        const ctxDonut = document
+          .getElementById("revenueDonutChart")
+          .getContext("2d");
 
-// Map and sort the data (smallest → largest)
-const donutData = impactRows
-  .map((item) => ({
-    label: item.insight,
-    amount: item.amount,
-  }))
-  .sort((a, b) => a.amount - b.amount); // 🔹 Sort ascending order
+        // Map and sort the data (smallest → largest)
+        const donutData = impactRows
+          .map((item) => ({
+            label: item.insight,
+            amount: item.amount,
+          }))
+          .sort((a, b) => a.amount - b.amount); // 🔹 Sort ascending order
 
-const chartColors = [
-  getCssVar("--color-product-sales"), // Red
-  getCssVar("--color-service-revenue"), // Teal
-  getCssVar("--color-subscriptions"),
-  getCssVar("--color-consulting"),
-  getCssVar("--color-licensing"),
-  getCssVar("--color-training"),
-  getCssVar("--color-misc"),
-  getCssVar("--color-gray"),
-  getCssVar("--color-red"),
-  getCssVar("--color-pink"),
-  getCssVar("--color-purple"),
-  // Add more colors if needed
-];
+        const chartColors = [
+          getCssVar("--color-product-sales"), // Red
+          getCssVar("--color-service-revenue"), // Teal
+          getCssVar("--color-subscriptions"),
+          getCssVar("--color-consulting"),
+          getCssVar("--color-licensing"),
+          getCssVar("--color-training"),
+          getCssVar("--color-misc"),
+          getCssVar("--color-gray"),
+          getCssVar("--color-red"),
+          getCssVar("--color-pink"),
+          getCssVar("--color-purple"),
+          // Add more colors if needed
+        ];
 
-// Create the chart
-revenueDonutChart = new Chart(ctxDonut, {
-  type: "doughnut",
-  data: {
-    labels: donutData.map((d) => d.label),
-    datasets: [
-      {
-        data: donutData.map((d) => d.amount),
-        backgroundColor: chartColors.slice(0, donutData.length),
-        hoverOffset: 8,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            let label = context.label || "";
-            if (label) label += ": ";
-            if (context.parsed !== null) {
-              const value = new Intl.NumberFormat("en-US").format(
-                context.parsed
-              );
-              const currentTotal = context.dataset.data.reduce(
-                (sum, val) => sum + val,
-                0
-              );
-              const percentage = (
-                (context.parsed / currentTotal) *
-                100
-              ).toFixed(2);
-              label += `Rs. ${value} (${percentage}%)`;
-            }
-            return label;
+        // Create the chart
+        revenueDonutChart = new Chart(ctxDonut, {
+          type: "doughnut",
+          data: {
+            labels: donutData.map((d) => d.label),
+            datasets: [
+              {
+                data: donutData.map((d) => d.amount),
+                backgroundColor: chartColors.slice(0, donutData.length),
+                hoverOffset: 8,
+              },
+            ],
           },
-        },
-      },
-    },
-    cutout: "70%",
-    animation: {
-      animateRotate: true,
-      animateScale: true,
-      duration: 1000,
-      easing: "easeOutQuart",
-    },
-  },
-});
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    let label = context.label || "";
+                    if (label) label += ": ";
+                    if (context.parsed !== null) {
+                      const value = new Intl.NumberFormat("en-US").format(
+                        context.parsed
+                      );
+                      const currentTotal = context.dataset.data.reduce(
+                        (sum, val) => sum + val,
+                        0
+                      );
+                      const percentage = (
+                        (context.parsed / currentTotal) *
+                        100
+                      ).toFixed(2);
+                      label += `Rs. ${value} (${percentage}%)`;
+                    }
+                    return label;
+                  },
+                },
+              },
+            },
+            cutout: "70%",
+            animation: {
+              animateRotate: true,
+              animateScale: true,
+              duration: 1000,
+              easing: "easeOutQuart",
+            },
+          },
+        });
 
-// --- Legend Setup ---
-const legendContainer = document.getElementById("revenueChartLegend");
-legendContainer.innerHTML = ""; // Clear existing legend
+        // --- Legend Setup ---
+        const legendContainer = document.getElementById("revenueChartLegend");
+        legendContainer.innerHTML = ""; // Clear existing legend
 
-donutData.forEach((item, index) => {
-  const li = document.createElement("li");
-  li.innerHTML = `
+        donutData.forEach((item, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
     <span class="legend-color" style="background-color: ${
       chartColors[index]
     }"></span>
+    ${item.label}
   `;
-  legendContainer.appendChild(li);
-});
+          legendContainer.appendChild(li);
+        });
         // --- Combined Line & Bar Chart (Balance Sheet Impact Over Time) ---
         const ctxCombined = document
           .getElementById("exceptionCombinedChart")
@@ -646,17 +638,17 @@ donutData.forEach((item, index) => {
     });
   }
 
-// --- Slider Functionality ---
+  // --- Slider Functionality ---
   const impactSlider = document.getElementById("impactSlider");
   const sliderValueSpan = document.getElementById("sliderValue");
-  
-  const profitLossRows = document.querySelectorAll( 
+
+  const profitLossRows = document.querySelectorAll(
     "#profitLossContent tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
   );
 
   // Store original values for FY 24-25 for all relevant cells
   const originalFy2425Values = new Map();
-  profitLossRows.forEach((row) => { 
+  profitLossRows.forEach((row) => {
     const fy2425Cell = row.querySelector(".year-column.fy-24-25 .insight-trigger");
     if (fy2425Cell) {
       const originalValue = cleanValue(fy2425Cell.textContent);
@@ -666,12 +658,12 @@ donutData.forEach((item, index) => {
 
   // Set initial slider value to the HTML defined value
   const months = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
-  
+
   // Ensure the slider starts at a valid value (e.g., 1 for April if initial is 0)
   const initialSliderHtmlValue = parseFloat(impactSlider.value);
-  const correctedInitialSliderValue = initialSliderHtmlValue === 0 ? 1 : initialSliderHtmlValue; 
-  impactSlider.value = correctedInitialSliderValue; 
-  sliderValueSpan.textContent = months[correctedInitialSliderValue - 1]; 
+  const correctedInitialSliderValue = initialSliderHtmlValue === 0 ? 1 : initialSliderHtmlValue;
+  impactSlider.value = correctedInitialSliderValue;
+  sliderValueSpan.textContent = months[correctedInitialSliderValue - 1];
 
 
   impactSlider.addEventListener("input", function() {
@@ -679,11 +671,11 @@ donutData.forEach((item, index) => {
     sliderValueSpan.textContent = months[sliderCurrentValue - 1]; // Adjust for 0-indexed array
 
     // Apply random impact based on slider value
-    profitLossRows.forEach((row) => { 
+    profitLossRows.forEach((row) => {
       const fy2425Cell = row.querySelector(".year-column.fy-24-25 .insight-trigger");
       if (fy2425Cell) {
         const originalValue = originalFy2425Values.get(fy2425Cell);
-        
+
         let newValue = originalValue; // Start with the original value
 
         // Only apply deviation if the original value is not 0
@@ -693,10 +685,10 @@ donutData.forEach((item, index) => {
             const deviationFactor = Math.abs(sliderCurrentValue - sliderMidpoint) / (deviationRange / 2); // Scales from 0 to 1
 
             const maxImpactPercentage = 0.50; // Max 50% deviation
-            const randomFactor = 1 + (Math.random() * 2 - 1) * maxImpactPercentage * deviationFactor; 
+            const randomFactor = 1 + (Math.random() * 2 - 1) * maxImpactPercentage * deviationFactor;
             newValue = originalValue * randomFactor;
         }
-        
+
         // Update the displayed value
         const formattedValue = new Intl.NumberFormat("en-US", {
           minimumFractionDigits: 2,
@@ -714,5 +706,4 @@ donutData.forEach((item, index) => {
     });
     calculateAndDisplayPercentages(); // Recalculate percentages after value changes
   });
-
 });
