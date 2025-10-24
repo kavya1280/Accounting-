@@ -26,7 +26,7 @@
 
 
         <!-- Link your JavaScript file here, preferably defer to ensure DOM is loaded -->
-        <script src="JS/BL.js" defer></script>
+        <script src="JS/BL.js"></script>
     </head>
 <body>
     <header class="header">
@@ -119,15 +119,19 @@
           <button class="gradient-btn" onclick="window.location.href='duplicate-bs.html'">View More</button>
         </div>
 
-                <!-- Monthly Slider Placeholder -->
- <div class="slider-container">
-            <h3>Adjust Impact for <span id="sliderYear">FY 24-25</span></h3>
-            <div class="slider-wrapper">
-                <label for="impactSlider">Impact Value:</label>
-                <input type="range" min="1" max="12" value="0" class="slider" id="impactSlider">
-                <span id="sliderValue">April</span>
-            </div>
-        </div>     
+<div class="slider-container">
+  <h3>Adjust Impact for <span id="sliderYear">FY 24-25</span></h3>
+
+  <div class="range-slider">
+    <div class="slider-track"></div>
+    <input type="range" min="1" max="12" value="1" id="slider-1" />
+    <input type="range" min="1" max="12" value="12" id="slider-2" />
+    <div class="slider-labels">
+      <span id="rangeFromMonth">April</span>
+      <span id="rangeToMonth">March</span>
+    </div>
+  </div>
+</div>     
             <table>
                 <thead>
                     <tr>
@@ -283,8 +287,8 @@
                                 <a href="Balancesheet-view-details.html?selected=Long Term Provisions" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/long-term-provision25.json" style="text-decoration: none;">910.00<span class="percentage-impact green">(0.00%)</span></span></td>
-                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/long-term-provision24.json" style="text-decoration: none;">853.00</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/long-term-provisions25.json" style="text-decoration: none;">910.00<span class="percentage-impact green">(0.00%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/long-term-provisions24.json" style="text-decoration: none;">853.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">1,296.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">1,598.00</span></td>
                         <td class="year-data fy-20-21 hidden-year-data" data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">1,499.00</span></td>
@@ -361,7 +365,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Short Term Provisions" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/short-term-provisions25.json" style="text-decoration: none;">1,156.00</span><span class="percentage-impact green">(0.01%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/short-term-provisions25.json" style="text-decoration: none;">1,156.00<span class="percentage-impact green">(0.01%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/short-term-provisions24.json" style="text-decoration: none;">972.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">926.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">896.00</span></td>
@@ -420,7 +424,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Tangible Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/tangiable-assets25.json" style="text-decoration: none;">2,67,096.00</span><span class="percentage-impact red">(0.73%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/tangiable-assets25.json" style="text-decoration: none;">2,67,096.00<span class="percentage-impact red">(0.73%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/tangiable-assets24.json" style="text-decoration: none;">2,37,351.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">2,32,238.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">2,23,824.00</span></td>
@@ -434,7 +438,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Intangible Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/intangible-assets25.json" style="text-decoration: none;">43,951.00</span><span class="percentage-impact green">(0.12%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/intangible-assets25.json" style="text-decoration: none;">43,951.00<span class="percentage-impact green">(0.12%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/intangible-assets24.json" style="text-decoration: none;">40,719.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">12,926.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">15,802.00</span></td>
@@ -448,7 +452,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Capital Work-In-Progress" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/work-in-progress25.json" style="text-decoration: none;">76,322.00</span><span class="percentage-impact yellow">(0.21%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/work-in-progress25.json" style="text-decoration: none;">76,322.00<span class="percentage-impact yellow">(0.21%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/work-in-progress24.json" style="text-decoration: none;">44,294.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">30,958.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">19,267.00</span></td>
@@ -462,7 +466,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Intangible Assets Under Development" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/assets-under-develop25.json" style="text-decoration: none;">6,095.00</span><span class="percentage-impact green">(0.02%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/assets-under-develop25.json" style="text-decoration: none;">6,095.00<span class="percentage-impact green">(0.02%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/assets-under-develop24.json" style="text-decoration: none;">17,338.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">17,957.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">15,395.00</span></td>
@@ -490,7 +494,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Non-Current Investments" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/non-current-investments25.json" style="text-decoration: none;">3,33,258.00</span><span class="percentage-impact red">(0.91%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/non-current-investments25.json" style="text-decoration: none;">3,33,258.00<span class="percentage-impact red">(0.91%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/non-current-investments24.json" style="text-decoration: none;">3,01,400.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">3,03,558.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">3,30,493.00</span></td>
@@ -504,7 +508,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Long Term Loans And Advances" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/loans&advance25.json" style="text-decoration: none;">4,941.00</span><span class="percentage-impact green">(0.01%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/loans&advance25.json" style="text-decoration: none;">4,941.00<span class="percentage-impact green">(0.01%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/loans&advance24.json" style="text-decoration: none;">10,051.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">22,448.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">41,951.00</span></td>
@@ -518,7 +522,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Other Non-Current Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/other-non-current-assets25.json" style="text-decoration: none;">21,175.00</span><span class="percentage-impact green">(0.06%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/other-non-current-assets25.json" style="text-decoration: none;">21,175.00<span class="percentage-impact green">(0.06%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/other-non-current-assets24.json" style="text-decoration: none;">24,305.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">4,548.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">9,544.00</span></td>
@@ -554,7 +558,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Current Investments" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/current-investments25.json" style="text-decoration: none;">57,102.00</span><span class="percentage-impact green">(0.16%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/current-investments25.json" style="text-decoration: none;">57,102.00<span class="percentage-impact green">(0.16%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/current-investments24.json" style="text-decoration: none;">68,663.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">86,074.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">78,304.00</span></td>
@@ -568,7 +572,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Inventories" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/inventories25.json" style="text-decoration: none;">82,756.00</span><span class="percentage-impact yellow">(0.23%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/inventories25.json" style="text-decoration: none;">82,756.00<span class="percentage-impact yellow">(0.23%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/inventories24.json" style="text-decoration: none;">78,704.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">48,926.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">45,923.00</span></td>
@@ -582,7 +586,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Trade Receivables" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/trade-receivables25.json" style="text-decoration: none;">15,591.00</span><span class="percentage-impact green">(0.04%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/trade-receivables25.json" style="text-decoration: none;">15,591.00<span class="percentage-impact green">(0.04%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/trade-receivables24.json" style="text-decoration: none;">17,470.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">16,898.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">14,394.00</span></td>
@@ -596,7 +600,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Cash And Cash Equivalents" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/c&c-25.json" style="text-decoration: none;">82,471.00</span><span class="percentage-impact yellow">(0.22%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/c&c-25.json" style="text-decoration: none;">82,471.00<span class="percentage-impact yellow">(0.22%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/c&c-24.json" style="text-decoration: none;">69,248.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">56,811.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">21,714.00</span></td>
@@ -610,7 +614,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Short Term Loans And Advances" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/short-term-loans25.json" style="text-decoration: none;">595.00</span><span class="percentage-impact green">(0.00%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/short-term-loans25.json" style="text-decoration: none;">595.00<span class="percentage-impact green">(0.00%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/short-term-loans24.json" style="text-decoration: none;">161.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">595.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">161.00</span></td>
@@ -624,7 +628,7 @@
                                 <a href="Balancesheet-view-details.html?selected=Other Current Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/other-current-assets25.json" style="text-decoration: none;">25,183.00</span><span class="percentage-impact green">(0.07%)</span></td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/other-current-assets25.json" style="text-decoration: none;">25,183.00<span class="percentage-impact green">(0.07%)</span></span></td>
                         <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/other-current-assets24.json" style="text-decoration: none;">24,874.00</span></td>
                         <td class="year-data fy-22-23 hidden-year-data" data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">56,628.00</span></td>
                         <td class="year-data fy-21-22 hidden-year-data" data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">61,902.00</span></td>

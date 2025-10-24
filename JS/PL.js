@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let exceptionCombinedChart;
   let totalImpactPercentage = 0;
   let firstImpactPercentage = 0;
-  // --- Existing Collapsible Functionality ---
+
+  // --- Collapsible Functionality ---
   const collapsibles = document.querySelectorAll(".collapsible");
   collapsibles.forEach((collapsible) => {
     collapsible.addEventListener("click", function () {
@@ -18,12 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- Existing Insight Modal Functionality ---
+  // --- Insight Modal Functionality ---
   const insightTriggers = document.querySelectorAll(".insight-trigger");
   const insightModal = document.getElementById("insightModal");
-  const insightIframe = document.getElementById("insightIframe");
   const modalCloseBtn = document.getElementById("modalCloseBtn");
-  const modalTitle = document.getElementById("modalTitle");
+  // const modalTitle = document.getElementById("modalTitle"); // Not used directly, but keep if needed for dynamic title later
 
   insightTriggers.forEach((trigger) => {
     trigger.addEventListener("click", async function (event) {
@@ -57,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const impactTableBody = document.querySelector(".impact-table tbody");
         impactTableBody.innerHTML = "";
 
+        totalImpactPercentage = 0; // Reset for each new insight modal
+        firstImpactPercentage = 0; // Reset for each new insight modal
+
         impactRows.forEach((item, index) => {
           const impactPercentage = (
             (item.amount / totalImpactAmount) *
@@ -70,15 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
           totalImpactPercentage += parseFloat(impactPercentage);
 
-          console.log("First Impact Percentage:", firstImpactPercentage);
-
           let percentageClass = "green"; // Default color
-          // Example: Apply 'red' for higher impact, 'yellow' for medium
           if (impactPercentage > 70) {
-            // Example threshold
             percentageClass = "red";
           } else if (impactPercentage > 40 && impactPercentage < 70) {
-            // Example threshold
             percentageClass = "yellow";
           }
 
@@ -190,14 +188,14 @@ document.addEventListener("DOMContentLoaded", () => {
         donutData.forEach((item, index) => {
           const li = document.createElement("li");
           li.innerHTML = `
-    <span class="legend-color" style="background-color: ${
-      chartColors[index]
-    }"></span>
-    ${item.label}
-  `;
+            <span class="legend-color" style="background-color: ${
+              chartColors[index]
+            }"></span>
+          `;
           legendContainer.appendChild(li);
         });
-        // --- Combined Line & Bar Chart (Balance Sheet Impact Over Time) ---
+
+        // --- Combined Line & Bar Chart (Profit & Loss Impact Over Time) ---
         const ctxCombined = document
           .getElementById("exceptionCombinedChart")
           .getContext("2d");
@@ -211,9 +209,8 @@ document.addEventListener("DOMContentLoaded", () => {
           "FY 24-25",
         ];
 
-        const monthlyImpactAmounts = [1, 1, 1, 2, firstImpactPercentage];
-        // Example: Number of new insights/issues identified per month
-        const monthlyInsightCounts = [0, 0, 0, 0, firstImpactPercentage];
+        const monthlyImpactAmounts = [1, 1, 1, 2, firstImpactPercentage]; // Using firstImpactPercentage for FY 24-25
+        const monthlyInsightCounts = [0, 0, 0, 0, firstImpactPercentage]; // Using firstImpactPercentage for FY 24-25
 
         exceptionCombinedChart = new Chart(ctxCombined, {
           data: {
@@ -365,15 +362,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
   modalCloseBtn.addEventListener("click", function () {
     insightModal.style.display = "none";
-    // insightIframe.src = '';
   });
 
   insightModal.addEventListener("click", function (event) {
     if (event.target === insightModal) {
       insightModal.style.display = "none";
-      // insightIframe.src = '';
     }
   });
 
@@ -412,8 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setActiveNavButton(balanceSheetBtn);
   }
 
-  // --- NEW: Year Visibility Functionality ---
-
+  // --- Year Visibility Functionality ---
   const allYearColumns = document.querySelectorAll(".year-column");
   const allYearDataCells = document.querySelectorAll(".year-data");
   const sectionTitleCells = document.querySelectorAll(
@@ -482,7 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial state: Show only default years when the page loads
   hideOtherYears();
 
-  // --- Existing Percentage Calculation Logic ---
+  // --- Percentage Calculation Logic ---
   function cleanValue(value) {
     return (
       parseFloat(
@@ -639,8 +634,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- Slider Functionality ---
-  const impactSlider = document.getElementById("impactSlider");
-  const sliderValueSpan = document.getElementById("sliderValue");
+  const slider1 = document.getElementById("slider-1");
+  const slider2 = document.getElementById("slider-2");
+  // const sliderYearSpan = document.getElementById("sliderYear"); // Not used directly, but keep if needed for dynamic year display
+  const rangeFromMonthSpan = document.getElementById("rangeFromMonth");
+  const rangeToMonthSpan = document.getElementById("rangeToMonth");
+  const sliderTrack = document.querySelector(".slider-track");
+
+  const months = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
+
+  function updateSliderLabels() {
+    const minVal = parseInt(slider1.value);
+    const maxVal = parseInt(slider2.value);
+
+    rangeFromMonthSpan.textContent = months[minVal - 1];
+    rangeToMonthSpan.textContent = months[maxVal - 1];
+
+    // Update track fill
+    const minPercent = ((minVal - slider1.min) / (slider1.max - slider1.min)) * 100;
+    const maxPercent = ((maxVal - slider2.min) / (slider2.max - slider2.min)) * 100;
+    sliderTrack.style.left = `${minPercent}%`;
+    sliderTrack.style.right = `${100 - maxPercent}%`;
+  }
+
+  // Initial update
+  updateSliderLabels();
 
   const profitLossRows = document.querySelectorAll(
     "#profitLossContent tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
@@ -656,46 +674,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Set initial slider value to the HTML defined value
-  const months = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
+  function applySliderImpact() {
+    const minMonth = parseInt(slider1.value);
+    const maxMonth = parseInt(slider2.value);
+    const numberOfMonthsSelected = maxMonth - minMonth + 1;
+    const totalPossibleMonths = 12; // April to March
 
-  // Ensure the slider starts at a valid value (e.g., 1 for April if initial is 0)
-  const initialSliderHtmlValue = parseFloat(impactSlider.value);
-  const correctedInitialSliderValue = initialSliderHtmlValue === 0 ? 1 : initialSliderHtmlValue;
-  impactSlider.value = correctedInitialSliderValue;
-  sliderValueSpan.textContent = months[correctedInitialSliderValue - 1];
-
-
-  impactSlider.addEventListener("input", function() {
-    const sliderCurrentValue = parseFloat(this.value);
-    sliderValueSpan.textContent = months[sliderCurrentValue - 1]; // Adjust for 0-indexed array
-
-    // Apply random impact based on slider value
     profitLossRows.forEach((row) => {
       const fy2425Cell = row.querySelector(".year-column.fy-24-25 .insight-trigger");
       if (fy2425Cell) {
         const originalValue = originalFy2425Values.get(fy2425Cell);
-
-        let newValue = originalValue; // Start with the original value
-
-        // Only apply deviation if the original value is not 0
-        if (originalValue !== 0) {
-            const sliderMidpoint = (parseFloat(impactSlider.max) + parseFloat(impactSlider.min)) / 2;
-            const deviationRange = parseFloat(impactSlider.max) - parseFloat(impactSlider.min);
-            const deviationFactor = Math.abs(sliderCurrentValue - sliderMidpoint) / (deviationRange / 2); // Scales from 0 to 1
-
-            const maxImpactPercentage = 0.50; // Max 50% deviation
-            const randomFactor = 1 + (Math.random() * 2 - 1) * maxImpactPercentage * deviationFactor;
-            newValue = originalValue * randomFactor;
-        }
-
-        // Update the displayed value
+        
+        // Calculate impact factor based on the number of selected months
+        // If 12 months are selected, the factor is 1 (original value)
+        // If fewer months are selected, the impact is proportionally reduced
+        const impactFactor = numberOfMonthsSelected / totalPossibleMonths;
+        const newValue = originalValue * impactFactor;
+        
+        // Update the displayed value, keeping only the number part for calculations
         const formattedValue = new Intl.NumberFormat("en-US", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         }).format(newValue);
 
-        // Keep the percentage span if it exists, otherwise just set the number
         let percentageSpan = fy2425Cell.querySelector(".percentage-impact");
         if (percentageSpan) {
             fy2425Cell.innerHTML = `${formattedValue} ${percentageSpan.outerHTML}`;
@@ -705,5 +706,24 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
     calculateAndDisplayPercentages(); // Recalculate percentages after value changes
+  }
+
+  slider1.addEventListener("input", () => {
+    if (parseInt(slider1.value) > parseInt(slider2.value)) {
+      slider1.value = slider2.value;
+    }
+    updateSliderLabels();
+    applySliderImpact();
   });
+
+  slider2.addEventListener("input", () => {
+    if (parseInt(slider2.value) < parseInt(slider1.value)) {
+      slider2.value = slider1.value;
+    }
+    updateSliderLabels();
+    applySliderImpact();
+  });
+
+  // Apply initial impact based on default slider positions
+  applySliderImpact();
 });
