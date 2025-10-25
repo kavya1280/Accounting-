@@ -17,7 +17,7 @@ body {
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Changed from anchor-center to center for correct alignment */
+    align-items: center;
     padding: 20px 40px;
     background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent */
     border-bottom: 1px solid #e0e0e0;
@@ -83,17 +83,6 @@ body {
     margin: 0 auto; /* Center the content */
 }
 
-/* Original title styling for h2 within .header if applicable, now also for main .title h2 */
-.header .title h2 { /* This rule seems redundant if .title is outside .header, check HTML */
-    font-family: 'Yatra One', sans-serif;
-    font-size: 2.5em; /* Adjust as needed for proper heading size */
-    color: #567ef5; /* Or your preferred color */
-    text-align: center; /* Center the heading if desired */
-    margin: 0;
-    padding: 10px 0;
-}
-
-/* Main title styling */
 .title {
     width: 100%;
     display: flex;
@@ -454,47 +443,7 @@ body {
   box-shadow: 0 4px 8px rgba(33, 150, 243, 0.4); /* Deeper shadow on hover */
 }
 
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 25px; /* Adjusted margin */
-    padding-top: 15px; /* Padding above line */
-    border-top: 1px solid #e0e0e0; /* Separator line */
-}
 
-.pagination button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 18px; /* Adjusted padding */
-    margin: 0 5px;
-    border-radius: 20px; /* Softer rounded button */
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Subtle shadow */
-}
-
-.pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-}
-.pagination button:hover:not(:disabled) {
-    background-color: #0056b3;
-    transform: translateY(-2px); /* Lift on hover */
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Deeper shadow on hover */
-}
-
-.pagination span {
-    margin: 0 10px;
-    font-size: 15px; /* Slightly larger */
-    color: #555;
-    font-weight: 500;
-}
 
 .btn-container {
   text-align: center;
@@ -663,15 +612,120 @@ body {
         padding: 10px 12px;
         font-size: 14px;
     }
-    .pagination button {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-    .pagination span {
-        font-size: 13px;
-    }
     .nav-btn {
         width: 90%; /* Even more width for smaller screens */
         font-size: 15px;
+    }
+}
+
+/* --- NEW PAGINATION STYLES --- */
+/* Container for the entire pagination component */
+.pagination-container {
+  display: flex;
+  justify-content: center; /* Center the pagination controls horizontally */
+  align-items: center; /* Vertically align items */
+  margin-top: 25px; /* Space above the pagination */
+  padding-top: 15px; /* Padding above the separator line */
+  border-top: 1px solid #e0e0e0; /* Subtle separator line at the top */
+  gap: 8px; /* Space between pagination elements (buttons and numbers) */
+}
+
+/* Styling for 'Prev' and 'Next' buttons */
+.pagination-button {
+  background-color: #f0f0f0; /* Light gray background */
+  color: #333; /* Darker text color */
+  border: 1px solid #ccc; /* Subtle border */
+  padding: 8px 15px; /* Vertical and horizontal padding */
+  border-radius: 4px; /* Slightly rounded corners */
+  cursor: pointer; /* Indicates interactivity */
+  font-size: 14px;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions for hover/active states */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  min-width: 70px; /* Ensure consistent width for Prev/Next buttons */
+  text-align: center;
+}
+
+/* Styling for disabled 'Prev'/'Next' buttons */
+.pagination-button:disabled {
+    background-color: #e0e0e0; /* Lighter background when disabled */
+    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+    box-shadow: none; /* Remove shadow when disabled */
+    transform: none; /* Remove transform effects when disabled */
+    color: #999; /* Dim text color for disabled state */
+}
+
+/* Hover effect for 'Prev'/'Next' buttons (when not disabled) */
+.pagination-button:hover:not(:disabled) {
+    background-color: #e3f2fd; /* Light blue on hover */
+    transform: translateY(-1px); /* Slight lift effect */
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.1); /* Subtle blue shadow on hover */
+}
+
+/* Container for the individual page number links */
+.pagination-numbers {
+  display: flex;
+  gap: 5px; /* Space between individual page number links */
+}
+
+/* Styling for individual page number links */
+.page-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34px; /* Fixed width for square page number buttons */
+  height: 34px; /* Fixed height for square page number buttons */
+  text-decoration: none; /* Remove underline */
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Slightly rounded corners for square buttons */
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow for numbers */
+}
+
+/* Hover effect for page number links (when not active) */
+.page-link:hover:not(.active) {
+  background-color: #e3f2fd; /* Light blue on hover */
+  color: #1976d2; /* Darker blue text */
+  border-color: #a7d9f8; /* Lighter blue border */
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+/* Styling for the currently active page number link */
+.page-link.active {
+  background-color: #007bff; /* Solid blue for the active page */
+  color: #fff; /* White text for active page */
+  border-color: #007bff; /* Blue border to match background */
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3); /* Deeper blue shadow for active state */
+  transform: translateY(-1px); /* Keep consistent lift with hover */
+}
+
+/* Styling for the ellipsis (...) separator */
+.pagination-ellipsis {
+  padding: 0 2px; /* Smaller padding around the ellipsis */
+  color: #777; /* Dimmer color for visual separation */
+  font-size: 16px;
+  align-self: flex-end; /* Align ellipsis slightly to the bottom to look visually centered */
+}
+
+/* --- Responsive Adjustments for Pagination --- */
+@media (max-width: 768px) {
+    .pagination-container {
+      flex-wrap: wrap; /* Allow pagination elements to wrap to next line on smaller screens */
+      gap: 5px; /* Reduce gap between elements */
+    }
+    .pagination-button {
+      padding: 7px 12px; /* Smaller padding for buttons */
+      font-size: 13px; /* Smaller font size */
+      min-width: 60px; /* Reduce min-width */
+    }
+    .page-link {
+      width: 30px; /* Smaller width for page numbers */
+      height: 30px; /* Smaller height for page numbers */
+      font-size: 13px; /* Smaller font size */
+    }
+    .pagination-ellipsis {
+      font-size: 14px; /* Adjust ellipsis font size */
     }
 }

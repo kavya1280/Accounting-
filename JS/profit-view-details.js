@@ -1443,134 +1443,196 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 ];
 
-    // const kpiTotals = {
-    //     totalEquity: "150Cr", // Example value
-    //     totalLiabilities: "237Cr",
-    //     debtEquityRatio: "0.85",
-    //     netProfit: "+12.5%"
-    // };
+  let currentPage = 1; // Renamed pageNumber to currentPage for clarity
+  const pageSize = 8; // Number of items per page
+  let filteredInsightsData = []; // To store data after category filter
 
-let pageNumber=1;
-  let pageSize=8;
-  let totalItems=allInsightsData.length;
-  let totalPages=Math.ceil(totalItems/pageSize);
+  // --- DOM Elements ---
+  const insightsTableBody = document.querySelector("#insightsTable tbody");
+  const insightCategoryList = document.getElementById("insightCategoryList");
+  const pageNumbersContainer = document.getElementById("pageNumbers"); // New container for page number links
+  const nextPageButton = document.getElementById("nextPage");
+  const prevPageButton = document.getElementById("prevPage");
 
-  const nextPageButton=document.getElementById("nextPage");
-  const prevPageButton=document.getElementById("prevPage");
-
-  nextPageButton.addEventListener("click",()=>{
-    if(pageNumber<totalPages){
-        pageNumber++;
-        renderTable(allInsightsData);
-    }
-  });
-
-  prevPageButton.addEventListener("click",()=>{
-    if(pageNumber>1){
-        pageNumber--;
-        renderTable(allInsightsData);
-    }
-  });
-
-// --- DOM Elements ---
-const insightsTableBody = document.querySelector('#insightsTable tbody');
-const insightCategoryList = document.getElementById('insightCategoryList');
-
-
-// KPI elements
-const totalRevenue = document.getElementById('totalRevenue');
-const totalExpense = document.getElementById('totalExpense');
-const totalProfit = document.getElementById('totalProfit');
-const netProfit = document.getElementById('netProfit');
-const totalInsights = document.getElementById('totalInsights');
-const totalImpact = document.getElementById('totalImpact');
-
-// --- Functions ---
-
-// Function to render the table
-  const renderTable = (data, filterCategory = null) => {
+  // Function to render the table rows based on current page and filter
+  const renderTableRows = (data) => {
     insightsTableBody.innerHTML = ""; // Clear existing rows
-    const filteredData =
-      filterCategory && filterCategory !== "All"
-        ? data.filter((item) => item.lable === filterCategory) // Filter by insightCategory
-        : data;
-    totalItems=filteredData.length;
-    totalPages=Math.ceil(totalItems/pageSize);
-    const startIndex=(pageNumber-1)*pageSize;
-    const endIndex=startIndex+pageSize;
-    const paginatedData=filteredData.slice(startIndex,endIndex);
-    paginatedData.forEach((item) => {
-    const row = insightsTableBody.insertRow();
-    row.insertCell().textContent = item.insightID;
-    row.insertCell().textContent = item.insightCategory;
-    row.insertCell().textContent = item.insight;
-    row.insertCell().textContent = item.pnlAccount; // Correct column name
-    row.insertCell().textContent = item.pnlImpactDescription;
 
-    // Add the "Action" cell with the button
-    const actionCell = row.insertCell();
-    const viewButton = document.createElement("a");
-    viewButton.href = item.insighturl || "#"; // Use URL from data
-    viewButton.textContent = "Insight";
-    viewButton.classList.add("view-insight-btn");
-    actionCell.appendChild(viewButton);
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedData = data.slice(startIndex, endIndex);
+
+    if (paginatedData.length === 0 && currentPage > 1) {
+      // If no data on current page after filtering, go back one page if possible
+      currentPage = Math.max(1, currentPage - 1);
+      renderTableRows(data); // Re-render with new currentPage
+      return;
+    }
+
+    paginatedData.forEach((item) => {
+      const row = insightsTableBody.insertRow();
+      row.insertCell().textContent = item.insightID;
+      row.insertCell().textContent = item.insightCategory;
+      row.insertCell().textContent = item.insight;
+      row.insertCell().textContent = item.pnlAccount;
+      row.insertCell().textContent = item.pnlImpactDescription;
+
+      const actionCell = row.insertCell();
+      const viewButton = document.createElement("a");
+      viewButton.href = item.insighturl || "#";
+      viewButton.textContent = "Insight";
+      viewButton.classList.add("view-insight-btn");
+      actionCell.appendChild(viewButton);
+    });
+  };
+
+  // Helper to create and append page links or ellipsis
+  const appendPageLink = (text, className = "page-link") => {
+    const link = document.createElement(className === "page-link" ? "a" : "span");
+    link.textContent = text;
+    link.classList.add(className);
+    if (className === "page-link") {
+      link.href = "#"; // Prevent default navigation
+      link.dataset.page = text; // Store page number
+      if (parseInt(text) === currentPage) {
+        link.classList.add("active");
+      }
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const clickedPage = parseInt(e.target.dataset.page);
+        if (clickedPage && clickedPage !== currentPage) {
+          currentPage = clickedPage;
+          renderTableAndPagination();
+        }
+      });
+    }
+    pageNumbersContainer.appendChild(link);
+  };
+
+  // Function to render the pagination controls
+  const renderPaginationControls = (totalItems) => {
+    pageNumbersContainer.innerHTML = ""; // Clear existing page numbers
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    prevPageButton.disabled = currentPage === 1;
+    nextPageButton.disabled = currentPage === totalPages || totalPages === 0;
+
+    // Logic to display pagination links like the image (1 2 ... 4 5)
+    // where 4 is currentPage and 5 is currentPage + 1
+    const maxVisiblePages = 5; // e.g., "1 2 ... 4 5" or "1 2 3 4 5"
+
+    if (totalPages <= maxVisiblePages) {
+      // Show all pages if total is small enough
+      for (let i = 1; i <= totalPages; i++) {
+        appendPageLink(i);
+      }
+    } else {
+      // Logic for showing first two, ellipsis, current/next, ellipsis, last two
+      const showPagesAtEnds = 2; // Always show first 'showPagesAtEnds' and last 'showPagesAtEnds'
+      const showPagesAroundCurrent = 1; // Show current, current-1, current+1
+
+      const pages = new Set(); // Use a Set to avoid duplicate page numbers
+
+      // Add first few pages
+      for (let i = 1; i <= showPagesAtEnds; i++) {
+        pages.add(i);
+      }
+
+      // Add pages around the current page
+      for (let i = currentPage - showPagesAroundCurrent; i <= currentPage + showPagesAroundCurrent; i++) {
+        if (i > showPagesAtEnds && i < totalPages - showPagesAtEnds + 1) { // Ensure not overlapping with fixed end pages
+          pages.add(i);
+        }
+      }
+
+      // Add last few pages
+      for (let i = totalPages - showPagesAtEnds + 1; i <= totalPages; i++) {
+        pages.add(i);
+      }
+
+      // Convert Set to Array and sort
+      const sortedPages = Array.from(pages).sort((a, b) => a - b);
+
+      // Append links and add ellipsis where gaps exist
+      let lastAppendedPage = 0;
+      sortedPages.forEach(page => {
+        if (page > lastAppendedPage + 1) {
+          appendPageLink("...", "pagination-ellipsis");
+        }
+        appendPageLink(page);
+        lastAppendedPage = page;
+      });
+    }
+  };
+
+
+  // Main rendering function that combines table and pagination
+  const renderTableAndPagination = () => {
+    const selectedCategoryElement = insightCategoryList.querySelector("li.active");
+    const selectedCategory = selectedCategoryElement ? selectedCategoryElement.dataset.category : "All";
+
+    filteredInsightsData =
+      selectedCategory && selectedCategory !== "All"
+        ? allInsightsData.filter((item) => item.lable === selectedCategory) // Note: using item.lable for filter
+        : allInsightsData;
+
+    // If current page is now out of bounds for the filtered data, reset to 1
+    const totalPagesForFilteredData = Math.ceil(filteredInsightsData.length / pageSize);
+    if (currentPage > totalPagesForFilteredData && totalPagesForFilteredData > 0) {
+        currentPage = totalPagesForFilteredData; // Go to last page if current is too high
+    } else if (totalPagesForFilteredData === 0) {
+        currentPage = 1; // If no data, reset to page 1
+    }
+
+    renderTableRows(filteredInsightsData);
+    renderPaginationControls(filteredInsightsData.length);
+  };
+
+  // --- Event Listeners ---
+
+  nextPageButton.addEventListener("click", () => {
+    const totalPages = Math.ceil(filteredInsightsData.length / pageSize);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderTableAndPagination();
+    }
   });
 
-      if (pageNumber>1){
-        prevPageButton.disabled=false;
-    }else{
-        prevPageButton.disabled=true;
+  prevPageButton.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderTableAndPagination();
     }
+  });
 
-    if (pageNumber<totalPages){
-        nextPageButton.disabled=false;
-    }else{
-        nextPageButton.disabled=true;
-    }
-
-
-};
-
-// // Update KPI cards (optional, if data available)
-// const updateKpiCards = () => {
-//   totalRevenue.textContent = kpiTotals.totalRevenue;
-//   totalExpense.textContent = kpiTotals.totalExpense;
-//   totalProfit.textContent = kpiTotals.totalProfit;
-//   netProfit.textContent = kpiTotals.netProfit;
-//   totalInsights.textContent = kpiTotals.totalInsights;
-//   totalImpact.textContent = kpiTotals.totalImpact;
-// };
-
-// --- Event Listeners ---
-
-// Insight category filter
   insightCategoryList.addEventListener("click", (event) => {
     if (event.target.tagName === "LI") {
-      // Remove active class from all
-      insightCategoryList
-        .querySelectorAll("li")
-        .forEach((li) => li.classList.remove("active"));
-      // Add active class to clicked item
+      insightCategoryList.querySelectorAll("li").forEach((li) => li.classList.remove("active"));
       event.target.classList.add("active");
 
-      const selectedCategory = event.target.dataset.category;
-      pageNumber=1;
-      renderTable(allInsightsData, selectedCategory);
+      currentPage = 1; // Reset to first page on category change
+      renderTableAndPagination();
     }
   });
 
-// --- URL Parameter Handling ---
-
+  // Initial render when the page loads
   const queryString = window.location.search;
-
-  // Create a URLSearchParams object
   const params = new URLSearchParams(queryString);
+  const selectedValue = params.get("selected"); // "selected" parameter in URL
 
-  // Get the value of the 'selected' parameter
-  const selectedValue = params.get("selected");
-  const element = document.querySelector(`[data-category="${selectedValue}"]`);
-  element.classList.add("active");
-  
-  renderTable(allInsightsData, selectedValue); // Render table with all data initially
+  if (selectedValue) {
+    const element = document.querySelector(`[data-category="${selectedValue}"]`);
+    if (element) {
+      element.classList.add("active");
+    } else {
+      // If URL category doesn't exist, activate the first category in the list
+      // Or default to 'All' if you have an 'All' option
+      insightCategoryList.querySelector("li")?.classList.add("active");
+    }
+  } else {
+    // No selected category in URL, activate the first one or 'All'
+    insightCategoryList.querySelector("li")?.classList.add("active");
+  }
 
+  renderTableAndPagination();
 });

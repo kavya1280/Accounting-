@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balance Sheet Analytics - KPIs & Table</title>
-    <link rel="stylesheet" href="CSS/profile-view-details.css"> 
+    <link rel="stylesheet" href="CSS/balancesheet-view-details.css"> 
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
@@ -157,12 +157,13 @@
                             <!-- Table rows will be populated by JavaScript -->
                         </tbody>
                     </table>
-                     <div class="pagination">
-                        <button id="prevPage">Previous</button>
-                        <span id="pageNumbers"></span>
-                        <button id="nextPage">Next</button>
-                    </div>
-                </div>
+<div class="pagination-container">
+    <button id="prevPage" class="pagination-button">Prev</button>
+    <div id="pageNumbers" class="pagination-numbers">
+        <!-- Page numbers will be dynamically inserted here by JavaScript -->
+    </div>
+    <button id="nextPage" class="pagination-button">Next</button>
+</div>                
             </div>
         </div>
     </div>
