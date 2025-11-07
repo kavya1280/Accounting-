@@ -1,0 +1,1120 @@
+let revenueDonutChart;
+let exceptionCombinedChart;
+
+// Utility function to get CSS variable values
+function getCssVar(varName) {
+    // This assumes the CSS variables are defined in the global scope (e.g., in :root or body)
+    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+}
+
+/**
+ * Handles the display and population of the detailed insight modal.
+ * This logic is adapted directly from BL.js.
+ * @param {string} url The path to the JSON insight data.
+ * @param {string} nodeLabel The label of the node clicked.
+ */
+async function showInsightModal(url, nodeLabel) {
+    const insightModal = document.getElementById("insightModal");
+    const modalTitle = document.getElementById("modalTitle");
+
+    // Destroy existing charts before loading new data
+    if (revenueDonutChart) {
+        revenueDonutChart.destroy();
+    }
+    if (exceptionCombinedChart) {
+        exceptionCombinedChart.destroy();
+    }
+
+    modalTitle.textContent = `${nodeLabel} - Detailed Insights`;
+    insightModal.style.display = "flex";
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch insight data: ${response.statusText}`);
+        }
+        const json = await response.json();
+
+        // --- Business Impact Table Data ---
+        const impactRows = json.table;
+        const totalImpactAmount = impactRows.reduce((sum, item) => sum + item.amount, 0);
+        const impactTableBody = document.querySelector("#insightModal .impact-table tbody");
+        impactTableBody.innerHTML = "";
+
+        let totalImpactPercentage = 0;
+        let firstImpactPercentage = 0;
+
+        impactRows.forEach((item, index) => {
+            const impactPercentage = ((item.amount / totalImpactAmount) * 100).toFixed(2);
+
+            if (index === 0) {
+                firstImpactPercentage = parseFloat(impactPercentage);
+            }
+
+            totalImpactPercentage += parseFloat(impactPercentage);
+
+            let percentageClass = "green";
+            if (impactPercentage > 70) {
+                percentageClass = "red";
+            } else if (impactPercentage > 40 && impactPercentage < 70) {
+                percentageClass = "yellow";
+            }
+
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${item.insight}</td>
+                <td class="impact-amount" style="text-align: right;">${new Intl.NumberFormat(
+                    "en-US"
+                ).format(item.amount)}</td>
+                <td class="percentage-impact ${percentageClass}" style="text-align: right;">${impactPercentage}%</td>
+                <td>${item.description}</td>
+            `;
+            impactTableBody.appendChild(row);
+        });
+
+        // Set the total in the donut chart overlay
+        document.getElementById("donutTotalAmount").textContent = new Intl.NumberFormat(
+            "en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            }
+        ).format(totalImpactAmount);
+
+        // --- Balance Sheet Impact Distribution Donut Chart ---
+        const ctxDonut = document.getElementById("revenueDonutChart").getContext("2d");
+
+        const donutData = impactRows
+            .map((item) => ({
+                label: item.insight,
+                amount: item.amount,
+            }))
+            .sort((a, b) => a.amount - b.amount);
+
+        const chartColors = [
+            getCssVar("--color-product-sales"),
+            getCssVar("--color-service-revenue"),
+            getCssVar("--color-subscriptions"),
+            getCssVar("--color-consulting"),
+            getCssVar("--color-licensing"),
+            getCssVar("--color-training"),
+            getCssVar("--color-misc"),
+            getCssVar("--color-gray"),
+        ];
+
+        revenueDonutChart = new Chart(ctxDonut, {
+            type: "doughnut",
+            data: {
+                labels: donutData.map((d) => d.label),
+                datasets: [{
+                    data: donutData.map((d) => d.amount),
+                    backgroundColor: chartColors.slice(0, donutData.length),
+                    hoverOffset: 8,
+                }, ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || "";
+                                if (label) label += ": ";
+                                if (context.parsed !== null) {
+                                    const value = new Intl.NumberFormat("en-US").format(
+                                        context.parsed
+                                    );
+                                    const currentTotal = context.dataset.data.reduce(
+                                        (sum, val) => sum + val,
+                                        0
+                                    );
+                                    const percentage = ((context.parsed / currentTotal) * 100).toFixed(2);
+                                    label += `Rs. ${value} (${percentage}%)`;
+                                }
+                                return label;
+                            },
+                        },
+                    },
+                },
+                cutout: "70%",
+                animation: {
+                    animateRotate: true,
+                    animateScale: true,
+                    duration: 1000,
+                    easing: "easeOutQuart",
+                },
+            },
+        });
+
+        // --- Legend Setup ---
+        const legendContainer = document.getElementById("revenueChartLegend");
+        legendContainer.innerHTML = "";
+        donutData.forEach((item, index) => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <span class="legend-color-box" style="background-color: ${chartColors[index]}"></span>
+                <span>${item.label}</span>
+            `;
+            legendContainer.appendChild(li);
+        });
+
+
+        // --- Combined Line & Bar Chart (Impact Over Time) ---
+        const ctxCombined = document.getElementById("exceptionCombinedChart").getContext("2d");
+        const combinedChartLabels = ["FY 20-21", "FY 21-22", "FY 22-23", "FY 23-24", "FY 24-25"];
+
+        // Dummy data generation based on first impact percentage for simulation
+        const monthlyImpactAmounts = [
+            totalImpactAmount * 0.5 / 5, 
+            totalImpactAmount * 0.7 / 5,
+            totalImpactAmount * 0.9 / 5,
+            totalImpactAmount * 1.0 / 5,
+            totalImpactAmount * 1.1 / 5,
+        ]; 
+        
+        // Dummy percentage data (line chart)
+        const monthlyInsightCounts = [15, 20, 30, 45, firstImpactPercentage];
+
+        exceptionCombinedChart = new Chart(ctxCombined, {
+            data: {
+                labels: combinedChartLabels,
+                datasets: [{
+                        type: "bar",
+                        label: "Impact Amount (M)",
+                        data: monthlyImpactAmounts,
+                        backgroundColor: getCssVar("--bar-color"),
+                        hoverBackgroundColor: getCssVar("--bar-hover-color"),
+                        yAxisID: "y",
+                        borderRadius: 4,
+                        maxBarThickness: 30,
+                    },
+                    {
+                        type: "line",
+                        label: "% of total impact",
+                        data: monthlyInsightCounts,
+                        borderColor: getCssVar("--line-color"),
+                        backgroundColor: "transparent",
+                        pointBackgroundColor: getCssVar("--line-point-bg"),
+                        pointBorderColor: getCssVar("--line-point-border"),
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        yAxisID: "y1",
+                        tension: 0.3,
+                        borderWidth: 2,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: "index",
+                    intersect: false,
+                },
+                plugins: {
+                    title: {
+                        display: false,
+                    },
+                    legend: {
+                        display: true,
+                        position: "top",
+                        align: "end",
+                    },
+                    tooltip: {
+                        mode: "index",
+                        intersect: false,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || "";
+                                if (label) {
+                                    label += ": ";
+                                }
+                                if (context.dataset.type === "bar") {
+                                    label += `₹${new Intl.NumberFormat("en-US").format(
+                                        context.parsed.toFixed(2)
+                                    )} M`;
+                                } else {
+                                    label += `${context.formattedValue}%`;
+                                }
+                                return label;
+                            },
+                        },
+                    },
+                },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: {
+                        type: "linear",
+                        position: "left",
+                        beginAtZero: true,
+                        grid: { color: getCssVar("--border-color") },
+                        ticks: { display: false },
+                        title: { display: false },
+                    },
+                    y1: {
+                        type: "linear",
+                        position: "right",
+                        beginAtZero: true,
+                        grid: { drawOnChartArea: false },
+                        ticks: { display: false },
+                        title: { display: false },
+                    },
+                },
+            },
+        });
+
+    } catch (error) {
+        console.error("Error loading insight data:", error);
+        alert("Failed to load detailed insights. Check the console for errors.");
+        insightModal.style.display = "none";
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  // --- NAVIGATION BAR LOGIC ---
+  const header = document.getElementById("main-header");
+  const hamburger = document.querySelector(".hamburger");
+  const navLinks = document.querySelector(".nav-links");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    navLinks.classList.toggle("active");
+  });
+
+  document.querySelectorAll(".nav-links li a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (hamburger.classList.contains("active")) {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+      }
+    });
+  });
+
+  // --- INTERSECTION OBSERVER FOR FADE-IN ANIMATIONS ---
+  const animatedElements = document.querySelectorAll(".fade-in");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+    }
+  );
+  animatedElements.forEach((el) => {
+    observer.observe(el);
+  });
+
+  // --- INSIGHT MODAL LISTENERS ---
+  const insightModal = document.getElementById("insightModal");
+  const modalCloseBtn = document.getElementById("modalCloseBtn");
+
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener("click", function () {
+        insightModal.style.display = "none";
+    });
+  }
+
+  if (insightModal) {
+    insightModal.addEventListener("click", function (event) {
+        if (event.target === insightModal) {
+            insightModal.style.display = "none";
+        }
+    });
+  }
+
+  // =======================================================
+  // == HIERARCHY VISUALIZATION CODE ==
+  // =======================================================
+const hierarchySection = document.getElementById("hierarchy-visualization");
+  const svgContainer = document.querySelector(".tree-connectors");
+
+  if (hierarchySection) {
+    // Observer setup to run initialization when element is visible
+    new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            initializeHierarchy();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    ).observe(hierarchySection);
+  }
+
+  // --- Core Utility Functions ---
+
+  function mountNode(node, nodeIndex) {
+    // 1. CRITICAL FIX: Ensure the element is displayed before animating
+    // (This allows getBoundingClientRect to calculate its real position)
+    node.style.display = "flex";
+
+    // Use a small delay for staggered appearance
+    setTimeout(() => {
+      node.style.opacity = "1";
+      node.style.transform = "translateY(0)";
+      const bar = node.querySelector(".node-bar");
+      if (bar) {
+        bar.style.width = `${node.dataset.value}%`;
+      }
+      
+      // Set up click listener after mounting
+      setupNodeClickListener(node);
+      
+    }, nodeIndex * 150); // Increased stagger delay for smoother reveal
+  }
+  
+  function setupNodeClickListener(node) {
+    // Ensure we only attach one listener
+    node.removeEventListener('click', handleNodeClickOrInsight); 
+    
+    // Attach the main click handler
+    node.addEventListener("click", handleNodeClickOrInsight);
+  }
+  
+  /**
+   * Universal handler for node clicks: either expands or shows insight modal.
+   */
+  function handleNodeClickOrInsight(event) {
+      const node = event.currentTarget;
+      
+      // 1. Check for Insight URL (Level 4/Leaf Node Action)
+      const insightLabel = node.querySelector('.node-label');
+      const insightUrl = insightLabel ? insightLabel.dataset.insightUrl : null;
+      const nodeLabelText = insightLabel ? insightLabel.textContent : node.querySelector('.node-label').textContent;
+
+      if (insightUrl) {
+          // If a data-insight-url is present, show the modal
+          event.stopPropagation(); // Prevent expansion if it's a leaf node
+          showInsightModal(`/assets/${insightUrl}`, nodeLabelText); // Assuming assets/ path for JSON
+          return;
+      }
+      
+      // 2. Handle Expansion (Internal Node Action)
+      const childClass = node.dataset.children;
+      if (!childClass) return; // Not an expandable node
+
+      const nodeChildren = document.getElementsByClassName(childClass);
+      const childrenArray = Array.from(nodeChildren);
+      
+      // Debounce: If the first child is already visible, stop.
+      if (childrenArray.length > 0 && childrenArray[0].style.opacity === '1') {
+          return;
+      }
+
+      childrenArray.forEach((child, index) => {
+        // Reveal and animate the child
+        mountNode(child, index);
+      });
+
+      // CRITICAL FIX: Delay drawing connectors until all children have finished mounting 
+      // and their positions are stable in the DOM (350ms + staggered mount time)
+      const totalMountTime = childrenArray.length * 150 + 200; 
+      
+      setTimeout(() => {
+          drawConnectors(childrenArray, svgContainer);
+      }, totalMountTime);
+  }
+  
+  // --- Initialization and View All ---
+  
+  // Replaces the flawed `animateHierarchy` logic
+  function initializeHierarchy() {
+    // 1. Ensure all non-root nodes start hidden (CSS should help, but this enforces it)
+    const allNodes = document.querySelectorAll(".tree-node");
+    allNodes.forEach(node => {
+        if (node.dataset.id !== 'balance-sheet') {
+            node.style.opacity = "0";
+            node.style.transform = "translateY(20px)";
+            node.style.display = "none"; 
+        }
+    });
+
+    // 2. Initialize and mount the root node immediately
+    const rootNode = document.querySelector('.tree-level[data-level="1"] .tree-node');
+    if (rootNode) {
+        // Index 0 starts the animation immediately (0 * 150ms delay)
+        mountNode(rootNode, 0); 
+    }
+  }
+
+
+document.getElementById("view-all-fds").addEventListener("click", viewAll);
+
+function viewAll() {
+  const allNodes = document.querySelectorAll(".tree-node");
+  const container = document.querySelector(".tree-container");
+  
+  // 1. Reveal all nodes instantly
+  allNodes.forEach((node) => {
+      // Use 'flex' for layout integrity
+      node.style.opacity = "1";
+      node.style.transform = "none";
+      node.style.display = "flex"; 
+      node.style.visibility = "visible"; // (If visibility was used)
+
+      const bar = node.querySelector(".node-bar");
+      if (bar) {
+           bar.style.width = `${node.dataset.value}%`;
+      }
+      setupNodeClickListener(node); // Ensure clickability remains
+  });
+
+  // 2. Clear existing connectors and redraw all connections
+  svgContainer.innerHTML = "";
+  
+  // Find all parent nodes that have children and draw the connections
+  allNodes.forEach(parentNode => {
+      const childClass = parentNode.dataset.children;
+      if (childClass) {
+          const childNodes = Array.from(document.getElementsByClassName(childClass));
+          if (childNodes.length > 0) {
+               drawConnectors(childNodes, svgContainer, true); // Pass true for instant draw
+          }
+      }
+  });
+
+  // 3. Scroll container
+  if (container) {
+    container.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+  // --- Connector Drawing (Using Cubic Bezier for smoother arcs) ---
+  
+  function drawConnectors(childNodes, svg, instant = false) {
+    if (!svg || childNodes.length === 0) return;
+    
+    // Get the container position relative to the viewport
+    const containerRect = svg.getBoundingClientRect();
+    const controlOffset = 80; // Control point separation
+
+    childNodes.forEach((child) => {
+      const parentId = child.dataset.parent;
+      const parentNode = document.querySelector(
+        `.tree-node[data-id="${parentId}"]`
+      );
+      if (!parentNode) return;
+
+      const parentRect = parentNode.getBoundingClientRect();
+      const childRect = child.getBoundingClientRect();
+
+      // Calculate coordinates relative to the SVG container's top-left corner
+      const startX = parentRect.right - containerRect.left;
+      const startY = parentRect.top - containerRect.top + parentRect.height / 2;
+      const endX = childRect.left - containerRect.left;
+      const endY = childRect.top - containerRect.top + childRect.height / 2;
+
+      // Cubic Bezier Control Points (C1 handles parent end, C2 handles child end)
+      const controlX1 = startX + controlOffset; 
+      const controlX2 = endX - controlOffset;
+      
+      const path = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+      path.setAttribute("class", "connector-path");
+      path.setAttribute(
+        "d",
+        `M ${startX} ${startY} C ${controlX1} ${startY}, ${controlX2} ${endY}, ${endX} ${endY}`
+      );
+      
+      // Ensure styling properties used for animation are present
+      path.style.stroke = "#ccc";
+      path.style.strokeWidth = "2px";
+      path.style.transition = "none"; // Reset transition for calculation
+
+      svg.appendChild(path);
+      
+      const length = path.getTotalLength();
+      
+      if (!instant) {
+        // Animate the path drawing
+        path.style.strokeDasharray = length;
+        path.style.strokeDashoffset = length;
+
+        // Use requestAnimationFrame for smooth transition application
+        requestAnimationFrame(() => {
+           path.style.transition = "stroke-dashoffset 0.8s ease-in-out";
+           path.style.strokeDashoffset = "0";
+        });
+      } else {
+        // Instant draw
+        path.style.strokeDashoffset = "0";
+      }
+    });
+  }
+
+  // =======================================================
+  // == SUNBURST CHART LOGIC ==
+  // =======================================================
+// Data representing the Balance Sheet structure from the image
+var balanceSheetData = {
+    name: "Balance Sheet",
+    children: [
+        {
+            name: "Equities and Liabilities",
+            children: [
+                {
+                    name: "Shareholder's Funds",
+                    children: [
+                        { name: "Equity Share Capital", value: 150 },
+                        { name: "Reserves & Surplus", value: 450 }
+                    ]
+                },
+                {
+                    name: "Non-Current Liabilities",
+                    children: [
+                        { name: "Long-term Borrowings", value: 300 },
+                        { name: "Deferred Tax Liabilities [Net]", value: 50 },
+                        { name: "Long Term Provisions", value: 100 }
+                    ]
+                },
+                {
+                    name: "Current Liabilities",
+                    children: [
+                        { name: "Short Term Borrowings", value: 80 },
+                        { name: "Trade Payables", value: 120 },
+                        { name: "Other Current Liabilities", value: 40 },
+                        { name: "Short Term Provisions", value: 20 }
+                    ]
+                }
+            ]
+        },
+        {
+            name: "Assets",
+            children: [
+                {
+                    name: "Non-Current Assets",
+                    children: [
+                        // Note: Fixed Assets grouping is often deprecated, but kept here as per source list order
+                        { name: "Tangible Assets", value: 400 },
+                        { name: "Intangible Assets", value: 150 },
+                        { name: "Capital Work In Progress", value: 80 },
+                        { name: "Intangible Assets Under Development", value: 70 },
+                        { name: "Fixed Assets", value: 50 }, 
+                        { name: "Non-Current Investments", value: 120 },
+                        { name: "Long Term Loans & Advances", value: 30 },
+                        { name: "Deferred Tax Assets", value: 20 }
+                    ]
+                },
+                {
+                    name: "Current Assets",
+                    children: [
+                        // Note: "Other Non-Current Assets" is listed under Current Assets in the source image
+                        { name: "Other Non-Current Assets", value: 10 },
+                        { name: "Current Investments", value: 60 },
+                        { name: "Inventories", value: 180 },
+                        { name: "Trade Receivables", value: 110 },
+                        { name: "Cash & Cash Equivalents", value: 90 },
+                        { name: "Short Term Loans & Advances", value: 40 },
+                        { name: "Other Current Assets", value: 30 }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
+
+am5.ready(function() {
+
+// Create root element
+var root = am5.Root.new("chartdiv");
+
+
+// Set themes
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create wrapper container
+var container = root.container.children.push(am5.Container.new(root, {
+  width: am5.percent(100),
+  height: am5.percent(100),
+  layout: root.verticalLayout
+}));
+
+
+// Create series
+var series = container.children.push(am5hierarchy.Sunburst.new(root, {
+  singleBranchOnly: true,
+  downDepth: 10,
+  // Adjusted initialDepth to 3 to show the main categories (Liabilities/Assets, Current/Non-Current) immediately
+  initialDepth: 3, 
+  valueField: "value",
+  categoryField: "name",
+  childDataField: "children"
+}));
+
+
+// Set Balance Sheet data
+series.data.setAll([balanceSheetData]);
+series.set("selectedDataItem", series.dataItems[0]);
+
+
+// Make stuff animate on load
+series.appear(1000, 100);
+
+}); // end am5.ready()
+
+  // =======================================================
+  // == TREEMAP CHART LOGIC ==
+  // =======================================================
+    am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("treemap-chart");
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+// Create wrapper container
+var container = root.container.children.push(
+  am5.Container.new(root, {
+    width: am5.percent(100),
+    height: am5.percent(100),
+    layout: root.verticalLayout
+  })
+);
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
+var series = container.children.push(
+  am5hierarchy.Treemap.new(root, {
+    singleBranchOnly: false,
+    downDepth: 1,
+    upDepth: -1,
+    initialDepth: 2,
+    valueField: "value",
+    categoryField: "name",
+    childDataField: "children",
+    nodePaddingOuter: 0,
+    nodePaddingInner: 0
+  })
+);
+
+series.rectangles.template.setAll({
+  strokeWidth: 2
+});
+
+// Generate and set data
+// https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
+var data = {
+  name: "Profit and Loss Statement Structure",
+  children: [
+    {
+      name: "INCOME",
+      children: [
+        {
+          name: "Revenue From Operations [Gross]",
+          value: 1500
+        },
+        {
+          name: "Less: Excise/Service Tax/Other Levies",
+          value: 100
+        },
+        {
+          name: "Revenue From Operations [Net]",
+          value: 1400
+        },
+        {
+          name: "Other Income",
+          value: 50
+        },
+      ]
+    },
+    {
+      name: "EXPENSES",
+      children: [
+        {
+          name: "Cost Of Materials Consumed",
+          value: 300
+        },
+        {
+          name: "Purchase Of Stock-In Trade",
+          value: 150
+        },
+        {
+          name: "Operating And Direct Expenses",
+          value: 200
+        },
+        {
+          name: "Changes In Inventories Of FG, WIP And Stock-In Trade",
+          value: 50 // Negative expense is common, but listed as positive for simplicity in this structure
+        },
+        {
+          name: "Employee Benefit Expenses",
+          value: 120
+        },
+        {
+          name: "Finance Costs",
+          value: 30
+        },
+        {
+          name: "Depreciation And Amortisation Expenses",
+          value: 50
+        },
+        {
+          name: "Other Expenses",
+          value: 10
+        },
+      ]
+    },
+    {
+      name: "PROFIT / LOSS",
+      children: [
+        {
+          name: "Profit/Loss Before Exceptional, Extraordinary Items And Tax",
+          value: 540 // (1450 - 910)
+        },
+        {
+          name: "Exceptional Items",
+          value: 40
+        },
+        {
+          name: "Profit/Loss Before Tax",
+          value: 500 // (540 - 40)
+        },
+        {
+          name: "Tax Expenses – Continued Operations",
+          children: [
+            {
+              name: "Current Tax",
+              value: 100
+            },
+            {
+              name: "Deferred Tax",
+              value: 20
+            },
+            {
+              name: "Total Tax Expenses",
+              value: 120
+            }
+          ]
+        },
+        {
+          name: "Profit/Loss After Tax And Before Extraordinary Items",
+          value: 380 // (500 - 120)
+        },
+        {
+          name: "Profit/Loss From Continuing Operations",
+          value: 380
+        },
+        
+        {
+          name: "Profit/Loss For The Period",
+          value: 430 // (380 + 50)
+        }
+      ]
+    }
+  ]
+};
+series.data.setAll([data]);
+series.set("selectedDataItem", series.dataItems[0]);
+
+// Make stuff animate on load
+series.appear(1000, 100);
+
+}); // end am5.ready()
+// =======================================================
+// == SANKEY2 CHART LOGIC (ENHANCED & COMPLETE) ==
+  // =======================================================
+am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("sankey2-chart");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/flow-charts/
+var series = root.container.children.push(am5flow.Sankey.new(root, {
+  sourceIdField: "from",
+  targetIdField: "to",
+  valueField: "value",
+  paddingRight: 50
+}));
+
+series.nodes.get("colors").set("step", 2);
+
+
+// Set data
+// https://www.amcharts.com/docs/v5/charts/flow-charts/#Setting_data
+series.data.setAll([
+  // --- INCOME & REVENUE FLOW (Source: Revenue From Operations [Gross] = 5,57,163)
+  { from: "Revenue From Operations [Gross]", to: "Less: Excise/Service Tax/Other Levies", value: 39814 },
+  { from: "Revenue From Operations [Gross]", to: "Revenue From Operations [Net]", value: 517349 }, 
+  
+  // --- TOTAL REVENUE SOURCE (Total Revenue = 5,33,443)
+  { from: "Revenue From Operations [Net]", to: "Total Revenue (Source)", value: 517349 },
+  { from: "Other Income", to: "Total Revenue (Source)", value: 16094 }, 
+
+  // --- EXPENSES FLOW (Total Expenses = 5,09,913)
+  { from: "Total Revenue (Source)", to: "Cost Of Materials Consumed", value: 384021 },
+  { from: "Total Revenue (Source)", to: "Purchase Of Stock-In Trade", value: 15864 },
+  { from: "Total Revenue (Source)", to: "Operating And Direct Expenses", value: 43003 },
+  { from: "Total Revenue (Source)", to: "Changes In Inventories...", value: 4052 },
+  { from: "Total Revenue (Source)", to: "Employee Benefit Expenses", value: 8690 },
+  { from: "Total Revenue (Source)", to: "Finance Costs", value: 10054 },
+  { from: "Total Revenue (Source)", to: "Depreciation And Amortisation Expenses", value: 31105 },
+  { from: "Total Revenue (Source)", to: "Other Expenses", value: 21228 },
+  
+  // --- FLOW TO PROFIT BEFORE EXCEPTIONAL ITEMS (23,530)
+  { from: "Total Revenue (Source)", to: "P/L Before Exceptional, ExtraOrdinary Items And Tax", value: 23530 },
+
+  // --- EXCEPTIONAL ITEMS & PBT (PBT = 23,319)
+  { from: "P/L Before Exceptional, ExtraOrdinary Items And Tax", to: "Exceptional Items", value: 211 },
+  { from: "P/L Before Exceptional, ExtraOrdinary Items And Tax", to: "Profit/Loss Before Tax", value: 23319 },
+
+  // --- TAX & FINAL PROFIT (Final P/L = 19,323)
+  // This models the net deduction of 3,996 (the Total Tax Expenses value) from PBT.
+  { from: "Profit/Loss Before Tax", to: "Total Tax Expenses (Net Deduction)", value: 3996 }, 
+  { from: "Profit/Loss Before Tax", to: "Profit/Loss For The Period", value: 19323 }
+]);
+// Make stuff animate on load
+series.appear(100, 1000);
+
+}); // end am5.ready()
+// =======================================================
+  // == SANKEY CHART LOGIC (ENHANCED & COMPLETE) ==
+  // =======================================================
+am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("sankey-chart");
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([am5themes_Animated.new(root)]);
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/flow-charts/
+var series = root.container.children.push(
+  am5flow.ChordDirected.new(root, {
+    sourceIdField: "from",
+    targetIdField: "to",
+    valueField: "value",
+    sort: "ascending"
+  })
+);
+
+series.links.template.set("fillStyle", "source");
+
+series.nodes.get("colors").set("step", 2);
+series.nodes.data.setAll([
+  { id: "A" },
+  { id: "B" },
+  { id: "C" },
+  { id: "D" },
+  { id: "E" },
+  { id: "F" }
+]);
+
+series.nodes.get("colors").set("step", 2);
+
+series.bullets.push(function (_root, _series, dataItem) {
+  var bullet = am5.Bullet.new(root, {
+    locationY: Math.random(),
+    sprite: am5.Circle.new(root, {
+      radius: 5,
+      fill: dataItem.get("source").get("fill")
+    })
+  });
+
+  bullet.animate({
+    key: "locationY",
+    to: 1,
+    from: 0,
+    duration: Math.random() * 1000 + 2000,
+    loops: Infinity
+  });
+
+  return bullet;
+});
+
+series.nodes.labels.template.setAll({
+  textType: "regular",
+  fill: root.interfaceColors.get("background"),
+  fontSize: "1.1em",
+  radius: -5
+});
+
+series.nodes.bullets.push(function (_root, _series, dataItem) {
+  return am5.Bullet.new(root, {
+    sprite: am5.Circle.new(root, {
+      radius: 20,
+      fill: dataItem.get("fill")
+    })
+  });
+});
+
+series.children.moveValue(series.bulletsContainer, 0);
+
+// Set data
+// https://www.amcharts.com/docs/v5/charts/flow-charts/#Setting_data
+series.data.setAll([
+  { from: "A", to: "D", value: 10 },
+  { from: "B", to: "C", value: 8 },
+  { from: "B", to: "D", value: 4 },
+  { from: "B", to: "E", value: 2 },
+  { from: "C", to: "A", value: 14 },
+  { from: "C", to: "E", value: 4 },
+  { from: "E", to: "D", value: 8 },
+  { from: "F", to: "A", value: 7 },
+  { from: "D", to: "B", value: 2 }
+]);
+
+// Make stuff animate on load
+series.appear(1000, 100);
+
+}); // end am5.ready()
+
+
+  // =======================================================
+  // == PROFIT & LOSS CHART ANIMATION (D3/CSS Version) ==
+  // =======================================================
+  const chartData = [
+    { label: "Apr 2024", value: 80 },
+    { label: "May 2024", value: 120 },
+    { label: "Jun 2024", value: 150 },
+    { label: "Jul 2024", value: 180 },
+    { label: "Aug 2024", value: 220 },
+    { label: "Sep 2024", value: 250 },
+    { label: "Oct 2024", value: 280 },
+    { label: "Nov 2024", value: 300 },
+    { label: "Dec 2024", value: 350 },
+    { label: "Jan 2025", value: 380 },
+    { label: "Feb 2025", value: 420 },
+    { label: "Mar 2025", value: 450 },
+  ];
+  const chartContainer = document.getElementById("profit-chart");
+  if (chartContainer) {
+    const maxChartValue = Math.max(...chartData.map((d) => d.value));
+    chartData.forEach((item) => {
+      const bar = document.createElement("div");
+      bar.className = "chart-bar";
+      bar.dataset.height = (item.value / maxChartValue) * 100;
+      const valueSpan = document.createElement("span");
+      valueSpan.className = "value";
+      valueSpan.textContent = `₹${item.value}k`;
+      const labelSpan = document.createElement("span");
+      labelSpan.className = "label";
+      labelSpan.textContent = item.label;
+      bar.appendChild(valueSpan);
+      bar.appendChild(labelSpan);
+      chartContainer.appendChild(bar);
+    });
+    const chartObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const bars = entry.target.querySelectorAll(".chart-bar");
+            bars.forEach((bar, index) => {
+              setTimeout(() => {
+                bar.style.height = `${bar.dataset.height}%`;
+                bar.classList.add("visible");
+              }, index * 100);
+            });
+            setTimeout(
+              () => drawLineChart(chartContainer, chartData, maxChartValue),
+              bars.length * 100 + 500
+            );
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    chartObserver.observe(chartContainer);
+  }
+
+  // =======================================================
+  // == DRAW LINE CHART FUNCTION (FOR PROFIT & LOSS) ==
+  // =======================================================
+  function drawLineChart(container, data, maxValue) {
+    const containerRect = container.getBoundingClientRect();
+    const bars = container.querySelectorAll(".chart-bar");
+    if (bars.length === 0) return;
+
+    const svg = d3
+      .select(container)
+      .append("svg")
+      .attr("class", "line-chart-svg")
+      .attr("width", containerRect.width)
+      .attr("height", containerRect.height);
+
+    const points = Array.from(bars).map((bar, i) => {
+      const barRect = bar.getBoundingClientRect();
+      const x = barRect.left - containerRect.left + barRect.width / 2;
+      const y = containerRect.height * (1 - data[i].value / maxValue);
+      return { x, y, value: data[i].value };
+    });
+
+    const lineGenerator = d3
+      .line()
+      .x((d) => d.x)
+      .y((d) => d.y)
+      .curve(d3.curveMonotoneX);
+
+    const path = svg
+      .append("path")
+      .datum(points)
+      .attr("d", lineGenerator);
+
+    const totalLength = path.node().getTotalLength();
+    path
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+      .duration(1500)
+      .ease(d3.easeLinear)
+      .attr("stroke-dashoffset", 0);
+
+    svg
+      .selectAll(".line-point")
+      .data(points)
+      .enter()
+      .append("circle")
+      .attr("class", "line-point")
+      .attr("cx", (d) => d.x)
+      .attr("cy", (d) => d.y)
+      .attr("r", 0)
+      .transition()
+      .delay(1000)
+      .duration(500)
+      .attr("r", 5);
+  }
+});

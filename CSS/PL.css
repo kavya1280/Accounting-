@@ -156,7 +156,7 @@ body::after {
 }
 
 h1 {
-  font-family: "Yatra One", cursive;
+  font-family: "Yatra One", system-ui;
   text-align: center;
   color: #004d99;
   margin-bottom: 15px;
@@ -191,9 +191,8 @@ h1 {
 /* Header Styles - Removed for this specific design iteration as per the image */
 /* Keeping the rules commented out in case they are needed for other parts of the site */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 10px 30px;
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -203,14 +202,14 @@ h1 {
 }
 
 .logo-placeholder {
-  width: 150px;
-  height: 80px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 }
 
 .logo-placeholder img {
+  width: 150px;
+  height: 80px;
   max-height: 100%;
   max-width: 80%;
   object-fit: contain;
@@ -1526,81 +1525,327 @@ table tbody tr td:first-child {
   text-decoration: none;
   margin-left: 10px;
 }
-.slider-container {
-  padding: 20px 25px;
-  border-radius: 15px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-  text-align: center;
-  width: 280px; /* reduced width */
-  margin: auto;
-  background: #fff;
-  transition: all 0.3s ease;
-}
 
-.slider-container:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 18px rgba(200, 200, 200, 0.4);
-}
 
-.slider-container h3 {
-  margin-bottom: 18px;
-  font-size: 1.1rem; /* smaller text */
-  background: linear-gradient(90deg, #00f5a0, #00d9f5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.slider-wrapper {
+.btn-faq {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  justify-content: right;
+  
 }
 
-.slider-wrapper label {
-  font-size: 0.9rem;
-  color: #8a94b5;
+
+/* Header Right Elements for FAQ button positioning */
+.header-right-elements {
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adjust spacing between FAQ button and product logo */
 }
 
-.slider {
+/* FAQ Button Styling */
+.faq-button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* A nice green, adjust as needed */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif; /* Use your preferred font */
+    transition: background-color 0.3s ease;
+}
+
+.faq-button:hover {
+    background-color: #45a049;
+}
+
+/* Modal Overlay (similar to your existing insightModal but separate) */
+#faqModal.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    z-index: 1000; /* Ensure it's on top */
+    justify-content: center; /* Center horizontally */
+    align-items: center;   /* Center vertically */
+    backdrop-filter: blur(5px); /* Optional: blur background */
+}
+
+/* Modal Content */
+#faqModal .modal-content {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px; /* Max width for readability */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    max-height: 80vh; /* Limit height to prevent overflow */
+    overflow-y: auto; /* Enable scrolling for long content */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Modal Header */
+#faqModal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1em;
+    margin-bottom: 1.5em;
+}
+
+#faqModal .modal-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.8rem;
+    font-family: 'Yatra One', cursive; /* Use your title font */
+}
+
+/* Modal Close Button */
+#faqModal .modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.3s ease;
+}
+
+#faqModal .modal-close-btn:hover {
+    color: #333;
+}
+
+/* Modal Body for FAQ content */
+#faqModal .modal-body {
+    line-height: 1.6;
+    color: #555;
+}
+
+#faqModal .modal-body h3 {
+    color: #4CAF50; /* Match button color */
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-size: 1.25rem;
+}
+
+#faqModal .modal-body p {
+    margin-bottom: 1em;
+}
+
+/* Ensure the total shareholders funds row also gets blue color like others */
+#totalShareholdersFundsRow td span.collapsible.grand-total-collapsible,
+#totalNonCurrentLiabilitiesRow td span.collapsible.grand-total-collapsible,
+#totalCurrentLiabilitiesRow td span.collapsible.grand-total-collapsible,
+#totalCapitalAndLiabilitiesRow td span.collapsible.grand-total-collapsible {
+    color: blue;
+}
+
+
+.wrapper {
+  position: relative;
+  width: 35%;
+  background-color: #ffffff;
+  padding: 50px 40px 20px 40px;
+  border-radius: 10px;
+  margin: auto;
+}
+.slider-container {
+  position: relative;
   width: 100%;
-  height: 6px; /* thinner line */
-  border-radius: 4px;
-  background: linear-gradient(90deg, #ff512f, #dd2476);
+  height: 100px;
+  margin-top: 30px;
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
   outline: none;
-  appearance: none;
-  transition: background 0.3s ease;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background-color: transparent;
+  pointer-events: none;
 }
-
-.slider::-webkit-slider-thumb {
+.slider-track {
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  border-radius: 5px;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+input[type="range"]::-moz-range-track {
+  -moz-appearance: none;
+  height: 5px;
+}
+input[type="range"]::-ms-track {
   appearance: none;
-  width: 18px; /* smaller knob */
-  height: 18px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #00f5a0, #00d9f5);
+  height: 5px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  background-color: #3264fe;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(0, 255, 180, 0.6);
-  transition: all 0.2s ease-in-out;
+  margin-top: -9px;
+  pointer-events: auto;
+  border-radius: 50%;
+}
+input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #3264fe;
+  pointer-events: auto;
+  border: none;
+}
+input[type="range"]::-ms-thumb {
+  appearance: none;
+  height: 1.7em;
+  width: 1.7em;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #3264fe;
+  pointer-events: auto;
+}
+input[type="range"]:active::-webkit-slider-thumb {
+  background-color: #ffffff;
+  border: 1px solid #3264fe;
+}
+.values {
+  background-color: #3264fe;
+  width: 32%;
+  position: relative;
+  margin: auto;
+  padding: 10px 0;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 25px;
+  color: #ffffff;
+}
+.values:before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-top: 15px solid #3264fe;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  margin: auto;
+  bottom: -14px;
+  left: 0;
+  right: 0;
 }
 
-.slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
+.fixed-top-header {
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 1000;
 }
 
-#sliderValue {
-  background: linear-gradient(90deg, #ff512f, #dd2476);
-  padding: 6px 16px;
-  border-radius: 40px;
-  font-weight: 600;
-  color: white;
-  font-size: 0.9rem; /* smaller font */
-  box-shadow: 0 2px 8px rgba(255, 0, 150, 0.25);
-  transition: transform 0.3s ease;
+.fixed-top-header .branding-text {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+    margin-left: 10px;
 }
 
-#sliderValue.animate {
-  transform: scale(1.1);
+.fixed-top-header .header-title {
+    font-size: 1.5em;
+    font-weight: 900;
+    color: #1a4f4e; /* Dark green/teal for consistency */
+    margin: 0;
+    font-family: 'Yatra One', system-ui;
+    text-transform: uppercase;
+}
+
+.fixed-top-header .header-right-elements {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+/* Navigation Links Container */
+.main-nav-links {
+    display: flex;
+    gap: 15px;
+    margin-right: 15px;
+}
+
+/* Base Navigation Item Style */
+.main-nav-links .nav-item {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    transition: all 0.3s ease-in-out;
+    font-weight: 500;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden; /* Important for the hover effect */
+    z-index: 1;
+}
+
+/* HOVER GRADIENT EFFECT */
+.main-nav-links .nav-item:not(.active):hover {
+    color: #1a4f4e; /* Dark text on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.main-nav-links .nav-item:not(.active)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Subtle blue/teal gradient on hover background */
+    background: linear-gradient(135deg, rgba(56, 200, 200, 0.2), rgba(32, 142, 142, 0.1));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.main-nav-links .nav-item:not(.active):hover::before {
+    opacity: 1;
+}
+
+
+/* ACTIVE GRADIENT STYLING (The main requested change) */
+.main-nav-links .nav-item.active {
+    font-weight: bold;
+    /* Orange gradient matching the landing page button */
+    background: linear-gradient(to right, #ff8c00, #ffae42); 
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(255, 140, 0, 0.4);
+    transform: scale(1.05); /* Slight lift for active status */
+}
+
+/* Keep the active button animated slightly */
+.main-nav-links .nav-item.active:hover {
+    box-shadow: 0 6px 12px rgba(255, 140, 0, 0.6);
+    transform: scale(1.05) translateY(-1px);
 }

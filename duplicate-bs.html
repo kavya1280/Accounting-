@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <link rel="icon" href="images/paw.png">
         <meta charset="UTF-8">
@@ -17,32 +18,49 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        
 
-        <!-- Link your JavaScript file here, preferably defer to ensure DOM is loaded -->
-        <script src="JS/BLPL.js" defer></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+
+
     </head>
 <body>
-    <header class="header">
+
+    <header class="header fixed-top-header">
         <div class="logo-placeholder left-logo">
-            <img src="images/ajalabs-black.png" alt="Company Logo">
+            <!-- Using original logo image -->
+            <a href="https://ajalabs.ai/about.html"><img src="images/ajalabs-black.png" alt="Company Logo"></a>
         </div>
-            <h1> Cockpit View</h1>
-        <div class="logo-placeholder right-logo">
-            <img src="images/complibear-logo-b.png" alt="Product Logo">
+        <!-- <h1 class="header-title" style="text-transform: uppercase;">Cockpit View</h1> -->
+        <div class="header-right-elements">
+            <nav class="main-nav-links">
+                <!-- Data attributes used for JS navigation control -->
+                <a href="index.html" class="nav-item" data-target="landing">Home</a>
+                <a href="Balancesheet.html" class="nav-item active" data-target="balanceSheetApp">Balance Sheet</a>
+                <a href="profit&loss.html" class="nav-item">Profit & Loss</a>
+                <a href="faq.html" class="nav-item">FAQ's</a>
+            </nav>
+            <div class="logo-placeholder right-logo">
+                <!-- Using original logo image -->
+                <img src="images/complibear-logo-b.png" alt="Product Logo">
+            </div>
         </div>
     </header>
-
     <main class="container">
-        <div id="balanceSheetContent" class="financial-statement active">
+        
+        
+        <div id="balanceSheetContent" class="financial-statement active"> 
             <h1> BALANCE SHEET</h1>
+             <div class="circular-mask">
+            </div>
             <p class="currency-note">(All amounts are in millions unless otherwise stated)</p>
-        <div class="nav-buttons">
-            <button class="nav-btn active" id="balanceSheetBtn">Balance Sheet</button>
-            <!-- Using a direct link for navigation is fine, but JS could also handle it via window.location.href -->
-            <button class="nav-btn" id="profitLossBtn" onclick="window.location.href='profit&loss.html'">Profit & Loss Account</button>
-        </div>
 
-            <div class="kpi-dashboard">
+
+
+    <div class="kpi-dashboard">
     <!-- Total Insights KPI Card with Checkbox Design Element -->
     <div class="kpi-card kpi-total-insights">
         <div class="kpi-icon"><i class="fas fa-lightbulb"></i></div>
@@ -103,36 +121,58 @@
         </div>
     </div>
 </div>
+<div style="height: 2em; overflow: hidden;"></div>
 
-        <div class="btn-container">
-          <button class="gradient-btn" onclick="window.location.href='Balancesheet.html'">View Insight</button>
+<div class="btn-container">
+          <button class="gradient-btn" onclick="window.location.href='duplicate-bs.html'">View More</button>
         </div>
 
-            
+
+  <div class="wrapper">
+  <div class="values">
+    <span id="range1">
+      April 
+    </span>
+    <span> &dash; </span>
+    <span id="range2">
+      March 
+    </span>
+  </div>
+  <div class="slider-container">
+    <div class="slider-track"></div>
+    <input type="range" min="0" max="11" value="0" id="slider-1" oninput="slideOne()">
+    <input type="range" min="0" max="11" value="11" id="slider-2" oninput="slideTwo()">
+  </div>
+</div>
+
+     
             <table>
                 <thead>
                     <tr>
                         <th>PARTICULARS</th>
-                        <th>FY 24-25</th>
-                        <th>FY 23-24</th>
-                        <th>FY 22-23</th>
-                        <th>FY 21-22</th>
-                        <th>FY 20-21</th>
+                        <th class="year-column fy-24-25" data-year="24-25">FY 24-25</th>
+                        <th class="year-column fy-23-24" data-year="23-24">FY 23-24</th>
+                        <th class="year-column fy-22-23" data-year="22-23">FY 22-23</th>
+                        <th class="year-column fy-21-22" data-year="21-22">FY 21-22</th>
+                        <th class="year-column fy-20-21" data-year="20-21">FY 20-21</th>
                     </tr>
+
                 </thead>
                 <tbody>
+           
                     <!-- Equities and Liabilities Section -->
                     <tr class="section-title">
                         <td colspan="6">
                             <span class="collapsible">EQUITIES AND LIABILITIES </span>
                             <div class="explanation">
                                 <i>This section represents the funding sources (capital and debt) used to acquire the company's assets. It directly impacts the "Equities and Liabilities" side of the balance equation.</i>
+                                
                             </div>
                         </td>
                     </tr>
                     <tr class="category">
                         <td colspan="6">
-                            <span class="collapsible">SHAREHOLDER'S FUNDS </span> <!-- Added toggle icon -->
+                            <span class="collapsible">SHAREHOLDER'S FUNDS </span>       
                             <div class="explanation">
                                 <i>This category reflects the owners' stake in the company. An increase indicates more capital contribution or retained earnings, boosting the company's net worth.</i>
                             </div>
@@ -143,19 +183,27 @@
                             <span class="collapsible">Equity Share Capital </span>
                             <div class="explanation">
                                 <i>The value of shares issued to equity holders. It directly increases Shareholder's Funds, representing direct investment by owners.</i>
+                                <a href="Balancesheet-view-details.html?selected=Equity Share Capital" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >13,532.00<span class="percentage-impact green">(0.09%)</span></td><td >6,766.00</td><td >6,766.00</td><td >6,765.00</td><td >6,445.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/esc25.json" style="text-decoration: none;">13,532.00 <span class="percentage-impact green">(0.09%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/esc24.json" style="text-decoration: none;">6,766.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">6,766.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">6,765.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">6,445.00</span></td>
                     </tr>
                     <tr class="sub-total">
                         <td>
-                            <!-- Removed inline style 'color:blue' and added a class if styling is needed -->
-                            <span class="collapsible sub-total-collapsible" style="color:blue">Total Share Capital </span>
+                            <span class="collapsible sub-total-collapsible">Total Share Capital </span>
                             <div class="explanation">
                                 <i>The sum of all equity and preference share capital. It is a direct component of Shareholder's Funds, reflecting the total par value of shares outstanding.</i>
                             </div>
                         </td>
-                        <td >13,532.00</td><td >6,766.00</td><td >6,766.00</td><td >6,765.00</td><td >6,445.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">13,532.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">6,766.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">6,766.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">6,765.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">6,445.00</span></td>
                     </tr>
                     <tr>
                         <td>
@@ -164,25 +212,37 @@
                                 <i>Accumulated profits not distributed as dividends, and other reserves. Increases in this account directly boost Shareholder's Funds, strengthening the company's financial position.</i>
                             </div>
                         </td>
-                        <td >4,30,530.00<span class="percentage-impact green">(0.03%)</span></td><td >4,11,207.00</td><td >472,328.00</td><td >464,762.00</td><td >468,038.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">4,30,530.00<span class="percentage-impact green">(0.03%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">4,11,207.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">4,72,328.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">4,64,762.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">4,68,038.00</span></td>
                     </tr>
                     <tr class="sub-total">
                         <td>
-                            <span class="collapsible sub-total-collapsible" style="color:blue">Total Reserves and Surplus </span>
+                            <span class="collapsible sub-total-collapsible" style="color:blue;">Total Reserves and Surplus </span>
                             <div class="explanation">
                                 <i>The aggregate of retained earnings and various reserve accounts. This balance is a key driver of Shareholder's Funds and indicates the company's ability to retain profits for growth.</i>
                             </div>
                         </td>
-                        <td >4,30,530.00</td><td >4,11,207.00</td><td >472,328.00</td><td >464,762.00</td><td >468,038.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">4,30,530.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">4,11,207.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">4,72,328.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">4,64,762.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">4,68,038.00</span></td>
                     </tr>
-                    <tr class="grand-total">
+                    <tr class="grand-total" id="totalShareholdersFundsRow"> <!-- Added ID here -->
                         <td>
-                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Shareholders Funds </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue;">Total Shareholders Funds </span>
                             <div class="explanation">
                                 <i>The total equity capital and accumulated earnings. This figure directly represents the owners' residual claim on the company's assets and impacts the company's overall financial strength.</i>
                             </div>
                         </td>
-                        <td >4,44,062.00</td><td >4,17,973.00</td><td >479,094.00</td><td >471,527.00</td><td >474,483.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"style="text-decoration: none;">4,44,062.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" style="text-decoration: none;">4,17,973.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">4,79,094.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">4,71,527.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">4,74,483.00</span></td>
                     </tr>
 
                     <tr class="category">
@@ -198,45 +258,69 @@
                             <span class="collapsible">Long Term Borrowings </span>
                             <div class="explanation">
                                 <i>Debts due beyond one year, such as bonds or term loans. An increase boosts total liabilities, financing long-term investments but also increasing financial leverage.</i>
+                                <a href="Balancesheet-view-details.html?selected=Long Term Borrowings" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="value-bad">1,82,772.00<span class="percentage-impact red">(0.75%)</span></td><td class="value-bad">1,81,146.00</td><td class="value-bad">135,561.00</td><td class="value-bad">167,231.00</td><td class="value-bad">160,788.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/long-term-borrowings25.json" style="text-decoration: none;">1,82,772.00<span class="percentage-impact red">(0.75%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/long-term-borrowings24.json" style="text-decoration: none;">1,81,146.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">1,35,561.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">1,67,231.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">1,60,788.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Deferred Tax Liabilities [Net] </span>
                             <div class="explanation">
                                 <i>Future tax payments resulting from temporary differences between accounting and tax treatment. It increases long-term liabilities as a recognition of future tax obligations.</i>
+                                <a href="Balancesheet-view-details.html?selected=Deferred Tax Liabilities [Net]" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="value-bad">34,523.00<span class="percentage-impact green">(0.16%)</span></td><td class="value-bad">33,449.00</td><td class="value-bad">33,968.00</td><td class="value-bad">30,832.00</td><td class="value-bad">30,598.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/deferred-tax-net25.json" style="text-decoration: none;">34,523.00<span class="percentage-impact green">(0.16%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/deferred-tax-net24.json" style="text-decoration: none;">33,449.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">33,968.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">30,832.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">30,598.00</span></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>
                             <span class="collapsible">Other Long Term Liabilities </span>
                             <div class="explanation">
                                 <i>Miscellaneous long-term obligations not categorized elsewhere. These increase the overall liability burden, impacting the company's long-term solvency.</i>
+                                <a href="Balancesheet-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="value-bad">910.00<span class="percentage-impact green">(0.00%)</span></td><td class="value-bad">853.00</td><td class="value-bad">3,370.00</td><td class="value-bad">6,504.00</td><td class="value-bad">4,518.00</td>
-                    </tr>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">5,514.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">3,370.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">6,504.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">4,518.00</span></td>
+                    </tr> -->
                     <tr>
                         <td>
                             <span class="collapsible">Long Term Provisions </span>
                             <div class="explanation">
                                 <i>Estimates for future long-term expenses, like employee benefits. These are recorded as liabilities, reflecting a future outflow of resources.</i>
+                                <a href="Balancesheet-view-details.html?selected=Long Term Provisions" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="value-bad">1,767.00</td><td class="value-bad">1,701.00</td><td class="value-bad">1,296.00</td><td class="value-bad">1,598.00</td><td class="value-bad">1,499.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/long-term-provisions25.json" style="text-decoration: none;">910.00<span class="percentage-impact green">(0.00%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/long-term-provisions24.json" style="text-decoration: none;">853.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">1,296.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">1,598.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">1,499.00</span></td>
                     </tr>
-                    <tr class="grand-total">
+                    <tr class="grand-total" id="totalNonCurrentLiabilitiesRow"> <!-- Added ID here -->
                         <td>
-                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Non-Current Liabilities </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue;">Total Non-Current Liabilities </span>
                             <div class="explanation">
                                 <i>The total of all long-term debts and obligations. This figure contributes significantly to the financing of assets and affects the company's capital structure and risk profile.</i>
                             </div>
                         </td>
-                        <td class="value-bad">221,379.00</td><td class="value-bad">2,18,205.00</td><td class="value-bad">2,15,447.00</td><td class="value-bad">206,165.00</td><td class="value-bad">197,403.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" style="text-decoration: none;">2,18,205.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" style="text-decoration: none;">2,15,447.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">1,74,195.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">2,06,165.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">1,97,403.00</span></td>
                     </tr>
 
                     <tr class="category">
@@ -252,56 +336,83 @@
                             <span class="collapsible">Short Term Borrowings </span>
                             <div class="explanation">
                                 <i>Debts repayable within one year. An increase boosts current liabilities and impacts short-term liquidity, requiring prompt repayment from current assets.</i>
+                                <a href="Balancesheet-view-details.html?selected=Short Term Borrowings" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="value-bad">26,788.00<span class="percentage-impact red">(0.60%)</span></td><td class="value-bad">50,731.00</td><td class="value-bad">80,262.00</td><td class="value-bad">27,332.00</td><td class="value-bad">33,152.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/short-term-borrowings25.json" style="text-decoration: none;">1,29,117.00<span class="percentage-impact red">(0.60%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/short-term-borrowings24.json" style="text-decoration: none;">1,00,708.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">80,262.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">27,332.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">33,152.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Trade Payables </span>
                             <div class="explanation">
                                 <i>Amounts owed to suppliers for goods/services on credit. An increase shows more reliance on supplier credit, impacting cash flow and working capital.</i>
+                                <a href="Balancesheet-view-details.html?selected=Trade Payables" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="value-bad">122,379.00<span class="percentage-impact red">(0.57%)</span></td><td class="value-bad">129,859.00</td><td class="value-bad">110,722.00</td><td class="value-bad">134,005.00</td><td class="value-bad">86,999.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/trade-payables25.json" style="text-decoration: none;">1,22,387.00<span class="percentage-impact red">(0.57%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/trade-payables24.json" style="text-decoration: none;">1,29,859.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">1,10,722.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">1,34,005.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">86,999.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Other Current Liabilities </span>
                             <div class="explanation">
                                 <i>Diverse short-term obligations not explicitly listed. An increase raises current liabilities, demanding attention to short-term financial management.</i>
+                                <a href="Balancesheet-view-details.html?selected=Other Current Liabilities" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="value-bad">1,07,612.00<span class="percentage-impact yellow">(0.45%)</span></td><td class="value-bad">58,452.00</td><td class="value-bad">45,366.00</td><td class="value-bad">38,749.00</td><td class="value-bad">80,735.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/other-current-liabilities25.json" style="text-decoration: none;">95,514.00<span class="percentage-impact yellow">(0.45%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/other-current-liabilities24.json" style="text-decoration: none;">52,282.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">45,366.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">38,749.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">80,735.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Short Term Provisions </span>
                             <div class="explanation">
                                 <i>Estimates for future expenses due within one year. These are recorded as current liabilities, representing expected near-term cash outflows.</i>
+                                <a href="Balancesheet-view-details.html?selected=Short Term Provisions" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td class="value-bad">1,156.00<span class="percentage-impact green">(0.01%)</span></td><td class="value-bad">972.00</td><td class="value-bad">926.00</td><td class="value-bad">896.00</td><td class="value-bad">901.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/short-term-provisions25.json" style="text-decoration: none;">1,156.00<span class="percentage-impact green">(0.01%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/short-term-provisions24.json" style="text-decoration: none;">972.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">926.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">896.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">901.00</span></td>
                     </tr>
-                    <tr class="grand-total">
+                    <tr class="grand-total" id="totalCurrentLiabilitiesRow"> <!-- Added ID here -->
                         <td>
-                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Current Liabilities </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue;">Total Current Liabilities </span>
                             <div class="explanation">
                                 <i>The sum of all obligations due within one year. This figure is crucial for assessing a company's ability to cover its short-term liabilities and manage working capital.</i>
                             </div>
                         </td>
-                        <td class="value-bad">257,935.00</td><td class="value-bad">240,014.00</td><td class="value-bad">237,276.00</td><td class="value-bad">200,982.00</td><td class="value-bad">201,787.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" style="text-decoration: none;">3,48,174.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" style="text-decoration: none;">2,83,820.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">2,37,276.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">2,00,982.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">2,01,787.00</span></td>
                     </tr>
 
-
-                     <tr class="grand-total">
+                    <tr class="grand-total" id="totalCapitalAndLiabilitiesRow"> <!-- Added ID here -->
                         <td>
-                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Capital And Liabilities  </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue;">Total Capital And Liabilities </span>
                             <div class="explanation">
                                 <i>The grand total of all financing sources (equity and debt). This value *must* equal Total Assets to maintain the fundamental accounting equation (Assets = Liabilities + Equity).</i>
                             </div>
                         </td>
-                        <td class="value-bad">1,022,401.00</td><td class="value-bad">959,643.00</td><td class="value-bad">890,565.00</td><td class="value-bad">878,674.00</td><td class="value-bad">873,673.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" style="text-decoration: none;">10,10,441.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" style="text-decoration: none;">9,17,240.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">8,90,565.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">8,78,674.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">8,73,673.00</span></td>
                     </tr>
 
                     <!-- Assets Section -->
@@ -326,81 +437,125 @@
                             <span class="collapsible">Tangible Assets </span>
                             <div class="explanation">
                                 <i>Physical assets (e.g., land, machinery) used in operations. Increases reflect investment in productive capacity, impacting depreciation and future earnings potential.</i>
+                                <a href="Balancesheet-view-details.html?selected=Tangible Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >2,67,096.00<span class="percentage-impact red">(0.73%)</span></td><td >258,911.00</td><td >232,238.00</td><td >223,824.00</td><td >292,092.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/tangiable-assets25.json" style="text-decoration: none;">2,67,096.00<span class="percentage-impact red">(0.73%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/tangiable-assets24.json" style="text-decoration: none;">2,37,351.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">2,32,238.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">2,23,824.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">2,92,092.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Intangible Assets </span>
                             <div class="explanation">
                                 <i>Non-physical assets (e.g., patents, goodwill) with long-term value. Acquiring these assets boosts total non-current assets and impacts amortization expenses.</i>
+                                <a href="Balancesheet-view-details.html?selected=Intangible Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >43,951.00<span class="percentage-impact green">(0.12%)</span></td><td >40,719.00</td><td >12,926.00</td><td >15,802.00</td><td >14,741.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/intangible-assets25.json" style="text-decoration: none;">43,951.00<span class="percentage-impact green">(0.12%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/intangible-assets24.json" style="text-decoration: none;">40,719.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">12,926.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">15,802.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">14,741.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Capital Work-In-Progress </span>
                             <div class="explanation">
                                 <i>Costs incurred on assets under construction. This temporarily increases non-current assets until completion, at which point it's reclassified as a tangible or intangible asset.</i>
+                                <a href="Balancesheet-view-details.html?selected=Capital Work-In-Progress" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >76,322.00<span class="percentage-impact yellow">(0.21%)</span></td><td >44,294.00</td><td >30,958.00</td><td >19,267.00</td><td >20,765.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/work-in-progress25.json" style="text-decoration: none;">76,322.00<span class="percentage-impact yellow">(0.21%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/work-in-progress24.json" style="text-decoration: none;">44,294.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">30,958.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">19,267.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">20,765.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Intangible Assets Under Development </span>
                             <div class="explanation">
                                 <i>Costs associated with developing new intangible assets. Similar to CWIP, it reflects ongoing investment in future intangible resources.</i>
+                                <a href="Balancesheet-view-details.html?selected=Intangible Assets Under Development" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >6,095.00<span class="percentage-impact green">(0.02%)</span></td><td >17,338.00</td><td >17,957.00</td><td >15,395.00</td><td >12,070.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/assets-under-develop25.json" style="text-decoration: none;">6,095.00<span class="percentage-impact green">(0.02%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/assets-under-develop24.json" style="text-decoration: none;">17,338.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">17,957.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">15,395.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">12,070.00</span></td>
                     </tr>
                     <tr class="sub-total">
                         <td>
                             <span class="collapsible sub-total-collapsible">Fixed Assets </span>
                             <div class="explanation">
                                 <i>The total value of property, plant, and equipment, plus intangible assets. This represents the core operational assets and impacts the company's long-term earning capacity.</i>
+                                <a href="Balancesheet-view-details.html?selected=Fixed Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >393,464.00</td><td >361,262.00</td><td >294,079.00</td><td >274,288.00</td><td >339,668.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">3,87,369.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">3,22,363.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">2,94,079.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">2,74,288.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">3,39,668.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Non-Current Investments </span>
                             <div class="explanation">
                                 <i>Strategic investments held for over a year. An increase boosts long-term assets, reflecting capital allocated for growth or influence in other entities.</i>
+                                <a href="Balancesheet-view-details.html?selected=Non-Current Investments" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >3,33,258.00<span class="percentage-impact red">(0.91%)</span></td><td >301,400.00</td><td >303,558.00</td><td >330,493.00</td><td >252,620.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/non-current-investments25.json" style="text-decoration: none;">3,33,258.00<span class="percentage-impact red">(0.91%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/non-current-investments24.json" style="text-decoration: none;">3,01,400.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">3,03,558.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">3,30,493.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">2,52,620.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Long Term Loans And Advances </span>
                             <div class="explanation">
                                 <i>Funds provided by the company, recoverable after one year. These are assets representing future economic benefits from lending activities.</i>
+                                <a href="Balancesheet-view-details.html?selected=Long Term Loans And Advances" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >4,941.00<span class="percentage-impact green">(0.01%)</span></td><td >10,051.00</td><td >22,448.00</td><td >41,951.00</td><td >65,968.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/loans&advance25.json" style="text-decoration: none;">4,941.00<span class="percentage-impact green">(0.01%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/loans&advance24.json" style="text-decoration: none;">10,051.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger" style="text-decoration: none;">22,448.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">41,951.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger" style="text-decoration: none;">65,968.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Other Non-Current Assets </span>
                             <div class="explanation">
                                 <i>Miscellaneous long-term assets. An increase here adds to the company's total resources, potentially supporting various long-term strategies.</i>
+                                <a href="Balancesheet-view-details.html?selected=Other Non-Current Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >21,175.00<span class="percentage-impact green">(0.06%)</span></td><td >24,305.00</td><td >4,548.00</td><td >9,544.00</td><td >4,698.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/other-non-current-assets25.json" style="text-decoration: none;">21,175.00<span class="percentage-impact green">(0.06%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/other-non-current-assets24.json" style="text-decoration: none;">24,305.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">4,548.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">9,544.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">4,698.00</span></td>
                     </tr>
                     <tr class="grand-total">
                         <td>
-                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Non-Current Assets </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue;">Total Non-Current Assets </span>
                             <div class="explanation">
                                 <i>The aggregate value of all long-term resources. This figure is critical for assessing a company's investment in its future operations and strategic growth.</i>
                             </div>
                         </td>
-                        <td >752,838.00</td><td >697,018.00</td><td >624,633.00</td><td >656,276.00</td><td >662,954.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">7,46,743.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">6,58,119.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">6,24,633.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">6,56,276.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">6,62,954.00</span></td>
                     </tr>
 
                     <tr class="category">
@@ -408,74 +563,193 @@
                             <span class="collapsible">CURRENT ASSETS </span>
                             <div class="explanation">
                                 <i>Assets expected to be converted to cash or consumed within one year. Growth in these assets indicates improved short-term liquidity and operational efficiency.</i>
-                            </div>                        </td>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Current Investments </span>
                             <div class="explanation">
                                 <i>Short-term liquid investments. An increase enhances liquidity and may generate short-term returns, boosting overall current assets.</i>
+                                <a href="Balancesheet-view-details.html?selected=Current Investments" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >57,102.00<span class="percentage-impact green">(0.16%)</span></td><td >68,663.00</td><td >86,074.00</td><td >78,304.00</td><td >94,665.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/current-investments25.json" style="text-decoration: none;">57,102.00<span class="percentage-impact green">(0.16%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/current-investments24.json" style="text-decoration: none;">68,663.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">86,074.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">78,304.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">94,665.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Inventories </span>
                             <div class="explanation">
                                 <i>Raw materials, work-in-progress, and finished goods. An increase indicates higher stock levels, impacting working capital and potential obsolescence risks.</i>
+                                <a href="Balancesheet-view-details.html?selected=Inventories" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >89,216.00<span class="percentage-impact yellow">(0.23%)</span></td><td >85,100.00</td><td >48,926.00</td><td >45,923.00</td><td >37,437.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/inventories25.json" style="text-decoration: none;">82,756.00<span class="percentage-impact yellow">(0.23%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/inventories24.json" style="text-decoration: none;">78,704.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">48,926.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">45,923.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">37,437.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Trade Receivables </span>
                             <div class="explanation">
                                 <i>Amounts owed by customers. An increase shows more sales on credit, boosting current assets but also increasing credit risk and impacting cash flow collection.</i>
+                                <a href="Balancesheet-view-details.html?selected=Trade Receivables" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >15,591.00<span class="percentage-impact green">(0.04%)</span></td><td >14,740.00</td><td >16,898.00</td><td >14,394.00</td><td >4,159.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/trade-receivables25.json" style="text-decoration: none;">15,591.00<span class="percentage-impact green">(0.04%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/trade-receivables24.json" style="text-decoration: none;">17,470.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">16,898.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">14,394.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">4,159.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Cash And Cash Equivalents </span>
                             <div class="explanation">
                                 <i>Highly liquid resources. An increase directly boosts current assets and is vital for short-term liquidity, enabling the company to meet immediate obligations.</i>
+                                <a href="Balancesheet-view-details.html?selected=Cash And Cash Equivalents" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >82,471.00<span class="percentage-impact yellow">(0.22%)</span></td><td >69,248.00</td><td >56,811.00</td><td >21,714.00</td><td >5,573.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/c&c-25.json" style="text-decoration: none;">82,471.00<span class="percentage-impact yellow">(0.22%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/c&c-24.json" style="text-decoration: none;">69,248.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">56,811.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">21,714.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">5,573.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Short Term Loans And Advances </span>
                             <div class="explanation">
                                 <i>Funds lent by the company, recoverable within one year. These are current assets, representing expected cash inflows from lending.</i>
+                                <a href="Balancesheet-view-details.html?selected=Short Term Loans And Advances" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >595.00<span class="percentage-impact green">(0.00%)</span>   </td><td >0.00</td><td >595.00</td><td >161.00</td><td >993.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/short-term-loans25.json" style="text-decoration: none;">595.00<span class="percentage-impact green">(0.00%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/short-term-loans24.json" style="text-decoration: none;">161.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">595.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">161.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">993.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Other Current Assets </span>
                             <div class="explanation">
                                 <i>Miscellaneous assets convertible to cash within one year. An increase adds to current assets, enhancing the company's short-term resource base.</i>
+                                <a href="Balancesheet-view-details.html?selected=Other Current Assets" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >25,183.00<span class="percentage-impact green">(0.07%)</span></td><td >24,874.00</td><td >56,628.00</td><td >61,902.00</td><td >67,892.00</td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger" data-insight-url="balancesheet/other-current-assets25.json" style="text-decoration: none;">25,183.00<span class="percentage-impact green">(0.07%)</span></span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger" data-insight-url="balancesheet/other-current-assets24.json" style="text-decoration: none;">24,874.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">56,628.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">61,902.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">67,892.00</span></td>
                     </tr>
                     <tr class="grand-total">
                         <td>
-                            <span class="collapsible grand-total-collapsible" style="color:blue">Total Current Assets </span>
+                            <span class="collapsible grand-total-collapsible" style="color:blue;">Total Current Assets </span>
                             <div class="explanation">
                                 <i>The total value of all short-term resources. This figure is critical for assessing the company's ability to cover its short-term liabilities and manage working capital.</i>
+                                <a href="Balancesheet-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td >129,562.00</td><td >129,562.00</td><td >129,562.00</td><td >129,562.00</td><td >129,562.00</td>  
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">2,63,698.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">2,59,121.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">1,29,562.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">1,29,562.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">1,29,562.00</span></td>  
+                    </tr>
+                    <tr class="grand-total">
+                        <td>
+                            <span class="collapsible grand-total-collapsible" style="color:blue;">Total Assets </span>
+                            <div class="explanation">
+                                <i>The total value of all short-term resources. This figure is critical for assessing the company's ability to cover its short-term liabilities and manage working capital.</i>
+                                <a href="Balancesheet-view-details.html" class="navigate-button">View Details</a>
+                            </div>
+                        </td>
+                        <td class="year-data fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">1,010,441.00</span></td>
+                        <td class="year-data fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">9,17,240.00</span></td>
+                        <td class="year-data fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">9,17,240.00</span></td>
+                        <td class="year-data fy-21-22 " data-year="21-22"><span class="insight-trigger" style="text-decoration: none;">9,17,240.00</span></td>
+                        <td class="year-data fy-20-21 " data-year="20-21"><span class="insight-trigger"  style="text-decoration: none;">9,17,240.00</span></td>  
                     </tr>
                 </table>
             </div>
         </div>
     </div>
+</main>
+
 </body>
+<!-- Modal Overlay -->
+
+<script src="JS/duplicate-bs.js"></script>
+     <div id="insightModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Insight Details</h2>
+            <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+        </div>
+        <div class="modal-iframe-container">
+            <div class="combined-insight-card">
+    <div class="popup-header">
+    </div>
+    <h2 class="chart-main-title">Key Business Insights Summary</h2>
+
+    <div class="top-content-grid">
+        <!-- Business Impact Insights Table -->
+        <div>
+            <h3 class="chart-section-header" id="businessImpactHeader">Business Impact Insights</h3>
+            <div class="table-container">
+                <table class="impact-table">
+                    <thead>
+                        <tr>
+                            <th>Insight</th>
+                            <th style="text-align: right;">Impact Amount</th>
+                            <th style="text-align: right;">% of Total</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Revenue Distribution Donut Chart and Total -->
+        <div class="chart-summary-card">
+            <h3 class="chart-section-header" id="distributionHeader" style="border-bottom: none; text-align: center; margin-bottom: 10px;">Impact Distribution</h3>
+            <div class="chart-container" style="max-width: 20rem; max-height: 20rem;"  >
+                <canvas id="revenueDonutChart"></canvas>
+                <div class="donut-total-overlay">
+                    <div class="total-label">Total Impact</div>
+                    <div class="total-value" id="donutTotalAmount"></div>
+                </div>
+            </div>
+            <ul class="chart-legend" id="revenueChartLegend">
+                <!-- Legend items will be populated by JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Combined Line & Bar Chart Section (Placeholder, update if new data provided) -->
+    <div class="combined-chart-section">
+        <h3 class="chart-section-header" id="overTimeHeader">Balance Sheet Impact Over Time</h3>
+        <div class="combined-chart-container">
+            <canvas id="exceptionCombinedChart"></canvas>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+
 </html>

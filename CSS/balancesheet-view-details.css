@@ -68,13 +68,37 @@ body {
 }
 
 .date-selector span:first-of-type {
-    cursor: pointer;
+    cursor: default;
     margin-right: 5px;
 }
 
 .date-selector .date-input {
     display: none;
 }
+
+.back-button {
+  margin-top: 10px; /* Adjust as needed for spacing */
+}
+
+.back-button button {
+  background-image: linear-gradient(to bottom, #ffffff, #e0e0e0); /* Gradient background */
+  border: 1px solid #ccc; /* Example border */
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.back-button button:hover {
+  background-image: linear-gradient(to bottom, #e0e0e0, #d0d0d0); /* Slightly darker gradient on hover */
+}
+
+.back-button span {
+  color: #333; /* Example text color */
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7); /* Subtle text shadow for better contrast */
+}
+
 
 .main-content {
     padding: 20px 30px;

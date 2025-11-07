@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Color Palette from the provided images */
+    --primary-green: #34D399;
+    --primary-yellow: #FBBF24;
+    --dark-text: #1F2937;
+    --light-text: #6B7280;
+    --border-light: #E5E7EB;
+    --background-light: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    
+    /* Nav-specific colors */
+    --nav-bg-gradient: linear-gradient(to right, #F5FCF8, #EAF6F2);
+    --nav-text-color: #4A5568;
+
+    /* Specific styles from the image */
+    --header-bg-gradient: linear-gradient(135deg, #e6f8f1 0%, #d4f2e6 100%);
+    --active-bg-light: #F0FDF4; /* A very light green for active states */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+
+/* --- New Header Styles --- */
+.main-header {
+    background: var(--nav-bg-gradient);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* CHANGE HERE: Removed text-specific styles */
+.logo a {
+    text-decoration: none;
+    display: inline-block; /* Helps contain the image properly */
+}
+
+/* NEW STYLE: To control the logo image size */
+.logo img {
+    height: 60px; /* Adjust this value for more/less space */
+    width: auto; /* Maintain aspect ratio */
+    display: block; /* Removes extra space below the image */
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links li {
+    margin-left: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--nav-text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding-bottom: 5px;
+}
+
+.nav-links a:hover {
+    color: var(--dark-text);
+}
+
+.nav-links a.active {
+    color: var(--dark-text);
+    font-weight: 600;
+    border-bottom: 2px solid var(--primary-green);
+}
+/* --- End Header Styles --- */
+
+
+.faq-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Header Section */
+.faq-header-section {
+    background: var(--header-bg-gradient);
+    border-radius: 12px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-header-content {
+    flex: 1;
+    z-index: 1;
+}
+
+.faq-header-content h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    color: var(--dark-text);
+    font-weight: 700;
+}
+
+.faq-header-content p {
+    font-size: 1.1em;
+    color: var(--light-text);
+    margin-bottom: 30px;
+    max-width: 80%;
+}
+
+.faq-header-graphics {
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+.faq-header-graphics img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+/* Accordion Section */
+.faq-accordion-section h2 {
+    font-size: 2.5em;
+    color: var(--dark-text);
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 10px var(--shadow-light);
+    overflow: hidden;
+}
+
+.accordion-header {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    padding: 20px 25px;
+    font-size: 1.15em;
+    font-weight: 600;
+    color: var(--dark-text);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #f9f9f9;
+}
+
+.accordion-header.active {
+    background-color: var(--active-bg-light);
+    color: var(--primary-green);
+}
+
+.arrow-icon {
+    transition: transform 0.3s ease;
+    color: var(--light-text);
+}
+
+.accordion-header.active .arrow-icon {
+    transform: rotate(180deg);
+    color: var(--primary-green);
+}
+
+.accordion-body {
+    padding: 0 25px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    color: var(--light-text);
+    background-color: var(--card-bg);
+}
+
+.accordion-body.show {
+    max-height: 500px; /* Adjust as needed */
+    padding: 20px 25px;
+    border-top: 1px solid var(--border-light);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .faq-header-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .faq-header-content p {
+        max-width: 100%;
+    }
+    .faq-header-graphics {
+        width: 100%;
+        justify-content: center;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .nav-links li {
+        margin-left: 20px;
+    }
+    .faq-header-content h1 {
+        font-size: 2.8em;
+    }
+    .faq-accordion-section h2 {
+        font-size: 2em;
+    }
+    .accordion-header {
+        font-size: 1em;
+    }
+}

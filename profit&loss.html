@@ -28,19 +28,25 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
   </head>
   <body>
-    <header class="header">
-      <div class="logo-placeholder left-logo">
-        <!-- Add company logo here -->
-        <a href="https://ajalabs.ai/about.html"
-          ><img src="images/ajalabs-black.png" alt="Company Logo"
-        /></a>
-      </div>
-      <h1> Cockpit View</h1>
-
-      <div class="logo-placeholder right-logo">
-        <!-- Add product logo here -->
-        <img src="images/complibear-logo-b.png" alt="Product Logo" />
-      </div>
+     <header class="header fixed-top-header">
+        <div class="logo-placeholder left-logo">
+            <!-- Using original logo image -->
+            <a href="https://ajalabs.ai/about.html"><img src="images/ajalabs-black.png" alt="Company Logo"></a>
+        </div>
+        <!-- <h1 class="header-title" style="text-transform: uppercase;">Cockpit View</h1> -->
+        <div class="header-right-elements">
+            <nav class="main-nav-links">
+                <!-- Data attributes used for JS navigation control -->
+                <a href="index.html" class="nav-item " data-target="landing">Home</a>
+                <a href="Balancesheet.html" class="nav-item" data-target="balanceSheetApp">Balance Sheet</a>
+                <a href="profit&loss.html" class="nav-item active">Profit & Loss</a>
+                <a href="faq.html" class="nav-item">FAQ's</a>
+            </nav>
+            <div class="logo-placeholder right-logo">
+                <!-- Using original logo image -->
+                <img src="images/complibear-logo-b.png" alt="Product Logo">
+            </div>
+        </div>
     </header>
 
     <main class="container">
@@ -50,18 +56,6 @@
         <p class="currency-note">
           (All amounts are in millions unless otherwise stated)
         </p>
-        <div class="nav-buttons">
-        <button
-          class="nav-btn"
-          id="balanceSheetBtn"
-          onclick="location.href='Balancesheet.html'"
-        >
-          Balance Sheet
-        </button>
-        <button class="nav-btn active" id="profitLossBtn">
-          Profit & Loss Account
-        </button>
-      </div>
         <div class="kpi-dashboard">
           <!-- Total Insights KPI Card with Checkbox Design Element -->
           <div class="kpi-card kpi-total-insights">
@@ -121,26 +115,32 @@
             <div class="kpi-icon"><i class="fas fa-money-bill-wave"></i></div>
             <div class="kpi-info">
               <div class="kpi-label">Net Profit (FY24-25)</div>
-              <div class="kpi-value">19323 M</div>
+              <div class="kpi-value">19,323 M</div>
             </div>
           </div>
         </div>
         <div class="btn-container">
           <button class="gradient-btn" onclick="window.location.href='duplicate-pl.html'">View More</button>
         </div>
-<div class="slider-container">
-  <h3>Adjust Impact for <span id="sliderYear">FY 24-25</span></h3>
 
-  <div class="range-slider">
-    <div class="slider-track"></div>
-    <input type="range" min="1" max="12" value="1" id="slider-1" />
-    <input type="range" min="1" max="12" value="12" id="slider-2" />
-    <div class="slider-labels">
-      <span id="rangeFromMonth">April</span>
-      <span id="rangeToMonth">March</span>
-    </div>
+<div class="wrapper">
+  <div class="values">
+    <span id="range1">
+      April 
+    </span>
+    <span> &dash; </span>
+    <span id="range2">
+      March 
+    </span>
   </div>
-</div>         <table >
+  <div class="slider-container">
+    <div class="slider-track"></div>
+    <input type="range" min="0" max="11" value="0" id="slider-1" oninput="slideOne()">
+    <input type="range" min="0" max="11" value="11" id="slider-2" oninput="slideTwo()">
+  </div>
+</div>
+
+ <table >
           <thead>
             <tr>
               <th>PARTICULARS</th>
@@ -160,7 +160,14 @@
               </th>
             </tr>
           </thead>
+
           <tbody>
+            <tr style="background-color: #ffffffc3;" >
+              <td ></td>
+              <td ><b>Value Address (%Value/Total)</b></td>
+              <td ><b>Value Address</b></td>
+            </tr>
+
             <tr class="category">
               <td colspan="5">
                 <span class="collapsible">INCOME</span>
@@ -1065,6 +1072,7 @@
                 <span class="insight-trigger" style="text-decoration: none" data-insight-url="profit-and-loss/deferred-tax25.json"
                   >1,467.00</span
                 >
+                <span class="percentage-impact green">(0.00%)</span>
               </td>
               <td class="year-column fy-23-24" data-year="23-24">
                 <span class="insight-trigger" style="text-decoration: none" data-insight-url="profit-and-loss/deferred-tax24.json"
@@ -1437,7 +1445,7 @@
       </div>
     </main>
 
-    <script src="JS/PL.js"></script>
+    <script src="JS/BL.js"></script>
     <div id="insightModal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">

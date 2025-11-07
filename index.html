@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="images/paw.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CompliBear - Balance & Profit Insights</title>
+
+    <!-- D3.js Core Library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- REQUIRED: D3.js Sankey Plugin (This was the fix for the previous error) -->
+    <script src="https://d3js.org/d3-sankey.v0.12.3.min.js"></script>
+
+    <!-- Font Awesome for KPI icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/index.css" />
+  </head>
+  <body>
+    <!-- HEADER & NAVIGATION BAR -->
+    <header id="main-header">
+      <nav class="container">
+        <a href="#" class="logo">
+          <img
+            src="images/ajalabs-black.png"
+            alt="Company Logo"
+            style="width: 90px; height: 70px"
+          />
+        </a>
+        <ul class="nav-links">
+          <li><a href="balancesheet.html">Balance Sheet</a></li>
+          <li><a href="profit&loss.html">Profit & Loss</a></li>
+          <li><a href="faq.html">FAQ's</a></li>
+        </ul>
+        <a href="#">
+          <img
+            src="images/complibear-logo-b.png"
+            alt="Company Logo"
+            style="width: 100px; height: 90px"
+          />
+        </a>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text fade-in">
+            <h1>A Solid Foundation for Your Financial Growth</h1>
+            <p>
+              Track your balance sheets, analyze profit and loss, and make
+              smarter decisions with our intuitive platform. Your financial
+              clarity starts here.
+            </p>
+            <a href="#balance-sheet" class="btn btn-yellow">Get Started</a>
+          </div>
+          <div class="hero-illustration fade-in">
+            <img
+              src="images/index-main.png"
+              alt="Financial Growth Illustration"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <!-- FINANCIAL DECOMPOSITION SECTION -->
+<section id="hierarchy-visualization">
+    <div class="container">
+      <h2 class="section-title fade-in">Financial Decomposition</h2>
+      <p class="section-subtitle fade-in">
+        Visually trace the structure of your balance sheet from high-level
+        categories to detailed accounts.
+      </p>
+      <div class="center-button">
+        <!-- Button now acts as a toggle -->
+        <button class="btn-blue" id="view-all-fds" data-view="hierarchy">View All Decompositions
+        </button>
+      </div>
+
+
+
+      <!-- Container for the Interactive Hierarchy Tree -->
+    <div class="tree-container-wrapper">
+        <div class="tree-container">
+          <svg class="tree-connectors"></svg>
+          <div class="tree-level" data-level="1">
+            <div
+              class="tree-node"
+              data-id="balance-sheet"
+              data-value="100"
+              data-children="bs-children"
+            >
+              <div class="node-content-wrapper">
+                <div class="node-content">
+                  <span class="node-label">Balance Sheet</span
+                  ><span class="node-value">₹10.0M</span>
+                </div>
+                <div class="node-bar-container">
+                  <div class="node-bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tree-level" data-level="2">
+            <!-- Level 2 nodes... -->
+            <div
+              class="tree-node bs-children"
+              data-id="equities-liabilities"
+              data-value="100"
+              data-parent="balance-sheet"
+              data-children="el-children"
+            >
+              <div class="node-content-wrapper">
+                <div class="node-content">
+                  <span class="node-label"
+                    >Equities and<br />Liabilities</span
+                  ><span class="node-value">₹10.0M</span>
+                </div>
+                <div class="node-bar-container">
+                  <div class="node-bar"></div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tree-node bs-children"
+              data-id="assets"
+              data-value="100"
+              data-parent="balance-sheet"
+              data-children="as-children"
+            >
+              <div class="node-content-wrapper">
+                <div class="node-content">
+                  <span class="node-label">Assets</span
+                  ><span class="node-value">₹10.0M</span>
+                </div>
+                <div class="node-bar-container">
+                  <div class="node-bar"></div>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tree-level" data-level="3">
+            <!-- ... Level 3 Nodes ... -->
+             <div
+                  class="tree-node el-children"
+                  data-id="shareholder-funds"
+                  data-value="40.0"
+                  data-parent="equities-liabilities"
+                  data-children="sf-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label">Shareholder's<br />Funds</span
+                      ><span class="node-value">₹4.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node el-children"
+                  data-id="non-current-liabilities"
+                  data-value="35.0"
+                  data-parent="equities-liabilities"
+                  data-children="nc-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label"
+                        >Non-Current<br />Liabilities</span
+                      ><span class="node-value">₹3.50M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node el-children"
+                  data-id="current-liabilities"
+                  data-value="25.0"
+                  data-parent="equities-liabilities"
+                  data-children="cl-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label">Current<br />Liabilities</span
+                      ><span class="node-value">₹2.50M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node as-children"
+                  data-id="non-current-assets"
+                  data-value="67.5"
+                  data-parent="assets"
+                  data-children="nca-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label">Non-Current<br />Assets</span
+                      ><span class="node-value">₹6.75M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node as-children"
+                  data-id="current-assets"
+                  data-value="32.5"
+                  data-parent="assets"
+                  data-children="ca-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label">Current Assets</span
+                      ><span class="node-value">₹3.25M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="tree-level" data-level="4">
+            <!-- All Level 4 Nodes updated with data-insight-url -->
+            <div
+                  class="tree-node sf-children"
+                  data-id="share-capital"
+                  data-value="25.0"
+                  data-parent="shareholder-funds"
+                  data-children="esc-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/esc25.json">Equity Share<br />Capital</span>
+                      <span class="node-value">₹2.50M</span>
+                        <a href="https://altex.dev/complibear/dashboards/Category/strategy.html" target="_blank" class="info-btn">i</a>
+
+                    </div>
+                    <br>
+                    
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node sf-children"
+                  data-id="reserves-surplus"
+                  data-value="15.0"
+                  data-parent="shareholder-funds"
+                  data-children="rs-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/reserves-surplus25.json">Reserves & Surplus</span
+                      ><span class="node-value">₹1.50M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nc-children"
+                  data-id="long-term-borrowings"
+                  data-value="20.0"
+                  data-parent="non-current-liabilities"
+                  data-children="ltb-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/long-term-borrowings25.json">Long-term<br />Borrowings</span
+                      ><span class="node-value">₹2.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nc-children"
+                  data-id="deferred-tax-liabilities-net"
+                  data-value="20.0"
+                  data-parent="non-current-liabilities"
+                  data-children="dtl-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/deferred-tax-net25.json"
+                        >Deferred Tax<br />Liabilities[Net]</span
+                      ><span class="node-value">₹2.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nc-children"
+                  data-id="long-term-provisions"
+                  data-value="20.0"
+                  data-parent="non-current-liabilities"
+                  data-children="lt-prov-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/long-term-provisions25.json">Long Term<br />Provisions</span
+                      ><span class="node-value">₹2.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node cl-children"
+                  data-id="short-term-borrowings"
+                  data-value="12.0"
+                  data-parent="current-liabilities"
+                  data-children="stb-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/short-term-borrowings25.json">Short Term<br />Borrowings</span
+                      ><span class="node-value">₹1.20M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node cl-children"
+                  data-id="trade-payables"
+                  data-value="12.0"
+                  data-parent="current-liabilities"
+                  data-children="tp-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/trade-payables25.json">Trade Payables</span
+                      ><span class="node-value">₹1.20M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node cl-children"
+                  data-id="other-current-liabilities"
+                  data-value="12.0"
+                  data-parent="current-liabilities"
+                  data-children="ocl-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/other-current-liabilities25.json">Other Current<br />Liabilities</span
+                      ><span class="node-value">₹1.20M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node cl-children"
+                  data-id="short-term-provisions"
+                  data-value="12.0"
+                  data-parent="current-liabilities"
+                  data-children="stp-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/short-term-provisions25.json">Short Term<br />Provisions</span
+                      ><span class="node-value">₹1.20M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nca-children"
+                  data-id="tangible-assets"
+                  data-value="50.0"
+                  data-parent="non-current-assets"
+                  data-children="ta-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/tangiable-assets25.json"
+                        >Tangible Assets</span
+                      ><span class="node-value">₹5.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nca-children"
+                  data-id="intangible-assets"
+                  data-value="50.0"
+                  data-parent="non-current-assets"
+                  data-children="ia-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/intangible-assets25.json"
+                        >Intangible Assets</span
+                      ><span class="node-value">₹5.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nca-children"
+                  data-id="capital-work-in-progress"
+                  data-value="50.0"
+                  data-parent="non-current-assets"
+                  data-children="cwip-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/work-in-progress25.json"
+                        >Capital Work<br> In Progress</span
+                      ><span class="node-value">₹5.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nca-children"
+                  data-id="intangible-assets-under-development"
+                  data-value="50.0"
+                  data-parent="non-current-assets"
+                  data-children="iad-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/assets-under-develop25.json"
+                        >Intangible Assets<br> Under Development</span
+                      ><span class="node-value">₹5.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nca-children"
+                  data-id="fixed-assets"
+                  data-value="50.0"
+                  data-parent="non-current-assets"
+                  data-children="fa-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/fixed-assets25.json"
+                        >Fixed Assets</span
+                      ><span class="node-value">₹5.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nca-children"
+                  data-id="non-current-investments"
+                  data-value="50.0"
+                  data-parent="non-current-assets"
+                  data-children="nci-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/non-current-investments25.json"
+                        >Non Current<br> Investments</span
+                      ><span class="node-value">₹5.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nca-children"
+                  data-id="long-term-loans-advances"
+                  data-value="50.0"
+                  data-parent="non-current-assets"
+                  data-children="lta-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/loans&advance25.json"
+                        >Long Term<br> Loans & Advances</span
+                      ><span class="node-value">₹5.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node nca-children"
+                  data-id="deferred-tax-assets"
+                  data-value="50.0"
+                  data-parent="non-current-assets"
+                  data-children="dfa-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/deferred-tax-assets25.json"
+                        >Deferred Tax<br> Assets</span
+                      ><span class="node-value">₹5.00M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>  
+                <div
+                  class="tree-node ca-children"
+                  data-id="other-non-current-assets"
+                  data-value="7.5"
+                  data-parent="current-assets"
+                  data-children="ona-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/other-non-current-assets25.json">Other Non Current<br> Assets</span
+                      ><span class="node-value">₹0.75M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node ca-children"
+                  data-id="current-investments"
+                  data-value="6.0"
+                  data-parent="current-assets"
+                  data-children="ci-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/current-investments25.json">Current<br />Investments</span
+                      ><span class="node-value">₹0.60M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node ca-children"
+                  data-id="inventories"
+                  data-value="6.0"
+                  data-parent="current-assets"
+                  data-children="inv-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/inventories25.json">Inventories</span
+                      ><span class="node-value">₹0.60M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node ca-children"
+                  data-id="trade-receivables"
+                  data-value="6.0"
+                  data-parent="current-assets"
+                  data-children="tr-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/trade-receivables25.json">Trade<br />Receivables</span
+                      ><span class="node-value">₹0.60M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node ca-children"
+                  data-id="cash-cash-equivalents"
+                  data-value="6.0"
+                  data-parent="current-assets"
+                  data-children="cce-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/c&c-25.json">Cash<br />Cash Equivalents</span
+                      ><span class="node-value">₹0.60M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node ca-children"
+                  data-id="short-term-loans-advances"
+                  data-value="6.0"
+                  data-parent="current-assets"
+                  data-children="sta-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/short-term-loans25.json">Short Term<br />Loans & Advances</span
+                      ><span class="node-value">₹0.60M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tree-node ca-children"
+                  data-id="other-current-assets"
+                  data-value="6.0"
+                  data-parent="current-assets"
+                  data-children="oca-children"
+                >
+                  <div class="node-content-wrapper">
+                    <div class="node-content">
+                      <span class="node-label" data-insight-url="balancesheet/other-current-assets25.json">Other Current<br />Assets</span
+                      ><span class="node-value">₹0.60M</span>
+                    </div>
+                    <div class="node-bar-container">
+                      <div class="node-bar"></div>
+                    </div>
+                  </div>
+                </div>  
+            </div>
+           
+
+          </div>
+      </div>
+    </div>
+
+
+</section>
+      <!-- SUNBURST CHART SECTION -->
+      <section id="sunburst-visualization">
+        <div class="container">
+          <h2 class="section-title fade-in">Global Operations Overview</h2>
+          <p class="section-subtitle fade-in">
+            Explore the proportional breakdown of your teams across different
+            regions. Hover over segments for details.
+          </p>
+          <div id="chartdiv"></div>
+        </div>
+      </section>
+
+      <!-- BALANCE SHEET SECTION -->
+      <section id="balance-sheet">
+        <div class="animation-bg-container">
+          <div class="sparkle sparkle-1"></div>
+          <div class="sparkle sparkle-2"></div>
+          <div class="sparkle sparkle-3"></div>
+          <div class="sparkle sparkle-4"></div>
+          <div class="sparkle sparkle-5"></div>
+          <div class="animated-graph">
+            <svg
+              width="100"
+              height="100"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect class="bar bar-1" y="60" width="20" height="40" rx="4" />
+              <rect
+                class="bar bar-2"
+                y="30"
+                x="40"
+                width="20"
+                height="70"
+                rx="4"
+              />
+              <rect
+                class="bar bar-3"
+                y="10"
+                x="80"
+                width="20"
+                height="90"
+                rx="4"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="container">
+          <h2 class="section-title fade-in">The Balance Sheet</h2>
+          <p class="section-subtitle fade-in">
+            No more complex spreadsheets. We provide a clear, visual
+            representation of your financial position.
+          </p>
+          <div class="balance-sheet-layout">
+            <div class="card main-card slide-in-left">
+              <h3>Your Financial Snapshot</h3>
+              <p>
+                See your assets, liabilities, and equity update in real-time.
+                Understand your net worth instantly and make data-driven
+                decisions with confidence.
+              </p>
+              <a href="balancesheet.html" class="btn">Explore The Dashboard</a>
+            </div>
+            <div class="side-cards slide-in-right">
+              <div class="card fade-in" style="transition-delay: 0.2s">
+                <h4>Automated Imports</h4>
+                <p>
+                  Securely connect your bank accounts for automatic transaction
+                  updates.
+                </p>
+              </div>
+              <div class="card fade-in" style="transition-delay: 0.3s">
+                <h4>Custom Reports</h4>
+                <p>
+                  Generate detailed monthly or quarterly reports for
+                  stakeholders or personal review.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA BANNER SECTION -->
+      <section id="cta-banner" class="fade-in">
+        <div class="cta-content container">
+          <div class="cta-text">
+            <h2>Visualize Your Path to Growth</h2>
+            <p>
+              Our interactive charts and reports turn raw numbers into
+              actionable insights, helping you spot trends and plan your next
+              move.
+            </p>
+            <a href="#" class="btn btn-yellow">See a Demo</a>
+          </div>
+          <div class="cta-illustration">
+            <div class="bar-3d bar1"></div>
+            <div class="bar-3d bar2"></div>
+            <div class="bar-3d bar3"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TREEMAP CHART SECTION -->
+      <section id="treemap-visualization">
+        <div class="container">
+          <h2 class="section-title fade-in">Asset Allocation</h2>
+          <p class="section-subtitle fade-in">
+            Understand the composition of your assets at a glance. Larger boxes
+            represent a greater share of your portfolio's value.
+          </p>
+           <button id="view-all-button">View All</button>
+        <div id="treemap-chart"></div>
+          <div id="treemap-container" class="fade-in"></div>
+        </div>
+      </section>
+
+      <!-- SANKEY CHART SECTION -->
+      <section id="sankey-visualization">
+        <div class="container">
+          <h2 class="section-title fade-in">Flow of Profitability</h2>
+          <p class="section-subtitle fade-in">
+            Follow the money from gross revenue through expenses to net profit.
+            Hover over a flow to highlight its path.
+          </p>
+          <div id="sankey2-chart"></div>
+          <div id="sankey-container" class="fade-in"></div>
+          <div class="sankey-tooltip"></div>
+          <br>
+          <br>
+        </div>
+          <div class="container">
+          <h2 class="section-title fade-in">Flow of Profitability</h2>
+          <p class="section-subtitle fade-in">
+            Follow the money from gross revenue through expenses to net profit.
+            Hover over a flow to highlight its path.
+          </p>
+          <div id="sankey-chart"></div>
+          <div id="sankey-container" class="fade-in"></div>
+          <div class="sankey-tooltip"></div>
+          <!-- Tooltip for Sankey -->
+        </div>
+      </section>
+
+      <!-- PROFIT & LOSS SECTION -->
+      <!-- <section id="profit-loss">
+        <div class="container">
+          <h2 class="section-title fade-in">Profit and Loss at a Glance</h2>
+          <p class="section-subtitle fade-in">
+            Track your performance over time. Are you growing? Where can you
+            optimize? Find out here.
+          </p>
+          <div class="chart-container fade-in" id="profit-chart"></div>
+        </div>
+      </section> -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 CompliBear. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <!-- REQUIRED EXTERNAL LIBRARIES -->
+  </body>
+      <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/flow.js"></script>
+    <!-- ADD CHART.JS FOR THE MODAL CHARTS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    
+    <script src="JS/index.js"></script>
+
+    <!-- INSIGHT MODAL STRUCTURE (Copied from balancesheet.html) -->
+    <div id="insightModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Insight Details</h2>
+                <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+            </div>
+            <div class="modal-iframe-container">
+                <div class="combined-insight-card">
+        <div class="popup-header">
+        </div>
+        <h2 class="chart-main-title">Key Business Insights Summary</h2>
+
+        <div class="top-content-grid">
+            <!-- Business Impact Insights Table -->
+            <div>
+                <h3 class="chart-section-header" id="businessImpactHeader">Business Impact Insights</h3>
+                <div class="table-container">
+                    <table class="impact-table">
+                        <thead>
+                            <tr>
+                                <th>Insight</th>
+                                <th style="text-align: right;">Impact Amount</th>
+                                <th style="text-align: right;">% of Total</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Revenue Distribution Donut Chart and Total -->
+            <div class="chart-summary-card">
+                <h3 class="chart-section-header" id="distributionHeader" style="border-bottom: none; text-align: center; margin-bottom: 10px;">Impact Distribution</h3>
+                <div class="chart-container" style="max-width: 20rem; max-height: 20rem;"  >
+                    <canvas id="revenueDonutChart"></canvas>
+                    <div class="donut-total-overlay">
+                        <br>
+                        <br>
+                        <div class="total-label">Total Impact</div>
+                        <div class="total-value" id="donutTotalAmount"></div>
+                    </div>
+                </div>
+                <ul class="chart-legend" id="revenueChartLegend">
+                    <!-- Legend items will be populated by JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Combined Line & Bar Chart Section -->
+        <div class="combined-chart-section">
+            <h3 class="chart-section-header" id="overTimeHeader">Balance Sheet Impact Over Time</h3>
+            <div class="combined-chart-container">
+                <canvas id="exceptionCombinedChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</html>

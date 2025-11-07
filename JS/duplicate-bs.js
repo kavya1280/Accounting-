@@ -97,7 +97,6 @@ function applySliderImpact() {
   // so `calculateAndDisplayPercentages()` is not called here.
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
   let revenueDonutChart;
   let exceptionCombinedChart;
@@ -150,25 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-    
-  // --- Category Toggle Functionality (New Addition) ---
-  document.querySelectorAll(".category").forEach(function(row) {
-    row.addEventListener("click", function() {
-      const target = this.getAttribute("data-target");
-      const childRows = document.querySelectorAll(`.child.${target}`);
-
-      childRows.forEach(child => {
-        // Toggle between visible and hidden
-        if (child.style.display === "table-row") {
-          child.style.display = "none";
-        } else {
-          child.style.display = "table-row";
-        }
-      });
-    });
-  });
-  // ----------------------------------------------------
-
 
   // --- Insight Modal Functionality ---
   const insightTriggers = document.querySelectorAll(".insight-trigger");
@@ -566,7 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "tr.section-title td, tr.category td"
   );
 
-  const defaultYears = ["24-25", "23-24"];
+  const defaultYears = ["24-25", "23-24", "22-23", "21-22", "20-21"];
 
   function updateColspans(visibleCount) {
     const totalVisibleColumns = 1 + visibleCount; // Particulars + visible years

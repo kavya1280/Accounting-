@@ -10,7 +10,10 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="header">
@@ -22,19 +25,28 @@
           height="100"
         />
       </div>
-      
+
       <!-- <div class="search-bar">
             <span class="material-icons">search</span>
             <input type="text" id="employeeSearch" placeholder="">
         </div> -->
       <div class="date-selector">
-        <span id="selectedDateRange">Apr 1, 2024 - Mar 31 2025</span>
+        <span>Apr 1, 2024 - Mar 31 2025</span>
+      </div>
+      <div class="back-button">
+        <button onclick="window.location.href='profit&loss.html'">
+          <span>Back</span>
+        </button>
       </div>
     </div>
     <div class="title">
-        <a href="profit&loss.html" class="navigate-button" style="text-decoration: none;">
+      <a
+        href="profit&loss.html"
+        class="navigate-button"
+        style="text-decoration: none"
+      >
         <h2>STATEMENT OF PROFIT AND LOSS</h2>
-        </a>
+      </a>
     </div>
     <div class="main-content">
       <div class="kpi-cards">
@@ -91,10 +103,9 @@
           <div class="card-icons"></div>
         </div>
         <div></div>
-        
       </div>
       <div class="kpi-cards" style="margin-top: 20px"></div>
-<div class="btn-container">
+      <div class="btn-container">
         <button
           class="gradient-btn"
           id="balanceSheetBtn"
@@ -162,12 +173,12 @@
               </tbody>
             </table>
             <div class="pagination-container">
-    <button id="prevPage" class="pagination-button">Prev</button>
-    <div id="pageNumbers" class="pagination-numbers">
-        <!-- Page numbers will be dynamically inserted here by JavaScript -->
-    </div>
-    <button id="nextPage" class="pagination-button">Next</button>
-</div> 
+              <button id="prevPage" class="pagination-button">Prev</button>
+              <div id="pageNumbers" class="pagination-numbers">
+                <!-- Page numbers will be dynamically inserted here by JavaScript -->
+              </div>
+              <button id="nextPage" class="pagination-button">Next</button>
+            </div>
           </div>
         </div>
       </div>

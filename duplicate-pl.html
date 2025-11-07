@@ -1,44 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="icon" href="images/paw.png">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Profit & Loss Account</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="CSS/PL.css">
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
+  <head>
+    <link rel="icon" href="images/paw.png">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profit & Loss Account</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="CSS/PL.css" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    </head>
-<body>
-    <header class="header">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+  </head>
+  <body>
+     <header class="header fixed-top-header">
         <div class="logo-placeholder left-logo">
-            <!-- Add company logo here -->
-            <img src="images/ajalabs-black.png" alt="Company Logo">
+            <!-- Using original logo image -->
+            <a href="https://ajalabs.ai/about.html"><img src="images/ajalabs-black.png" alt="Company Logo"></a>
         </div>
-              <h1> Cockpit View</h1>
-        <div class="logo-placeholder right-logo">
-            <!-- Add product logo here -->
-            <img src="images/complibear-logo-b.png" alt="Product Logo">
+        <!-- <h1 class="header-title" style="text-transform: uppercase;">Cockpit View</h1> -->
+        <div class="header-right-elements">
+            <nav class="main-nav-links">
+                <!-- Data attributes used for JS navigation control -->
+                <a href="index.html" class="nav-item " data-target="landing">Home</a>
+                <a href="Balancesheet.html" class="nav-item" data-target="balanceSheetApp">Balance Sheet</a>
+                <a href="profit&loss.html" class="nav-item active">Profit & Loss</a>
+                <a href="faq.html" class="nav-item">FAQ's</a>
+            </nav>
+            <div class="logo-placeholder right-logo">
+                <!-- Using original logo image -->
+                <img src="images/complibear-logo-b.png" alt="Product Logo">
+            </div>
         </div>
     </header>
 
     <main class="container">
-        
-        <div id="profitLossContent" class="financial-statement active">
-            <h1>STATEMENT OF PROFIT AND LOSS</h1>
-            <p class="currency-note">(All amounts are in millions unless otherwise stated)</p>
-                    <div class="nav-buttons">
-            <button class="nav-btn" id="balanceSheetBtn" onclick="location.href='Balancesheet.html'">Balance Sheet</button>
-            <button class="nav-btn active" id="profitLossBtn">Profit & Loss Account</button>
-        </div>
-
+      <div id="profitLossContent" class="financial-statement active">
+        <div class="circular-mask"></div>
+        <h1>STATEMENT OF PROFIT AND LOSS</h1>
+        <p class="currency-note">
+          (All amounts are in millions unless otherwise stated)
+        </p>
         <div class="kpi-dashboard">
           <!-- Total Insights KPI Card with Checkbox Design Element -->
           <div class="kpi-card kpi-total-insights">
@@ -102,305 +119,1225 @@
             </div>
           </div>
         </div>
-
         <div class="btn-container">
-          <button class="gradient-btn" onclick="window.location.href='profit&loss.html'">View Insight</button>
+          <button class="gradient-btn" onclick="window.location.href='profit&loss.html'">View More</button>
         </div>
 
+<div class="wrapper">
+  <div class="values">
+    <span id="range1">
+      April 
+    </span>
+    <span> &dash; </span>
+    <span id="range2">
+      March 
+    </span>
+  </div>
+  <div class="slider-container">
+    <div class="slider-track"></div>
+    <input type="range" min="0" max="11" value="0" id="slider-1" oninput="slideOne()">
+    <input type="range" min="0" max="11" value="11" id="slider-2" oninput="slideTwo()">
+  </div>
+</div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>PARTICULARS</th>
-                        <th>FY 24-25</th>
-                        <th>FY 23-24</th>
-                        <th>FY 22-23</th>
-                        <th>FY 21-22</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="category">
-                        <td colspan="5"> <!-- Changed to colspan="5" -->
-                            <span class="collapsible">INCOME</span>
-                            <div class="explanation">
-                                <i>This section details all revenues earned by the company during the reporting period, forming the top line of the income statement.</i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Revenue From Operations [Gross]</span>
-                            <div class="explanation">
-                                <i>The total income generated from the company's primary business activities, before any deductions. This figure is crucial for assessing core business performance.</i>
-                            </div>
-                        </td>
-                        <td>5,57,163.00<span class="percentage-impact red">(2.88%)</span></td><td>5,74,956.00</td><td>5,65,347.00</td><td>4,66,425.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Less: Excise/Sev. Tax/Other Levies</span>
-                            <div class="explanation">
-                                <i>Deductions for various indirect taxes and government levies directly impacting the gross revenue. This reduces the revenue effectively realized from sales.</i>
-                            </div>
-                        </td>
-                        <td>39,814.00<span class="percentage-impact yellow">(0.21%)</span></td><td>40,422.00</td><td>37,032.00</td><td>42,722.00</td>
-                    </tr>
-                    <tr class="sub-total">
-                        <td>
-                            <span class="collapsible">Revenue From Operations [Net]</span>
-                            <div class="explanation">
-                                <i>The income generated from primary business activities after deducting direct taxes and levies. This is a more accurate representation of actual sales revenue.</i>
-                            </div>
-                        </td>
-                        <td>5,17,349.00</td><td>5,34,534.00</td><td>5,28,315.00</td><td>4,23,703.00</td>
-                    </tr>
-                    <tr class="grand-total">
-                        <td>
-                            <span class="collapsible" style="color:blue">Total Operating Revenues</span>
-                            <div class="explanation">
-                                <i>The final total revenue earned from the core operations of the business. This is a key indicator of the company's size and market activity.</i>
-                            </div>
-                        </td>
-                        <td>5,17,349.00</td><td>5,34,534.00</td><td>5,28,315.00</td><td>4,23,703.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Other Income</span>
-                            <div class="explanation">
-                                <i>Income generated from non-operating activities (e.g., interest, dividends, asset sales). This supplements operating revenue but isn't from the core business.</i>
-                            </div>
-                        </td>
-                        <td>16,094.00<span class="percentage-impact green">(0.08%)</span></td><td>12,128.00</td><td>11,229.00</td><td>13,872.00</td>
-                    </tr>
-                    <tr class="grand-total">
-                        <td>
-                            <span class="collapsible" style="color:blue">Total Revenue</span>
-                            <div class="explanation">
-                                <i>The sum of all operating and non-operating income, representing the company's total earnings before expenses. This is the ultimate top-line figure.</i>
-                            </div>
-                        </td>
-                        <td>5,33,443.00</td><td>5,46,661.00</td><td>539,544.00</td><td>437,575.00</td>
-                    </tr>
+ <table >
+          <thead>
+            <tr>
+              <th>PARTICULARS</th>
+              <th class="year-column fy-24-25" data-year="24-25">FY 24-25</th>
+              <th class="year-column fy-23-24" data-year="23-24">FY 23-24</th>
+              <th
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                FY 22-23
+              </th>
+              <th
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                FY 21-22
+              </th>
+            </tr>
+          </thead>
 
-                    <tr class="category">
-                        <td colspan="5"> <!-- Changed to colspan="5" -->
-                            <span class="collapsible">EXPENSES</span>
-                            <div class="explanation">
-                                <i>This section details all costs incurred by the company to generate its revenue during the reporting period, directly impacting profitability.</i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Cost Of Materials Consumed</span>
-                            <div class="explanation">
-                                <i>The direct cost of raw materials used in production. A high figure here indicates a significant portion of revenue is consumed by input costs.</i>
-                            </div>
-                        </td>
-                        <td>3,84,021.00<span class="percentage-impact red">(2.07%)</span></td><td>3,76,418.00</td><td>3,91,508.00</td><td>320,852.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Purchase Of Stock-In Trade</span>
-                            <div class="explanation">
-                                <i>The cost of goods bought for resale. This is a direct cost for trading businesses and reduces gross profit.</i>
-                            </div>
-                        </td>
-                        <td>15,864.00<span class="percentage-impact green">(0.09%)</span></td><td>13,453.00</td><td>9,974.00</td><td>10,691.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Operating And Direct Expenses</span>
-                            <div class="explanation">
-                                <i>Expenses directly attributable to core operations but not raw materials. These reduce operational efficiency if not managed well.</i>
-                            </div>
-                        </td>
-                        <td>43,003.00<span class="percentage-impact yellow">(0.23%)</span></td><td>40,027.00</td><td>44,396.00</td><td>27,155.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Changes In Inventories OF FG, WIP And Stock-In Trade</span>
-                            <div class="explanation">
-                                <i>Reflects the net increase or decrease in inventory values. A decrease adds to cost of goods sold, while an increase reduces it, impacting gross profit.</i>
-                            </div>
-                        </td>
-                        <td>4,052.00<span class="percentage-impact green">(0.02%)</span></td><td>3,205.00</td><td>-6,487.00</td><td>-7,962.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Employee Benefit Expenses</span>
-                            <div class="explanation">
-                                <i>Costs related to employee compensation and benefits. This is a significant operating expense for most businesses, impacting overall profitability.</i>
-                            </div>
-                        </td>
-                        <td>8,690.00<span class="percentage-impact green">(0.05%)</span></td><td>7,807.00</td><td>5,691.00</td><td>5,426.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Finance Costs</span>
-                            <div class="explanation">
-                                <i>The cost of borrowing (interest expense). This impacts profitability, especially for highly leveraged companies, and is deducted before tax.</i>
-                            </div>
-                        </td>
-                        <td>10,054.00<span class="percentage-impact green">(0.05%)</span></td><td>13,430.00</td><td>12,626.00</td><td>9,123.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Depreciation And Amortisation Expenses</span>
-                            <div class="explanation">
-                                <i>Non-cash expenses allocating the cost of long-term assets over their useful lives. These reduce taxable income but don't involve immediate cash outflow.</i>
-                            </div>
-                        </td>
-                        <td>31,105.00<span class="percentage-impact green">(0.17%)</span></td><td>27,807.00</td><td>10,118.00</td><td>10,276.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Other Expenses</span>
-                            <div class="explanation">
-                                <i>Miscellaneous operating expenses not fitting other categories. Their magnitude can indicate efficiency or unusual expenditures.</i>
-                            </div>
-                        </td>
-                        <td>21,228.00<span class="percentage-impact green">(0.11%)</span></td><td>21,523.00</td><td>18,665.00</td><td>15,951.00</td>
-                    </tr>
-                    <!-- <tr>
+          <tbody>
+           
+
+            <tr class="category">
+              <td colspan="5">
+                <span class="collapsible">INCOME</span>
+                <div class="explanation">
+                  <i
+                    >This section details all revenues earned by the company
+                    during the reporting period, forming the top line of the
+                    income statement.</i
+                  >
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Revenue From Operations [Gross]</span>
+                <div class="explanation">
+                  <i
+                    >The total income generated from the company's primary
+                    business activities, before any deductions. This figure is
+                    crucial for assessing core business performance.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Revenue From Operations [Gross]" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/revenue-gross25.json"
+                  style="text-decoration: none"
+                  >5,57,163.00
+                  <span class="percentage-impact red">(2.88%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/revenue-gross24.json"
+                  style="text-decoration: none"
+                  >5,74,956.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >565,347.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >466,425.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible"
+                  >Less: Excise/Service Tax/Other Levies</span
+                >
+                <div class="explanation">
+                  <i
+                    >Deductions for various indirect taxes and government levies
+                    directly impacting the gross revenue. This reduces the
+                    revenue effectively realized from sales.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Less: Excise/Service Tax/Other Levies" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/excise-servicetax-otherlevies25.json"
+                  style="text-decoration: none"
+                  >39,814.00
+                  <span class="percentage-impact yellow">(0.21%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/excise-servicetax-otherlevies24.json"
+                  style="text-decoration: none"
+                  >40,422.00
+                
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(37,032.00)</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(42,722.00)</span
+                >
+              </td>
+            </tr>
+            <tr class="sub-total">
+              <td>
+                <span class="collapsible sub-total-collapsible"
+                  >Revenue From Operations [Net]</span
+                >
+                <div class="explanation">
+                  <i
+                    >The income generated from primary business activities after
+                    deducting direct taxes and levies. This is a more accurate
+                    representation of actual sales revenue.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,17,349.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,34,534.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >528,315.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >423,703.00</span
+                >
+              </td>
+            </tr>
+            <tr class="grand-total">
+              <td>
+                <span
+                  class="collapsible grand-total-collapsible"
+                  style="color: blue"
+                  >Total Operating Revenues</span
+                >
+                <div class="explanation">
+                  <i
+                    >The final total revenue earned from the core operations of
+                    the business. This is a key indicator of the company's size
+                    and market activity.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,17,349.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,34,534.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >528,315.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >423,703.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Other Income</span>
+                <div class="explanation">
+                  <i
+                    >Income generated from non-operating activities (e.g.,
+                    interest, dividends, asset sales). This supplements
+                    operating revenue but isn't from the core business.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Other Income" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/other-income25.json    "
+                  style="text-decoration: none"
+                  >16,094.00
+                  <span class="percentage-impact green">(0.08%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/other-income24.json"
+                  style="text-decoration: none"
+                  >12,128.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >11,229.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >13,872.00</span
+                >
+              </td>
+            </tr>
+            <tr class="grand-total">
+              <td>
+                <span
+                  class="collapsible grand-total-collapsible"
+                  style="color: blue"
+                  >Total Revenue</span
+                >
+                <div class="explanation">
+                  <i
+                    >The sum of all operating and non-operating income,
+                    representing the company's total earnings before expenses.
+                    This is the ultimate top-line figure.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,33,443.00
+                </span>
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,46,661.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >539,544.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >437,575.00</span
+                >
+              </td>
+            </tr>
+
+            <tr class="category">
+              <td colspan="5">
+                <span class="collapsible">EXPENSES</span>
+                <div class="explanation">
+                  <i
+                    >This section details all costs incurred by the company to
+                    generate its revenue during the reporting period, directly
+                    impacting profitability.</i
+                  >
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Cost Of Materials Consumed</span>
+                <div class="explanation">
+                  <i
+                    >The direct cost of raw materials used in production. A high
+                    figure here indicates a significant portion of revenue is
+                    consumed by input costs.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Cost Of Materials Consumed" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/cost-of-materials25.json"
+                  style="text-decoration: none"
+                  >3,84,021.00
+                  <span class="percentage-impact red">(2.07%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/cost-of-materials24.json"
+                  style="text-decoration: none"
+                  >3,76,418.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >3,91,508.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >3,20,852.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Purchase Of Stock-In Trade</span>
+                <div class="explanation">
+                  <i
+                    >The cost of goods bought for resale. This is a direct cost
+                    for trading businesses and reduces gross profit.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Purchase Of Stock-In Trade" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/purchase-stock-in-trade25.json"
+                  style="text-decoration: none"
+                  >15,864.00
+                  <span class="percentage-impact green">(0.09%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/purchase-stock-in-trade24.json"
+                  style="text-decoration: none"
+                  >13,453.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >9,974.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >10,691.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Operating And Direct Expenses</span>
+                <div class="explanation">
+                  <i
+                    >Expenses directly attributable to core operations but not
+                    raw materials. These reduce operational efficiency if not
+                    managed well.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Operating And Direct Expenses" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/operating-direct-exp25.json"
+                  style="text-decoration: none"
+                  >43,003.00
+                  <span class="percentage-impact yellow">(0.23%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/operating-direct-exp24.json"
+                  style="text-decoration: none"
+                  >40,027.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >44,396.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >27,155.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible"
+                  >Changes In Inventories OF FG, WIP And Stock-In Trade</span
+                >
+                <div class="explanation">
+                  <i
+                    >Reflects the net increase or decrease in inventory values.
+                    A decrease adds to cost of goods sold, while an increase
+                    reduces it, impacting gross profit.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >4,052.00  
+                  <span class="percentage-impact green">(0.02%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >3,205.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >6,487</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >7,962</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Employee Benefit Expenses</span>
+                <div class="explanation">
+                  <i
+                    >Costs related to employee compensation and benefits. This
+                    is a significant operating expense for most businesses,
+                    impacting overall profitability.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Employee Benefit Expenses" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/employee-benefit-exp25.json"
+                  style="text-decoration: none"
+                  >8,690.00
+                  <span class="percentage-impact green">(0.05%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/employee-benefit-exp24.json"
+                  style="text-decoration: none"
+                  >7,807.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,691.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,426.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Finance Costs</span>
+                <div class="explanation">
+                  <i
+                    >The cost of borrowing (interest expense). This impacts
+                    profitability, especially for highly leveraged companies,
+                    and is deducted before tax.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Finance Costs" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/finance-cost25.json"
+                  style="text-decoration: none"
+                  >10,054.00
+                  <span class="percentage-impact green">(0.05%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span
+                  class="insight-trigger"
+                  data-insight-url="profit-and-loss/finance-cost24.json"
+                  style="text-decoration: none"
+                  >13,430.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >12,626.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >9,123.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible"
+                  >Depreciation And Amortisation Expenses</span
+                >
+                <div class="explanation">
+                  <i
+                    >Non-cash expenses allocating the cost of long-term assets
+                    over their useful lives. These reduce taxable income but
+                    don't involve immediate cash outflow.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >31,105.00
+                  <span class="percentage-impact green">(0.17%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >27,807.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >10,118.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >10,276.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Other Expenses</span>
+                <div class="explanation">
+                  <i
+                    >Miscellaneous operating expenses not fitting other
+                    categories. Their magnitude can indicate efficiency or
+                    unusual expenditures.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Other Expenses" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none" data-insight-url="profit-and-loss/other-expenses25.json"
+                  >21,228.00
+                  <span class="percentage-impact green">(0.11%)</span></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none" data-insight-url="profit-and-loss/other-expenses24.json"
+                  >21,523.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >18,665.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >15,951.00</span
+                >
+              </td>
+            </tr>
+            <!-- <tr>
                         <td>
                             <span class="collapsible">Less: Transfer To / From Investment / Fixed Assets / Others</span>
                             <div class="explanation">
                                 <i>Adjustments for expenses reclassified or offset against capital items. These ensure expenses are correctly matched to the period and nature of the transaction.</i>
+                                <a href="Profit-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td>0.00</td><td>1,659.00</td><td>1,080.00</td><td>723.00</td>
-                    </tr>
-                    <tr>
+                        <td class="year-column fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">0.00</span></td>
+                        <td class="year-column fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">1,659.00</span></td>
+                        <td class="year-column fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">1,080.00</span></td>
+                        <td class="year-column fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">723.00</span></td>
+                    </tr> -->
+            <!-- <tr>
                         <td>
                             <span class="collapsible">Less: Amounts Transfer To Capital Accounts</span>
                             <div class="explanation">
                                 <i>Adjustments where certain expenditures are capitalized rather than expensed. This impacts both the profit for the period and the asset base on the balance sheet.</i>
+                                <a href="Profit-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td>2,847.00</td><td>0.00</td><td>0.00</td><td>0.00</td>
+                        <td class="year-column fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">2,847.00</span></td>
+                        <td class="year-column fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">0.00</span></td>
+                        <td class="year-column fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">0.00</span></td>
+                        <td class="year-column fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">0.00</span></td>
                     </tr> -->
-                    <tr class="grand-total">
-                        <td>
-                            <span class="collapsible" style="color:blue">Total Expenses</span>
-                            <div class="explanation">
-                                <i>The sum of all costs incurred by the company. This figure is subtracted from total revenue to arrive at profit before tax, indicating overall cost management.</i>
-                            </div>
-                        </td>
-                        <td>5,09,913.00</td><td>5,03,670.00</td><td>485,411.00</td><td>390,789.00</td>
-                    </tr>
+            <tr class="grand-total">
+              <td>
+                <span
+                  class="collapsible grand-total-collapsible"
+                  style="color: blue"
+                  >Total Expenses</span
+                >
+                <div class="explanation">
+                  <i
+                    >The sum of all costs incurred by the company. This figure
+                    is subtracted from total revenue to arrive at profit before
+                    tax, indicating overall cost management.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,09,913.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >5,03,670.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >485,411.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >390,789.00</span
+                >
+              </td>
+            </tr>
 
-                    <tr class="grand-total">
-                        <td>
-                            <span class="collapsible">Profit/Loss Before Exceptional, ExtraOrdinary Items And Tax</span>
-                            <div class="explanation">
-                                <i>The operating profit or loss before unusual items and taxes. This is a strong indicator of core operational performance.</i>
-                            </div>
-                        </td>
-                        <td>23,530.00</td><td>42,992.00</td><td>54,133.00</td><td>46,786.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Exceptional Items</span>
-                            <div class="explanation">
-                                <i>Significant, non-recurring items that are unusual but not outside normal operations (e.g., large restructuring costs). These impact net profit but are separately disclosed for clarity.</i>
-                            </div>
-                        </td>
-                        <td>211.00<span class="percentage-impact green">(0.02%)</span></td><td>156.00</td><td>0.00</td><td>0.00</td>
-                    </tr>
-                    <tr class="grand-total">
-                        <td>
-                            <span class="collapsible">Profit/Loss Before Tax</span>
-                            <div class="explanation">
-                                <i>The profit or loss after all operating and non-operating revenues and expenses (including exceptional items), but before income tax. This is a key measure of pre-tax profitability.</i>
-                            </div>
-                        </td>
-                        <td>23,319.00</td><td>42,836.00</td><td>54,133.00</td><td>46,786.00</td>
-                    </tr>
+            <tr class="grand-total">
+              <td>
+                <span class="collapsible grand-total-collapsible"
+                  >Profit/Loss Before Exceptional, ExtraOrdinary Items And
+                  Tax</span
+                >
+                <div class="explanation">
+                  <i
+                    >The operating profit or loss before unusual items and
+                    taxes. This is a strong indicator of core operational
+                    performance.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >23,530.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >42,992.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >54,133.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >46,786.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Exceptional Items</span>
+                <div class="explanation">
+                  <i
+                    >Significant, non-recurring items that are unusual but not
+                    outside normal operations (e.g., large restructuring costs).
+                    These impact net profit but are separately disclosed for
+                    clarity.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Exceptional Items" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none" data-insight-url="profit-and-loss/exceptional-items25.json"
+                  >211.00<span class="percentage-impact green"
+                    >(0.02%)</span
+                  ></span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none" data-insight-url="profit-and-loss/exceptional-items24.json"
+                  >156.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(125.00)</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(125.00)</span
+                >
+              </td>
+            </tr>
+            <tr class="grand-total">
+              <td>
+                <span class="collapsible grand-total-collapsible"
+                  >Profit/Loss Before Tax</span
+                >
+                <div class="explanation">
+                  <i
+                    >The profit or loss after all operating and non-operating
+                    revenues and expenses (including exceptional items), but
+                    before income tax. This is a key measure of pre-tax
+                    profitability.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >23,319.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >42,836.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >54,133.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >46,786.00</span
+                >
+              </td>
+            </tr>
 
-                    <tr class="category">
-                        <td colspan="5"> <!-- Changed to colspan="5" -->
-                            <span class="collapsible">Tax Expenses-Continued Operations</span>
-                            <div class="explanation">
-                                <i>The total tax expense related to the ongoing operations of the business, directly reducing the profit available to shareholders.</i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Current Tax</span>
-                            <div class="explanation">
-                                <i>The amount of income tax payable on the current period's taxable profit. This is a direct outflow or liability.</i>
-                            </div>
-                        </td>
-                        <td>5,463.00<span class="percentage-impact red">(0.55%)</span></td><td>10,132.00</td><td>6,186.00</td><td>787.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Deferred Tax</span>
-                            <div class="explanation">
-                                <i>The tax effect of temporary differences between accounting profit and taxable profit. Can be an asset or liability, adjusting future tax payments.</i>
-                            </div>
-                        </td>
-                        <td>1,467.00</td><td>2,309.00</td><td>4,830.00</td><td>6,915.00</td>
-                    </tr>
-                    <tr class="sub-total">
-                        <td>
-                            <span class="collapsible">Total Tax Expenses</span>
-                            <div class="explanation">
-                                <i>The sum of current and deferred tax expenses for the period. This represents the total tax burden on the company's profits.</i>
-                            </div>
-                        </td>
-                        <td>3,996.00</td><td>7,823.00</td><td>11,116.00</td><td>7,702.00</td>
-                    </tr>
+            <tr class="category">
+              <td colspan="5">
+                <span class="collapsible"
+                  >Tax Expenses-Continued Operations</span
+                >
+                <div class="explanation">
+                  <i
+                    >The total tax expense related to the ongoing operations of
+                    the business, directly reducing the profit available to
+                    shareholders.</i
+                  >
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Current Tax</span>
+                <div class="explanation">
+                  <i
+                    >The amount of income tax payable on the current period's
+                    taxable profit. This is a direct outflow or liability.</i
+                  >
 
-                    <tr class="grand-total">
-                        <td>
-                            <span class="collapsible">Profit/Loss After Tax And Before ExtraOrdinary Items</span>
-                            <div class="explanation">
-                                <i>The profit or loss after deducting tax expenses but before considering any extraordinary items. This provides a clear view of post-tax operational earnings.</i>
-                            </div>
-                        </td>
-                        <td>19,323.00</td><td>35,013.00</td><td>43,017.00</td><td>39,084.00</td>
-                    </tr>
-                    <tr class="grand-total">
-                        <td>
-                            <span class="collapsible">Profit/Loss From Continuing Operations</span>
-                            <div class="explanation">
-                                <i>The net profit or loss generated from the ongoing core business activities. This highlights the performance of the sustainable parts of the business.</i>
-                            </div>
-                        </td>
-                        <td>19,323.00</td><td>35,013.00</td><td>43,017.00</td><td>39,084.00</td>
-                    </tr>   
-                    <tr>
-                        <td>
-                            <span class="collapsible">Profit Loss From Discontinuing Operations</span>
-                            <div class="explanation">
-                                <i>The profit or loss generated from segments of the business that have been disposed of or are held for sale. This separates the impact of divested businesses.</i>
-                            </div>
-                        </td>
-                        <td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="collapsible">Net Profit Loss From Discontinuing Operations</span>
-                            <div class="explanation">
-                                <i>The profit or loss from discontinued operations after deducting related tax effects. This gives the final impact of divested segments on net income.</i>
-                            </div>
-                        </td>
-                        <td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td>
-                    </tr>
-                    <!-- <tr class="grand-total">
-                        <td>
-                            <span class="collapsible">Profit/Loss For The Period</span>
-                            <div class="explanation">
-                                <i>The final net profit or loss of the company for the entire reporting period. This is the ultimate bottom-line figure, representing the increase or decrease in retained earnings.</i>
-                            </div>
-                        </td>
-                        <td>35,262.00</td><td>42,042.00</td><td>44,205.00</td><td>39,084.00</td>
-                    </tr>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none" 
+                  >5,463.00<span class="percentage-impact red"
+                    >(0.55%)</span
+                  ></span>
+                
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none" 
+                  >10,132.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(787.00)</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(787.00)</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible">Deferred Tax</span>
+                <div class="explanation">
+                  <i
+                    >The tax effect of temporary differences between accounting
+                    profit and taxable profit. Can be an asset or liability,
+                    adjusting future tax payments.</i
+                  >
+                  <a href="Profit-view-details.html?selected=Deferred Tax" class="navigate-button">View Details</a>
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none" data-insight-url="profit-and-loss/deferred-tax25.json"
+                  >1,467.00</span
+                >
+                <span class="percentage-impact green">(0.00%)</span>
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none" data-insight-url="profit-and-loss/deferred-tax24.json"
+                  >2,309.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >4,830.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >6,915.00</span
+                >
+              </td>
+            </tr>
+            <tr class="sub-total">
+              <td>
+                <span class="collapsible sub-total-collapsible"
+                  >Total Tax Expenses</span
+                >
+                <div class="explanation">
+                  <i
+                    >The sum of current and deferred tax expenses for the
+                    period. This represents the total tax burden on the
+                    company's profits.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(3,996.00)</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(7,823.00)</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(11,116.00)</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >(7,702.00)</span
+                >
+              </td>
+            </tr>
 
-                    <tr class="section-title">
+            <tr class="grand-total">
+              <td>
+                <span class="collapsible grand-total-collapsible"
+                  >Profit/Loss After Tax And Before ExtraOrdinary Items</span
+                >
+                <div class="explanation">
+                  <i
+                    >The profit or loss after deducting tax expenses but before
+                    considering any extraordinary items. This provides a clear
+                    view of post-tax operational earnings.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >19,323.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >35,013.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >43,017.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >39,084.00</span
+                >
+              </td>
+            </tr>
+            <tr class="grand-total">
+              <td>
+                <span class="collapsible grand-total-collapsible"
+                  >Profit/Loss From Continuing Operations</span
+                >
+                <div class="explanation">
+                  <i
+                    >The net profit or loss generated from the ongoing core
+                    business activities. This highlights the performance of the
+                    sustainable parts of the business.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >19,323.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >35,013.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >43,017.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >39,084.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible"
+                  >Profit Loss From Discontinuing Operations</span
+                >
+                <div class="explanation">
+                  <i
+                    >The profit or loss generated from segments of the business
+                    that have been disposed of or are held for sale. This
+                    separates the impact of divested businesses.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >0.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >0.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >0.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >0.00</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="collapsible"
+                  >Net Profit Loss From Discontinuing Operations</span
+                >
+                <div class="explanation">
+                  <i
+                    >The profit or loss from discontinued operations after
+                    deducting related tax effects. This gives the final impact
+                    of divested segments on net income.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >0.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >0.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >0.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >0.00</span
+                >
+              </td>
+            </tr>
+            <tr class="grand-total">
+              <td>
+                <span
+                  class="collapsible grand-total-collapsible"
+                  style="color: blue"
+                  >Profit/Loss For The Period</span
+                >
+                <div class="explanation">
+                  <i
+                    >The final net profit or loss of the company for the entire
+                    reporting period. This is the ultimate bottom-line figure,
+                    representing the increase or decrease in retained
+                    earnings.</i
+                  >
+                </div>
+              </td>
+              <td class="year-column fy-24-25" data-year="24-25">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >19,323.00</span
+                >
+              </td>
+              <td class="year-column fy-23-24" data-year="23-24">
+                <span class="insight-trigger" style="text-decoration: none"
+                  >35,013.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-22-23 "
+                data-year="22-23"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >44,205.00</span
+                >
+              </td>
+              <td
+                class="year-column fy-21-22 "
+                data-year="21-22"
+              >
+                <span class="insight-trigger" style="text-decoration: none"
+                  >39,084.00</span
+                >
+              </td>
+            </tr>
+
+            <!-- <tr class="section-title">
                         <td colspan="5"> 
                             <span class="collapsible">OTHER ADDITIONAL INFORMATION</span>
                             <div class="explanation">
@@ -409,7 +1346,7 @@
                         </td>
                     </tr>
                     <tr class="category">
-                        <td colspan="5">
+                        <td colspan="5"> 
                             <span class="collapsible">EARNINGS PER SHARE</span>
                             <div class="explanation">
                                 <i>A key metric for investors, indicating the portion of a company's profit allocated to each outstanding share of common stock. Higher EPS generally signals better profitability per share.</i>
@@ -421,18 +1358,26 @@
                             <span class="collapsible">Basic EPS (Rs.)</span>
                             <div class="explanation">
                                 <i>Calculated by dividing net profit attributable to common shareholders by the weighted average number of common shares outstanding. It's a fundamental measure of shareholder value.</i>
+                                <a href="Profit-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td>26.06</td><td>62.14</td><td>65.34</td><td>59.24</td>
+                        <td class="year-column fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">26.06</span></td>
+                        <td class="year-column fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">62.14</span></td>
+                        <td class="year-column fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">65.34</span></td>
+                        <td class="year-column fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">59.24</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Diluted EPS (Rs.)</span>
                             <div class="explanation">
                                 <i>A more conservative measure of EPS, taking into account the potential dilution from convertible securities, options, or warrants. It shows the worst-case scenario for EPS if all convertible instruments were exercised.</i>
+                                <a href="Profit-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td>26.06</td><td>62.14</td><td>65.34</td><td>58.49</td>
+                        <td class="year-column fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">26.06</span></td>
+                        <td class="year-column fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">62.14</span></td>
+                        <td class="year-column fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">65.34</span></td>
+                        <td class="year-column fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">58.49</span></td>
                     </tr>
 
                     <tr class="category">
@@ -448,9 +1393,13 @@
                             <span class="collapsible">STORES, SPARES AND LOOSE TOOLS</span>
                             <div class="explanation">
                                 <i>The cost of various supplies, spare parts, and small tools used in production or maintenance. These are typically expensed as consumed and are part of operating costs.</i>
+                                <a href="Profit-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td></td><td></td><td></td><td></td>
+                        <td class="year-column fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">[Value]</span></td>
+                        <td class="year-column fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">[Value]</span></td>
+                        <td class="year-column fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">[Value]</span></td>
+                        <td class="year-column fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">[Value]</span></td>
                     </tr>
 
                     <tr class="category">
@@ -466,24 +1415,107 @@
                             <span class="collapsible">Equity Share Dividend</span>
                             <div class="explanation">
                                 <i>The total amount of dividend paid out to equity shareholders. This represents a distribution of profits and reduces the company's retained earnings.</i>
+                                <a href="Profit-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td>6,766.00</td><td>6,089.00</td><td>5,083.00</td><td>4,297.00</td>
+                        <td class="year-column fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">6,766.00</span></td>
+                        <td class="year-column fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">6,089.00</span></td>
+                        <td class="year-column fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">5,083.00</span></td>
+                        <td class="year-column fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">4,297.00</span></td>
                     </tr>
                     <tr>
                         <td>
                             <span class="collapsible">Equity Dividend Rate (%)</span>
                             <div class="explanation">
                                 <i>The dividend declared per share as a percentage of the face value of the equity share. This indicates the payout ratio relative to the nominal share value.</i>
+                                <a href="Profit-view-details.html" class="navigate-button">View Details</a>
                             </div>
                         </td>
-                        <td>55.00</td><td>100.00</td><td>90.00</td><td>80.00</td>
-                    </tr> --> 
-                </tbody>
-            </table>
-        </div>
+                        <td class="year-column fy-24-25" data-year="24-25"><span class="insight-trigger"  style="text-decoration: none;">55.00</span></td>
+                        <td class="year-column fy-23-24" data-year="23-24"><span class="insight-trigger"  style="text-decoration: none;">100.00</span></td>
+                        <td class="year-column fy-22-23 " data-year="22-23"><span class="insight-trigger"  style="text-decoration: none;">90.00</span></td>
+                        <td class="year-column fy-21-22 " data-year="21-22"><span class="insight-trigger"  style="text-decoration: none;">80.00</span></td>
+                    </tr> -->
+          </tbody>
+        </table>
+      </div>
     </main>
 
-    <script src="JS/BLPL.js"></script>
-</body>
+    <script src="JS/duplicate-pl.js"></script>
+    <script src="JS/BL.js"></script>
+    <div id="insightModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">Insight Details</h2>
+          <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+        </div>
+        <div class="modal-iframe-container">
+          <div class="combined-insight-card">
+            <div class="popup-header"></div>
+            <h2 class="chart-main-title">Key Business Insights Summary</h2>
+
+            <div class="top-content-grid">
+              <!-- Business Impact Insights Table -->
+              <div>
+                <h3 class="chart-section-header">Business Impact Insights</h3>
+                <div class="table-container">
+                  <table class="impact-table">
+                    <thead>
+                      <tr>
+                        <th>Insight</th>
+                        <th style="text-align: right">Impact Amount</th>
+                        <th style="text-align: right">% of Total</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Revenue Distribution Donut Chart and Total -->
+              <div class="chart-summary-card">
+                <h3
+                  class="chart-section-header"
+                  style="
+                    border-bottom: none;
+                    text-align: center;
+                    margin-bottom: 10px;
+                  "
+                >
+                  Impact Distribution
+                </h3>
+                <div
+                  class="chart-container"
+                  style="max-width: 20rem; max-height: 20rem"
+                >
+                  <canvas id="revenueDonutChart"></canvas>
+                  <div class="donut-total-overlay">
+                    <div class="total-label">Total Impact</div>
+                    <div class="total-value" id="donutTotalAmount"></div>
+                  </div>
+                </div>
+                <ul class="chart-legend" id="revenueChartLegend">
+                  <!-- Legend items will be populated by JavaScript -->
+                </ul>
+              </div>
+            </div>
+
+            <!-- Combined Line & Bar Chart Section (Placeholder, update if new data provided) -->
+            <div class="combined-chart-section">
+              <h3 class="chart-section-header">
+                Profit & Loss Impact Over Time
+              </h3>
+              <div class="combined-chart-container">
+                <canvas id="exceptionCombinedChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
 </html>
