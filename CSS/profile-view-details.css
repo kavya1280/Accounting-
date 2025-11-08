@@ -752,3 +752,18 @@ body {
       font-size: 14px; /* Adjust ellipsis font size */
     }
 }
+
+
+.child {
+    display: none; /* Hidden initially */
+}
+
+.category {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.category:hover {
+    background-color: #e0e0e0;
+}

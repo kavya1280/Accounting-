@@ -349,10 +349,10 @@ const hierarchySection = document.getElementById("hierarchy-visualization");
     new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+            console.log("Hierarchy section intersecting:", entry.isIntersecting);
             initializeHierarchy();
             observer.unobserve(entry.target);
-          }
+
         });
       },
       { threshold: 0.4 }
@@ -377,6 +377,7 @@ const hierarchySection = document.getElementById("hierarchy-visualization");
       
       // Set up click listener after mounting
       setupNodeClickListener(node);
+      console.log("Node mounted:", node);
       
     }, nodeIndex * 150); // Increased stagger delay for smoother reveal
   }
@@ -393,6 +394,7 @@ const hierarchySection = document.getElementById("hierarchy-visualization");
    * Universal handler for node clicks: either expands or shows insight modal.
    */
   function handleNodeClickOrInsight(event) {
+    console.log("Node clicked:", event.currentTarget);
       const node = event.currentTarget;
       
       // 1. Check for Insight URL (Level 4/Leaf Node Action)
@@ -443,15 +445,17 @@ const hierarchySection = document.getElementById("hierarchy-visualization");
         if (node.dataset.id !== 'balance-sheet') {
             node.style.opacity = "0";
             node.style.transform = "translateY(20px)";
-            node.style.display = "none"; 
+            // node.style.display = "none"; 
         }
     });
 
     // 2. Initialize and mount the root node immediately
     const rootNode = document.querySelector('.tree-level[data-level="1"] .tree-node');
+    console.log("Root node:", rootNode);
     if (rootNode) {
         // Index 0 starts the animation immediately (0 * 150ms delay)
         mountNode(rootNode, 0); 
+        console.log("Root node mounted:", rootNode);
     }
   }
 
@@ -461,7 +465,7 @@ document.getElementById("view-all-fds").addEventListener("click", viewAll);
 function viewAll() {
   const allNodes = document.querySelectorAll(".tree-node");
   const container = document.querySelector(".tree-container");
-  
+  console.log("All nodes:", allNodes);
   // 1. Reveal all nodes instantly
   allNodes.forEach((node) => {
       // Use 'flex' for layout integrity
@@ -565,67 +569,65 @@ function viewAll() {
   // =======================================================
   // == SUNBURST CHART LOGIC ==
   // =======================================================
-// Data representing the Balance Sheet structure from the image
+// --- Start JS Block ---
 var balanceSheetData = {
-    name: "Balance Sheet",
+    name: "Balance Sheet", shortName: "B/S",
     children: [
         {
-            name: "Equities and Liabilities",
+            name: "Equities and Liabilities", shortName: "E & Liabilities",
             children: [
                 {
-                    name: "Shareholder's Funds",
+                    name: "Shareholder's Funds", shortName: "S/H Funds",
                     children: [
-                        { name: "Equity Share Capital", value: 150 },
-                        { name: "Reserves & Surplus", value: 450 }
+                        { name: "Equity Share Capital", shortName: "Eq. Cap.", value: 150 },
+                        { name: "Reserves & Surplus", shortName: "R & S", value: 450 }
                     ]
                 },
                 {
-                    name: "Non-Current Liabilities",
+                    name: "Non-Current Liabilities", shortName: "NCL",
                     children: [
-                        { name: "Long-term Borrowings", value: 300 },
-                        { name: "Deferred Tax Liabilities [Net]", value: 50 },
-                        { name: "Long Term Provisions", value: 100 }
+                        { name: "Long-term Borrowings", shortName: "LT Borrow.", value: 300 },
+                        { name: "Deferred Tax Liabilities [Net]", shortName: "DTL [Net]", value: 50 },
+                        { name: "Long Term Provisions", shortName: "LT Prov.", value: 100 }
                     ]
                 },
                 {
-                    name: "Current Liabilities",
+                    name: "Current Liabilities", shortName: "CL",
                     children: [
-                        { name: "Short Term Borrowings", value: 80 },
-                        { name: "Trade Payables", value: 120 },
-                        { name: "Other Current Liabilities", value: 40 },
-                        { name: "Short Term Provisions", value: 20 }
+                        { name: "Short Term Borrowings", shortName: "ST Borrow.", value: 80 },
+                        { name: "Trade Payables", shortName: "T/P", value: 120 },
+                        { name: "Other Current Liabilities", shortName: "Other CL", value: 40 },
+                        { name: "Short Term Provisions", shortName: "ST Prov.", value: 20 }
                     ]
                 }
             ]
         },
         {
-            name: "Assets",
+            name: "Assets", shortName: "Assets",
             children: [
                 {
-                    name: "Non-Current Assets",
+                    name: "Non-Current Assets", shortName: "NCA",
                     children: [
-                        // Note: Fixed Assets grouping is often deprecated, but kept here as per source list order
-                        { name: "Tangible Assets", value: 400 },
-                        { name: "Intangible Assets", value: 150 },
-                        { name: "Capital Work In Progress", value: 80 },
-                        { name: "Intangible Assets Under Development", value: 70 },
-                        { name: "Fixed Assets", value: 50 }, 
-                        { name: "Non-Current Investments", value: 120 },
-                        { name: "Long Term Loans & Advances", value: 30 },
-                        { name: "Deferred Tax Assets", value: 20 }
+                        { name: "Tangible Assets", shortName: "Tangibles", value: 400 },
+                        { name: "Intangible Assets", shortName: "Intangibles", value: 150 },
+                        { name: "Capital Work In Progress", shortName: "CWIP", value: 80 },
+                        { name: "Intangible Assets Under Development", shortName: "IAUD", value: 70 },
+                        { name: "Fixed Assets", shortName: "F/A", value: 50 },
+                        { name: "Non-Current Investments", shortName: "NCI", value: 120 },
+                        { name: "Long Term Loans & Advances", shortName: "LT L&A", value: 30 },
+                        { name: "Deferred Tax Assets", shortName: "DTA", value: 20 }
                     ]
                 },
                 {
-                    name: "Current Assets",
+                    name: "Current Assets", shortName: "CA",
                     children: [
-                        // Note: "Other Non-Current Assets" is listed under Current Assets in the source image
-                        { name: "Other Non-Current Assets", value: 10 },
-                        { name: "Current Investments", value: 60 },
-                        { name: "Inventories", value: 180 },
-                        { name: "Trade Receivables", value: 110 },
-                        { name: "Cash & Cash Equivalents", value: 90 },
-                        { name: "Short Term Loans & Advances", value: 40 },
-                        { name: "Other Current Assets", value: 30 }
+                        { name: "Other Non-Current Assets", shortName: "Other NCA", value: 10 },
+                        { name: "Current Investments", shortName: "CI", value: 60 },
+                        { name: "Inventories", shortName: "Inv.", value: 180 },
+                        { name: "Trade Receivables", shortName: "T/R", value: 110 },
+                        { name: "Cash & Cash Equivalents", shortName: "C&CE", value: 90 },
+                        { name: "Short Term Loans & Advances", shortName: "ST L&A", value: 40 },
+                        { name: "Other Current Assets", shortName: "Other CA", value: 30 }
                     ]
                 }
             ]
@@ -633,63 +635,147 @@ var balanceSheetData = {
     ]
 };
 
+am5.ready(function() {
+
+    // Create root element
+    var root = am5.Root.new("chartdiv");
+
+    // Set themes
+    root.setThemes([
+      am5themes_Animated.new(root)
+    ]);
+
+    // Create wrapper container
+    var container = root.container.children.push(am5.Container.new(root, {
+      width: am5.percent(100),
+      height: am5.percent(100),
+      layout: root.verticalLayout
+    }));
+
+    // Create series
+    var series = container.children.push(am5hierarchy.Sunburst.new(root, {
+      singleBranchOnly: true,
+      downDepth: 10,
+      // Set to 3 to display 3 rings initially
+      initialDepth: 3, 
+      valueField: "value",
+      categoryField: "name",
+      childDataField: "children"
+    }));
+    
+    // Set Balance Sheet data
+    series.data.setAll([balanceSheetData]);
+    series.set("selectedDataItem", series.dataItems[0]);
+
+
+    // ==========================================================
+    // LABEL CUSTOMIZATION
+    // ==========================================================
+    
+    series.labels.template.setAll({
+        fill: am5.color(0xFFFFFF), // Set all labels to WHITE
+        text: "{name}", 
+        textType: "radial" 
+    });
+
+    // ADAPTER 1: Controls the text content (Short Name vs. Full Name) and alignment
+    series.labels.template.adapters.add("text", function(text, target) {
+        var dataItem = target.dataItem;
+        if (!dataItem) return text;
+
+        var data = dataItem.dataContext;
+        
+        // Check if the currently selected item is the main root item (the initial, non-drilled state)
+        var isInitialView = (series.get("selectedDataItem") === series.dataItems[0]);
+
+        if (isInitialView && data.shortName) {
+            // In initial full view: Use short name and regular (horizontal) alignment
+            target.set("textType", "regular"); 
+            return data.shortName;
+        }
+        
+        // If drilled down: Use full name and radial alignment
+        target.set("textType", "radial");
+        return data.name;
+    });
+
+
+    // ADAPTER 2: Controls visibility, ensuring short names are seen in the initial state
+    series.labels.template.adapters.add("visible", function(currentVisible, target) {
+        if (currentVisible) return true; 
+
+        var dataItem = target.dataItem;
+        if (!dataItem) return false;
+        
+        var data = dataItem.dataContext;
+        var isInitialView = (series.get("selectedDataItem") === series.dataItems[0]);
+
+        // If we are in the initial view and this item has a short name, force visibility 
+        // to ensure the dense initial display is navigable.
+        if (isInitialView && data.shortName) {
+            return true;
+        }
+
+        return currentVisible;
+    });
+    
+    // ==========================================================
+
+    // Make stuff animate on load
+    series.appear(1000, 100);
+
+}); // end am5.ready()
+  // =======================================================
+  // == TREEMAP CHART LOGIC ==
+  // =======================================================
+// --- Start JS Block ---
+
+// Define the mapping for full names to short names (Used for both Sankey and Treemap)
+var nameMap = {
+    // Corrected keys to match the P&L tree structure provided in the Treemap data
+    "Revenue From Operations [Gross]": "Rev Op [Gross]",
+    "Less: Excise/Service Tax/Other Levies": "Less: Tax Levies",
+    "Revenue From Operations [Net]": "Rev Op [Net]",
+    "Other Income": "Other Inc",
+    "Total Revenue (Source)": "Total Revenue", // Note: This node name might not exist in the Treemap, but safe to include.
+    "Cost Of Materials Consumed": "Mat. Consumed",
+    "Purchase Of Stock-In Trade": "Purch. Stock",
+    "Operating And Direct Expenses": "Op. & Direct Exp.",
+    
+    // Adjusted key to match the Treemap data exactly
+    "Changes In Inventories Of FG, WIP And Stock-In Trade": "Changes in Inv.", 
+    
+    "Employee Benefit Expenses": "Emp. Ben. Exp.",
+    "Finance Costs": "Fin. Costs",
+    "Depreciation And Amortisation Expenses": "D&A Expenses",
+    "Other Expenses": "Other Exp.",
+    
+    // Adjusted key to match the Treemap data exactly
+    "Profit/Loss Before Exceptional, Extraordinary Items And Tax": "P/L Before E/E & Tax", 
+    
+    "Exceptional Items": "Exceptional",
+    "Profit/Loss Before Tax": "P/L Before Tax",
+    "Tax Expenses – Continued Operations": "Tax Exp.", // Adding short name for tax group
+    "Total Tax Expenses (Net Deduction)": "Total Tax Exp.", // Note: This name might not exist in the Treemap, but safe to include.
+    "Profit/Loss For The Period": "Final P/L"
+};
+
 
 am5.ready(function() {
 
 // Create root element
-var root = am5.Root.new("chartdiv");
-
-
-// Set themes
-root.setThemes([
-  am5themes_Animated.new(root)
-]);
-
-
-// Create wrapper container
-var container = root.container.children.push(am5.Container.new(root, {
-  width: am5.percent(100),
-  height: am5.percent(100),
-  layout: root.verticalLayout
-}));
-
-
-// Create series
-var series = container.children.push(am5hierarchy.Sunburst.new(root, {
-  singleBranchOnly: true,
-  downDepth: 10,
-  // Adjusted initialDepth to 3 to show the main categories (Liabilities/Assets, Current/Non-Current) immediately
-  initialDepth: 3, 
-  valueField: "value",
-  categoryField: "name",
-  childDataField: "children"
-}));
-
-
-// Set Balance Sheet data
-series.data.setAll([balanceSheetData]);
-series.set("selectedDataItem", series.dataItems[0]);
-
-
-// Make stuff animate on load
-series.appear(1000, 100);
-
-}); // end am5.ready()
-
-  // =======================================================
-  // == TREEMAP CHART LOGIC ==
-  // =======================================================
-    am5.ready(function() {
-
-// Create root element
-// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+// NOTE: Ensure your HTML contains <div id="treemap-chart"></div> with a defined height in CSS.
 var root = am5.Root.new("treemap-chart");
 
 // Set themes
-// https://www.amcharts.com/docs/v5/concepts/themes/
 root.setThemes([
   am5themes_Animated.new(root)
 ]);
+
+// Define custom colors (Hex codes verified)
+var colorGreen = am5.color("#00A878");
+var colorBlue = am5.color("#3B82F6"); 
+var colorOrange = am5.color("#F59E0B");
 
 // Create wrapper container
 var container = root.container.children.push(
@@ -701,7 +787,6 @@ var container = root.container.children.push(
 );
 
 // Create series
-// https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
 var series = container.children.push(
   am5hierarchy.Treemap.new(root, {
     singleBranchOnly: false,
@@ -720,118 +805,136 @@ series.rectangles.template.setAll({
   strokeWidth: 2
 });
 
-// Generate and set data
-// https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
+// ==========================================================
+// 1. LABEL & TOOLTIP CUSTOMIZATION
+// ==========================================================
+
+// Set tooltip to show the full name
+series.labels.template.set("tooltipText", "{name}");
+
+// Set the label adapter to use short names
+series.labels.template.adapters.add("text", function(text, target) {
+    var dataItem = target.dataItem;
+    if (dataItem) {
+        // Retrieve the full name from the data context
+        var fullName = dataItem.dataContext.name; 
+        
+        // Check if a short name exists in the map
+        if (nameMap[fullName]) {
+            return nameMap[fullName];
+        }
+        
+        // If no short name is defined, return the original text
+        return fullName; 
+    }
+    return text;
+});
+
+// Optional: Adjust label settings for better fit
+series.labels.template.setAll({
+    maxWidth: 150, 
+    fontSize: 10
+});
+
+// ==========================================================
+// 2. COLOR CUSTOMIZATION (Preserved from previous solution)
+// ==========================================================
+
 var data = {
   name: "Profit and Loss Statement Structure",
   children: [
     {
       name: "INCOME",
       children: [
-        {
-          name: "Revenue From Operations [Gross]",
-          value: 1500
-        },
-        {
-          name: "Less: Excise/Service Tax/Other Levies",
-          value: 100
-        },
-        {
-          name: "Revenue From Operations [Net]",
-          value: 1400
-        },
-        {
-          name: "Other Income",
-          value: 50
-        },
+        { name: "Revenue From Operations [Gross]", value: 1500 },
+        { name: "Less: Excise/Service Tax/Other Levies", value: 100 },
+        { name: "Revenue From Operations [Net]", value: 1400 },
+        { name: "Other Income", value: 50 },
       ]
     },
     {
       name: "EXPENSES",
       children: [
-        {
-          name: "Cost Of Materials Consumed",
-          value: 300
-        },
-        {
-          name: "Purchase Of Stock-In Trade",
-          value: 150
-        },
-        {
-          name: "Operating And Direct Expenses",
-          value: 200
-        },
-        {
-          name: "Changes In Inventories Of FG, WIP And Stock-In Trade",
-          value: 50 // Negative expense is common, but listed as positive for simplicity in this structure
-        },
-        {
-          name: "Employee Benefit Expenses",
-          value: 120
-        },
-        {
-          name: "Finance Costs",
-          value: 30
-        },
-        {
-          name: "Depreciation And Amortisation Expenses",
-          value: 50
-        },
-        {
-          name: "Other Expenses",
-          value: 10
-        },
+        { name: "Cost Of Materials Consumed", value: 300 },
+        { name: "Purchase Of Stock-In Trade", value: 150 },
+        { name: "Operating And Direct Expenses", value: 200 },
+        // Full name used here to match updated nameMap key
+        { name: "Changes In Inventories Of FG, WIP And Stock-In Trade", value: 50 }, 
+        { name: "Employee Benefit Expenses", value: 120 },
+        { name: "Finance Costs", value: 30 },
+        { name: "Depreciation And Amortisation Expenses", value: 50 },
+        { name: "Other Expenses", value: 10 },
       ]
     },
     {
       name: "PROFIT / LOSS",
       children: [
-        {
-          name: "Profit/Loss Before Exceptional, Extraordinary Items And Tax",
-          value: 540 // (1450 - 910)
-        },
-        {
-          name: "Exceptional Items",
-          value: 40
-        },
-        {
-          name: "Profit/Loss Before Tax",
-          value: 500 // (540 - 40)
-        },
+        // Full name used here to match updated nameMap key
+        { name: "Profit/Loss Before Exceptional, Extraordinary Items And Tax", value: 540 },
+        { name: "Exceptional Items", value: 40 },
+        { name: "Profit/Loss Before Tax", value: 500 },
         {
           name: "Tax Expenses – Continued Operations",
           children: [
-            {
-              name: "Current Tax",
-              value: 100
-            },
-            {
-              name: "Deferred Tax",
-              value: 20
-            },
-            {
-              name: "Total Tax Expenses",
-              value: 120
-            }
+            { name: "Current Tax", value: 100 },
+            { name: "Deferred Tax", value: 20 },
+            { name: "Total Tax Expenses", value: 120 }
           ]
         },
-        {
-          name: "Profit/Loss After Tax And Before Extraordinary Items",
-          value: 380 // (500 - 120)
-        },
-        {
-          name: "Profit/Loss From Continuing Operations",
-          value: 380
-        },
-        
-        {
-          name: "Profit/Loss For The Period",
-          value: 430 // (380 + 50)
-        }
+        { name: "Profit/Loss After Tax And Before Extraordinary Items", value: 380 },
+        { name: "Profit/Loss From Continuing Operations", value: 380 },
+        { name: "Profit/Loss For The Period", value: 430 }
       ]
     }
   ]
 };
+
+// Set up Color Set for shades (Base colors for generating gradients)
+var colors = {
+    "INCOME": am5.ColorSet.new(root, { baseColor: colorGreen }),
+    "EXPENSES": am5.ColorSet.new(root, { baseColor: colorBlue }),
+    "PROFIT / LOSS": am5.ColorSet.new(root, { baseColor: colorOrange })
+};
+
+
+// Add Fill Adapter
+series.rectangles.template.adapters.add("fill", function(fill, target) {
+    var dataItem = target.dataItem;
+    console.log({dataItem});
+    if (!dataItem) return fill;
+
+    var level = dataItem.get("level");
+    
+    // Find the Level 1 parent (the root section: INCOME, EXPENSES, PROFIT/LOSS)
+    var parentDataItem = dataItem.parent;
+    console.log({parentDataItem});  
+    while (parentDataItem && parentDataItem.get("level") > 1) {
+        parentDataItem = parentDataItem.parent;
+    }
+
+    if (parentDataItem) {
+        console.log({parentDataItem});
+        var category = parentDataItem.dataContext.name;
+        
+        if (colors[category]) {
+            var colorSet = colors[category];
+            console.log("colorSet",colorSet);
+            // For the main sections (Level 1), apply the solid base color
+            if (level === 1) {
+                if (category === "INCOME") return colorGreen;
+                if (category === "EXPENSES") return colorBlue;
+                if (category === "PROFIT / LOSS") return colorOrange;
+            }
+            
+            // For children (Level > 1), use the color set to iterate through shades.
+            return colorSet.next().color;
+        }
+    }
+    
+    return fill;
+});
+
+
 series.data.setAll([data]);
 series.set("selectedDataItem", series.dataItems[0]);
 
@@ -839,39 +942,92 @@ series.set("selectedDataItem", series.dataItems[0]);
 series.appear(1000, 100);
 
 }); // end am5.ready()
-// =======================================================
+// --- End JS Block ---// =======================================================
 // == SANKEY2 CHART LOGIC (ENHANCED & COMPLETE) ==
   // =======================================================
+
+// --- Start JS Block ---
+
+// Define the mapping for full names to short names
+var nameMap = {
+    "Revenue From Operations [Gross]": "Rev Op [Gross]",
+    "Less: Excise/Service Tax/Other Levies": "Less: Tax Levies",
+    "Revenue From Operations [Net]": "Rev Op [Net]",
+    "Other Income": "Other Inc",
+    "Total Revenue (Source)": "Total Revenue",
+    "Cost Of Materials Consumed": "Mat. Consumed",
+    "Purchase Of Stock-In Trade": "Purch. Stock",
+    "Operating And Direct Expenses": "Op. & Direct Exp.",
+    "Changes In Inventories...": "Changes in Inv.",
+    "Employee Benefit Expenses": "Emp. Ben. Exp.",
+    "Finance Costs": "Fin. Costs",
+    "Depreciation And Amortisation Expenses": "D&A Expenses",
+    "Other Expenses": "Other Exp.",
+    "P/L Before Exceptional, ExtraOrdinary Items And Tax": "P/L Before E/E & Tax",
+    "Exceptional Items": "Exceptional",
+    "Profit/Loss Before Tax": "P/L Before Tax",
+    "Total Tax Expenses (Net Deduction)": "Total Tax Exp.",
+    "Profit/Loss For The Period": "Final P/L"
+};
+
+
 am5.ready(function() {
 
 // Create root element
-// https://www.amcharts.com/docs/v5/getting-started/#Root_element
 var root = am5.Root.new("sankey2-chart");
 
 
 // Set themes
-// https://www.amcharts.com/docs/v5/concepts/themes/
 root.setThemes([
   am5themes_Animated.new(root)
 ]);
 
 
-
-
 // Create series
-// https://www.amcharts.com/docs/v5/charts/flow-charts/
 var series = root.container.children.push(am5flow.Sankey.new(root, {
   sourceIdField: "from",
   targetIdField: "to",
   valueField: "value",
-  paddingRight: 50
+  paddingRight: 100,
 }));
 
 series.nodes.get("colors").set("step", 2);
 
+// ==========================================================
+// NODE CUSTOMIZATION (Labels and Tooltips)
+// ==========================================================
+
+// 1. Configure Tooltip to show the full name
+series.nodes.labels.template.set("tooltipText", "{name}");
+
+// 2. Configure Label Text using an adapter for short names
+series.nodes.labels.template.adapters.add("text", function(text, target) {
+    var dataItem = target.dataItem;
+    if (dataItem) {
+        var fullName = dataItem.get("id"); // The category/name is stored as the ID
+        
+        // Check if a short name exists in the map
+        if (nameMap[fullName]) {
+            return nameMap[fullName];
+        }
+        
+        // If no short name is defined, return the original text (which is {name})
+        return fullName; 
+    }
+    return text;
+});
+
+// Optional: Adjust label settings for better fit
+series.nodes.labels.template.setAll({
+    maxWidth: 150, // Limit width to prevent excessive horizontal spread
+    overflow: "visible", // Ensure labels aren't hidden
+    fontSize: 12
+});
+
+// ==========================================================
+
 
 // Set data
-// https://www.amcharts.com/docs/v5/charts/flow-charts/#Setting_data
 series.data.setAll([
   // --- INCOME & REVENUE FLOW (Source: Revenue From Operations [Gross] = 5,57,163)
   { from: "Revenue From Operations [Gross]", to: "Less: Excise/Service Tax/Other Levies", value: 39814 },
@@ -903,11 +1059,13 @@ series.data.setAll([
   { from: "Profit/Loss Before Tax", to: "Total Tax Expenses (Net Deduction)", value: 3996 }, 
   { from: "Profit/Loss Before Tax", to: "Profit/Loss For The Period", value: 19323 }
 ]);
+
+
 // Make stuff animate on load
-series.appear(100, 1000);
+series.appear(1000, 100);
 
 }); // end am5.ready()
-// =======================================================
+  // =======================================================
   // == SANKEY CHART LOGIC (ENHANCED & COMPLETE) ==
   // =======================================================
 am5.ready(function() {

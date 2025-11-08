@@ -287,16 +287,18 @@ p.section-subtitle {
   box-shadow: var(--shadow-soft);
   transition: all 0.3s ease;
   cursor: pointer;
-  opacity: 0; /* Set for animation */
+  opacity: 0; 
+  /* Set for animation */
   transform: translateY(20px);
   /* --- CRUCIAL FIX ---
      This ensures elements start hidden and can be precisely measured when JS sets display: flex */
-  display: none;
+  /* display: none; */
 }
 /* --- CRUCIAL FIX ---
    Ensures the root node is visible for initial mounting */
 .tree-level[data-level="1"] .tree-node {
     display: flex;
+    opacity: 1;
 }
 
 .tree-node:hover {
@@ -360,7 +362,15 @@ p.section-subtitle {
 /* --- Sunburst Chart Section --- */
 #chartdiv {
   width: 100%;
-  height: 500px;
+  height: 600px; /* Or use a percentage height if the parent body/container is defined */
+}
+
+/* Ensure the body and html take up full viewport height if using percentages */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* --- Balance Sheet Section (Unchanged) --- */
@@ -446,7 +456,13 @@ p.section-subtitle {
 /* --- Treemap Chart Section --- */
 #treemap-chart {
   width: 100%;
-  height: 500px;
+  height: 600px; 
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 /* --- Sankey Chart Section --- */
 #sankey-chart {
@@ -455,9 +471,12 @@ p.section-subtitle {
   height: 500px;
 }
 #sankey2-chart {
-    width: 90%;
+    width: 100%;
     height: 900px;
+
 }
+
+
 
 
 /* ======================================================= */
