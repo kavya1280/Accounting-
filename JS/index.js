@@ -570,69 +570,71 @@ function viewAll() {
   // == SUNBURST CHART LOGIC ==
   // =======================================================
 // --- Start JS Block ---
+
+
 var balanceSheetData = {
-    name: "Balance Sheet", shortName: "B/S",
-    children: [
+  name: "Balance Sheet", shortName: "B/S",
+  children: [
+    {
+      name: "Equities and Liabilities", shortName: "E & Liabilities",
+      children: [
         {
-            name: "Equities and Liabilities", shortName: "E & Liabilities",
-            children: [
-                {
-                    name: "Shareholder's Funds", shortName: "S/H Funds",
-                    children: [
-                        { name: "Equity Share Capital", shortName: "Eq. Cap.", value: 150 },
-                        { name: "Reserves & Surplus", shortName: "R & S", value: 450 }
-                    ]
-                },
-                {
-                    name: "Non-Current Liabilities", shortName: "NCL",
-                    children: [
-                        { name: "Long-term Borrowings", shortName: "LT Borrow.", value: 300 },
-                        { name: "Deferred Tax Liabilities [Net]", shortName: "DTL [Net]", value: 50 },
-                        { name: "Long Term Provisions", shortName: "LT Prov.", value: 100 }
-                    ]
-                },
-                {
-                    name: "Current Liabilities", shortName: "CL",
-                    children: [
-                        { name: "Short Term Borrowings", shortName: "ST Borrow.", value: 80 },
-                        { name: "Trade Payables", shortName: "T/P", value: 120 },
-                        { name: "Other Current Liabilities", shortName: "Other CL", value: 40 },
-                        { name: "Short Term Provisions", shortName: "ST Prov.", value: 20 }
-                    ]
-                }
-            ]
+          name: "Shareholder's Funds", shortName: "S/H Funds",
+          children: [
+            { name: "Equity Share Capital", shortName: "Eq. Cap.", value: 120 },
+            { name: "Reserves & Surplus", shortName: "R & S", value: 130 }
+          ]
         },
         {
-            name: "Assets", shortName: "Assets",
-            children: [
-                {
-                    name: "Non-Current Assets", shortName: "NCA",
-                    children: [
-                        { name: "Tangible Assets", shortName: "Tangibles", value: 400 },
-                        { name: "Intangible Assets", shortName: "Intangibles", value: 150 },
-                        { name: "Capital Work In Progress", shortName: "CWIP", value: 80 },
-                        { name: "Intangible Assets Under Development", shortName: "IAUD", value: 70 },
-                        { name: "Fixed Assets", shortName: "F/A", value: 50 },
-                        { name: "Non-Current Investments", shortName: "NCI", value: 120 },
-                        { name: "Long Term Loans & Advances", shortName: "LT L&A", value: 30 },
-                        { name: "Deferred Tax Assets", shortName: "DTA", value: 20 }
-                    ]
-                },
-                {
-                    name: "Current Assets", shortName: "CA",
-                    children: [
-                        { name: "Other Non-Current Assets", shortName: "Other NCA", value: 10 },
-                        { name: "Current Investments", shortName: "CI", value: 60 },
-                        { name: "Inventories", shortName: "Inv.", value: 180 },
-                        { name: "Trade Receivables", shortName: "T/R", value: 110 },
-                        { name: "Cash & Cash Equivalents", shortName: "C&CE", value: 90 },
-                        { name: "Short Term Loans & Advances", shortName: "ST L&A", value: 40 },
-                        { name: "Other Current Assets", shortName: "Other CA", value: 30 }
-                    ]
-                }
-            ]
+          name: "Non-Current Liabilities", shortName: "NCL",
+          children: [
+            { name: "Long-term Borrowings", shortName: "LT Borrow.", value: 110 },
+            { name: "Deferred Tax Liabilities [Net]", shortName: "DTL [Net]", value: 90 },
+            { name: "Long Term Provisions", shortName: "LT Prov.", value: 80 }
+          ]
+        },
+        {
+          name: "Current Liabilities", shortName: "CL",
+          children: [
+            { name: "Short Term Borrowings", shortName: "ST Borrow.", value: 70 },
+            { name: "Trade Payables", shortName: "T/P", value: 90 },
+            { name: "Other Current Liabilities", shortName: "Other CL", value: 60 },
+            { name: "Short Term Provisions", shortName: "ST Prov.", value: 60 }
+          ]
         }
-    ]
+      ]
+    },
+    {
+      name: "Assets", shortName: "Assets",
+      children: [
+        {
+          name: "Non-Current Assets", shortName: "NCA",
+          children: [
+            { name: "Tangible Assets", shortName: "Tangibles", value: 130 },
+            { name: "Intangible Assets", shortName: "Intangibles", value: 120 },
+            { name: "Capital Work In Progress", shortName: "CWIP", value: 90 },
+            { name: "Intangible Assets Under Development", shortName: "IAUD", value: 80 },
+            { name: "Fixed Assets", shortName: "F/A", value: 90 },
+            { name: "Non-Current Investments", shortName: "NCI", value: 100 },
+            { name: "Long Term Loans & Advances", shortName: "LT L&A", value: 80 },
+            { name: "Deferred Tax Assets", shortName: "DTA", value: 70 }
+          ]
+        },
+        {
+          name: "Current Assets", shortName: "CA",
+          children: [
+            { name: "Other Non-Current Assets", shortName: "Other NCA", value: 60 },
+            { name: "Current Investments", shortName: "CI", value: 80 },
+            { name: "Inventories", shortName: "Inv.", value: 90 },
+            { name: "Trade Receivables", shortName: "T/R", value: 90 },
+            { name: "Cash & Cash Equivalents", shortName: "C&CE", value: 80 },
+            { name: "Short Term Loans & Advances", shortName: "ST L&A", value: 70 },
+            { name: "Other Current Assets", shortName: "Other CA", value: 70 }
+          ]
+        }
+      ]
+    }
+  ]
 };
 
 am5.ready(function() {
@@ -669,7 +671,18 @@ am5.ready(function() {
 
 
     // ==========================================================
-    // LABEL CUSTOMIZATION
+    // TOOLTIP CUSTOMIZATION (Requirement: Show Full Name on hover)
+    // ==========================================================
+    
+    series.slices.template.set("tooltipText", "{name}: {value}");
+    // Optionally customize the tooltip appearance
+    series.slices.template.set("tooltip", am5.Tooltip.new(root, {
+        getFillFromData: true
+    }));
+
+
+    // ==========================================================
+    // LABEL CUSTOMIZATION (Existing logic for Short Name display)
     // ==========================================================
     
     series.labels.template.setAll({
@@ -773,9 +786,9 @@ root.setThemes([
 ]);
 
 // Define custom colors (Hex codes verified)
-var colorGreen = am5.color(0x54f88d);
-var colorBlue = am5.color(0xbef467); 
-var colorOrange = am5.color(0xF59E0B);
+var colorGreen = am5.color(0x2E8B57);  // Elegant deep green
+var colorBlue = am5.color(0x1E90FF);   // Professional vivid blue
+var colorOrange = am5.color(0xFF8C00); // Refined warm orange
 
 // Create wrapper container
 var container = root.container.children.push(
@@ -833,7 +846,7 @@ series.labels.template.adapters.add("text", function(text, target) {
 // Optional: Adjust label settings for better fit
 series.labels.template.setAll({
     maxWidth: 150, 
-    fontSize: 10
+    fontSize: 15
 });
 
 // ==========================================================
@@ -846,44 +859,34 @@ var data = {
     {
       name: "INCOME",
       children: [
-        { name: "Revenue From Operations [Gross]", value: 1500 },
-        { name: "Less: Excise/Service Tax/Other Levies", value: 100 },
-        { name: "Revenue From Operations [Net]", value: 1400 },
-        { name: "Other Income", value: 50 },
+        { name: "Revenue From Operations [Gross]", value: 20 },
+        { name: "Less: Excise/Service Tax/Other Levies", value: 10 },
+        { name: "Revenue From Operations [Net]", value: 18 },
+        { name: "Other Income", value: 12 },
       ]
     },
     {
       name: "EXPENSES",
       children: [
-        { name: "Cost Of Materials Consumed", value: 300 },
-        { name: "Purchase Of Stock-In Trade", value: 150 },
-        { name: "Operating And Direct Expenses", value: 200 },
-        // Full name used here to match updated nameMap key
-        { name: "Changes In Inventories Of FG, WIP And Stock-In Trade", value: 50 }, 
-        { name: "Employee Benefit Expenses", value: 120 },
-        { name: "Finance Costs", value: 30 },
-        { name: "Depreciation And Amortisation Expenses", value: 50 },
-        { name: "Other Expenses", value: 10 },
+        { name: "Cost Of Materials Consumed", value: 16 },
+        { name: "Purchase Of Stock-In Trade", value: 14 },
+        { name: "Operating And Direct Expenses", value: 15 },
+        { name: "Changes In Inventories Of FG, WIP And Stock-In Trade", value: 17 },
+        { name: "Employee Benefit Expenses", value: 16 },
+        { name: "Finance Costs", value: 13 },
+        { name: "Depreciation And Amortisation Expenses", value: 14 },
+        { name: "Other Expenses", value: 13 },
       ]
     },
     {
       name: "PROFIT / LOSS",
       children: [
-        // Full name used here to match updated nameMap key
-        { name: "Profit/Loss Before Exceptional, Extraordinary Items And Tax", value: 540 },
-        { name: "Exceptional Items", value: 40 },
-        { name: "Profit/Loss Before Tax", value: 500 },
-        {
-          name: "Tax Expenses – Continued Operations",
-          children: [
-            { name: "Current Tax", value: 100 },
-            { name: "Deferred Tax", value: 20 },
-            { name: "Total Tax Expenses", value: 120 }
-          ]
-        },
-        { name: "Profit/Loss After Tax And Before Extraordinary Items", value: 380 },
-        { name: "Profit/Loss From Continuing Operations", value: 380 },
-        { name: "Profit/Loss For The Period", value: 430 }
+        { name: "Exceptional Items", value: 11 },
+        { name: "Profit/Loss Before Tax", value: 13 },
+        { name: "Current Tax", value: 12 },
+        { name: "Deferred Tax", value: 11 },
+        { name: "Total Tax Expenses", value: 12 },
+        { name: "Profit/Loss From Continuing Operations", value: 14 },
       ]
     }
   ]
@@ -963,10 +966,8 @@ var nameMap = {
     "Finance Costs": "Fin. Costs",
     "Depreciation And Amortisation Expenses": "D&A Expenses",
     "Other Expenses": "Other Exp.",
-    "P/L Before Exceptional, ExtraOrdinary Items And Tax": "P/L Before E/E & Tax",
     "Exceptional Items": "Exceptional",
     "Profit/Loss Before Tax": "P/L Before Tax",
-    "Total Tax Expenses (Net Deduction)": "Total Tax Exp.",
     "Profit/Loss For The Period": "Final P/L"
 };
 
@@ -1022,6 +1023,7 @@ series.nodes.labels.template.setAll({
     maxWidth: 150, // Limit width to prevent excessive horizontal spread
     overflow: "visible", // Ensure labels aren't hidden
     fontSize: 12
+    
 });
 
 // ==========================================================

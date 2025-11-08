@@ -6,11 +6,12 @@ let minGap = 0;
 let sliderTrack = document.querySelector(".slider-track");
 let sliderMaxValue = document.getElementById("slider-1").max;
 
-const balanceSheetRows = document.querySelectorAll(
-  "#balanceSheetContent tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
+// Updated Selector: Use a generic selector for data rows within the main table structure (P&L table)
+const tableRows = document.querySelectorAll(
+  "#profitLossContent table tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
 );
-const originalFy2425Data = new Map();
 
+const originalFy2425Data = new Map();
 
 const months = [
   "April",
@@ -51,37 +52,55 @@ function fillColor() {
 }
 
 function applySliderImpact() {
-    const minMonth = parseInt(slider1.value);
-    const maxMonth = parseInt(slider2.value);
-    const numberOfMonthsSelected = maxMonth - minMonth + 1;
-    const totalPossibleMonths = 12; // April to March
+  const minMonth = parseInt(sliderOne.value);
+  const maxMonth = parseInt(sliderTwo.value);
+  const numberOfMonthsSelected = maxMonth - minMonth + 1;
+  const totalPossibleMonths = 12; // April to March
 
-    profitLossRows.forEach((row) => {
-      const fy2425Cell = row.querySelector(".year-column.fy-24-25 .insight-trigger");
-      if (fy2425Cell) {
-        const originalValue = originalFy2425Values.get(fy2425Cell);
-        
+  // Use the P&L data rows for the impact calculation
+  tableRows.forEach((row) => {
+    const fy2425Cell = row.querySelector(".year-data.fy-24-25");
+    if (fy2425Cell) {
+      const originalData = originalFy2425Data.get(fy2425Cell);
+      if (originalData) {
+        const originalValue = originalData.value;
+        const originalPercentageHTML = originalData.percentageHTML;
+
         // Calculate impact factor based on the number of selected months
-        // If 12 months are selected, the factor is 1 (original value)
-        // If fewer months are selected, the impact is proportionally reduced
+        // This is appropriate for P&L items (flow variables)
         const impactFactor = numberOfMonthsSelected / totalPossibleMonths;
         const newValue = originalValue * impactFactor;
-        
-        // Update the displayed value, keeping only the number part for calculations
+
+        // Update the displayed value, keeping the original percentage HTML
         const formattedValue = new Intl.NumberFormat("en-US", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         }).format(newValue);
 
-        let percentageSpan = fy2425Cell.querySelector(".percentage-impact");
-        if (percentageSpan) {
-            fy2425Cell.innerHTML = `${formattedValue} ${percentageSpan.outerHTML}`;
-        } else {
-            fy2425Cell.textContent = formattedValue;
+        const insightTriggerSpan = fy2425Cell.querySelector(".insight-trigger");
+        if (insightTriggerSpan) {
+          // Set the text content (the numerical value)
+          insightTriggerSpan.childNodes[0].nodeValue = formattedValue;
+          // Remove any existing percentage span (if dynamically added)
+          const existingPcntSpan =
+            insightTriggerSpan.querySelector(".percentage-impact");
+          if (existingPcntSpan) existingPcntSpan.remove();
+          // Re-insert the original hard-coded percentage HTML
+          if (originalPercentageHTML) {
+            insightTriggerSpan.insertAdjacentHTML(
+              "beforeend",
+              originalPercentageHTML
+            );
+          }
         }
       }
-    });
+    }
+  });
+  // For balance sheet, percentages are explicitly kept unchanged by the slider,
+  // so `calculateAndDisplayPercentages()` is not called here.
 }
+
+
 document.addEventListener("DOMContentLoaded", () => {
   let revenueDonutChart;
   let exceptionCombinedChart;
@@ -92,6 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const faqButton = document.getElementById("faqButton");
   const faqModal = document.getElementById("faqModal");
   const faqModalCloseBtn = document.getElementById("faqModalCloseBtn");
+
+  // Note: Since the HTML provided doesn't explicitly show the FAQ button/modal, 
+  // we assume these IDs exist if the user includes the necessary HTML structure.
 
   if (faqButton) {
     faqButton.addEventListener("click", function () {
@@ -118,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
   slideOne();
   slideTwo();
 
-  // --- COLLAPSIBLE FUNCTIONALITY ---
+  // --- Collapsible Functionality ---
   const collapsibles = document.querySelectorAll(".collapsible");
   collapsibles.forEach((collapsible) => {
     collapsible.addEventListener("click", function () {
@@ -132,16 +154,35 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+    
+  // --- Category Toggle Functionality (New Addition) ---
+  document.querySelectorAll(".category").forEach(function(row) {
+    row.addEventListener("click", function() {
+      const target = this.getAttribute("data-target");
+      const childRows = document.querySelectorAll(`.child.${target}`);
+
+      childRows.forEach(child => {
+        // Toggle between visible and hidden
+        if (child.style.display === "table-row") {
+          child.style.display = "none";
+        } else {
+          child.style.display = "table-row";
+        }
+      });
+    });
+  });
+  // ----------------------------------------------------
+
 
   // --- Insight Modal Functionality ---
   const insightTriggers = document.querySelectorAll(".insight-trigger");
-  const insightModal = document.getElementById("insightModal");
+  const insightModal = document.getElementById("insightModal"); // Assuming insightModal exists in HTML
   const modalCloseBtn = document.getElementById("modalCloseBtn");
-  // const modalTitle = document.getElementById("modalTitle"); // Not used directly, but keep if needed for dynamic title later
 
   insightTriggers.forEach((trigger) => {
     trigger.addEventListener("click", async function (event) {
       event.preventDefault();
+      // console.log("clicked");
       if (revenueDonutChart) {
         revenueDonutChart.destroy();
       }
@@ -149,11 +190,19 @@ document.addEventListener("DOMContentLoaded", () => {
         exceptionCombinedChart.destroy();
       }
       const url = "/assets/" + this.dataset.insightUrl;
-      console.log(url);
+      // console.log(url);
       if (url) {
-        const response = await fetch(url);
-        const json = await response.json();
-        console.log(json);
+        let json;
+        try {
+            const response = await fetch(url);
+            json = await response.json();
+        } catch (error) {
+            console.error("Error fetching insight data:", error);
+            // Handle error, maybe show a default empty modal or a warning
+            return; 
+        }
+
+        // console.log(json);
         insightModal.style.display = "flex";
 
         function getCssVar(varName) {
@@ -163,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // --- Business Impact Table Data ---
-        const impactRows = json.table;
+        const impactRows = json.table || [];
 
         const totalImpactAmount = impactRows.reduce(
           (sum, item) => sum + item.amount,
@@ -177,10 +226,10 @@ document.addEventListener("DOMContentLoaded", () => {
         firstImpactPercentage = 0; // Reset for each new insight modal
 
         impactRows.forEach((item, index) => {
-          const impactPercentage = (
-            (item.amount / totalImpactAmount) *
-            100
-          ).toFixed(2);
+          // Handle potential division by zero
+          const impactPercentage = totalImpactAmount === 0 
+            ? 0 
+            : ((item.amount / totalImpactAmount) * 100).toFixed(2);
 
           // Store the first item's percentage in a separate variable
           if (index === 0) {
@@ -192,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
           let percentageClass = "green"; // Default color
           if (impactPercentage > 70) {
             percentageClass = "red";
-          } else if (impactPercentage > 40 && impactPercentage < 70) {
+          } else if (impactPercentage > 40 && impactPercentage <= 70) {
             percentageClass = "yellow";
           }
 
@@ -304,9 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
         donutData.forEach((item, index) => {
           const li = document.createElement("li");
           li.innerHTML = `
-            <span class="legend-color" style="background-color: ${
-              chartColors[index]
-            }"></span>
+            <span class="legend-color" style="background-color: ${chartColors[index]}"></span>
           `;
           legendContainer.appendChild(li);
         });
@@ -325,8 +372,9 @@ document.addEventListener("DOMContentLoaded", () => {
           "FY 24-25",
         ];
 
-        const monthlyImpactAmounts = [1, 1, 1, 2, firstImpactPercentage]; // Using firstImpactPercentage for FY 24-25
-        const monthlyInsightCounts = [0, 0, 0, 0, firstImpactPercentage]; // Using firstImpactPercentage for FY 24-25
+        // NOTE: These historical values (1, 1, 1, 2) are placeholder data carried from the original script
+        const monthlyImpactAmounts = [1, 1, 1, 2, firstImpactPercentage];
+        const monthlyInsightCounts = [0, 0, 0, 0, firstImpactPercentage]; 
 
         exceptionCombinedChart = new Chart(ctxCombined, {
           data: {
@@ -501,28 +549,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (button) button.classList.add("active");
   }
 
-  if (balanceSheetBtn) {
-    balanceSheetBtn.addEventListener("click", function () {
-      setActiveNavButton(this);
-      hideOtherYears(); // This now implicitly handles Balance Sheet's default view
-      calculateAndDisplayPercentages(); // Recalculate for default years
-    });
+  // NOTE: In the provided HTML, nav links are <a> tags, not buttons, and don't have nav-btn class.
+  // We adapt the logic to use the .nav-item class from the provided P&L HTML structure.
+  
+  // Re-define navigation logic for the P&L page context:
+  const navLinks = document.querySelectorAll('.main-nav-links .nav-item');
+
+  function setActiveNavLink(element) {
+    navLinks.forEach(link => link.classList.remove('active'));
+    if (element) {
+        element.classList.add('active');
+    }
   }
 
-  if (profitLossBtn) {
-    profitLossBtn.addEventListener("click", function () {
-      setActiveNavButton(this);
-      hideOtherYears(); // For Profit & Loss, also show default years initially
-      calculateAndDisplayPercentages(); // Recalculate for default years
-    });
-  }
-
-  // Initialize button state based on current page
-  if (window.location.pathname.includes("balanceSheet.html")) {
-    setActiveNavButton(balanceSheetBtn);
-  } else {
-    setActiveNavButton(profitLossBtn);
-  }
+  // If the P&L page is loaded, the P&L link in the HTML is already marked 'active'.
+  // We need to manage the "View All Years" button separately.
 
   // --- Year Visibility Functionality ---
   const allYearColumns = document.querySelectorAll(".year-column");
@@ -579,27 +620,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function hideOtherYears() {
     showYears(defaultYears);
-    if (viewAllYearsBtn) viewAllYearsBtn.classList.remove("active");
+    // Assuming 'View All Years' is now the 'View More' button in the KPI dashboard
+    // If the 'View More' button is used for navigation, we might need a separate 'viewAllYearsBtn'
+    // Since the P&L HTML provided has a dedicated "View More" button for navigating to 'duplicate-pl.html',
+    // we must ensure we have a functional View All Years button if needed.
+    // For now, let's assume `viewAllYearsBtn` is a placeholder or not used on this view.
   }
 
-  if (viewAllYearsBtn) {
-    viewAllYearsBtn.addEventListener("click", function () {
-      showAllYears();
-      setActiveNavButton(this);
-      calculateAndDisplayPercentages(); // Recalculate for all years
-    });
-  }
+  // If a View All Years button were present:
+  // if (viewAllYearsBtn) {
+  //   viewAllYearsBtn.addEventListener("click", function () {
+  //     showAllYears();
+  //     calculateAndDisplayPercentages();
+  //   });
+  // }
 
   // Initial state: Show only default years when the page loads
   hideOtherYears();
 
   // --- Percentage Calculation Logic ---
   function cleanValue(value) {
+    // Allows for optional parenthesis content (the percentage) and commas
     return (
       parseFloat(
         String(value)
           .replace(/\s\(.*?\%\)$/, "")
           .replace(/,/g, "")
+          .replace(/\(|\)/g, "") // Remove remaining parentheses for negative values
       ) || 0
     );
   }
@@ -616,27 +663,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const tableRows = document.querySelectorAll(
-    "tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
-  );
+  // `tableRows` is defined globally above and includes the correct P&L data rows.
 
   function calculateAndDisplayPercentages() {
     tableRows.forEach((row) => {
       const dataCells = Array.from(row.querySelectorAll("td.year-data"));
 
-      // For FY 24-25, capture original percentage HTML if it exists
+      // 1. Capture original data for FY 24-25 (only happens once on load)
       const fy2425Cell = row.querySelector(".year-data.fy-24-25");
       if (fy2425Cell && !originalFy2425Data.has(fy2425Cell)) {
         const insightTriggerSpan = fy2425Cell.querySelector(".insight-trigger");
         if (insightTriggerSpan) {
-          const originalValue = cleanValue(
-            insightTriggerSpan.childNodes[0]?.nodeValue || ""
-          );
+          // Get the raw text node value (the number)
+          const rawValueNode = insightTriggerSpan.childNodes[0]?.nodeValue || "";
+          const originalValue = cleanValue(rawValueNode);
+          
           const percentageSpan =
             insightTriggerSpan.querySelector(".percentage-impact");
           const originalPercentageHTML = percentageSpan
             ? percentageSpan.outerHTML
             : "";
+
           originalFy2425Data.set(fy2425Cell, {
             value: originalValue,
             percentageHTML: originalPercentageHTML,
@@ -648,7 +695,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const currentCell = dataCells[i];
         const currentYear = currentCell.dataset.year;
 
-        // If the cell is hidden, remove any percentage span and skip
+        // Skip hidden cells
         if (currentCell.style.display === "none") {
           const existingPercentageSpan =
             currentCell.querySelector(".percentage-impact");
@@ -658,61 +705,64 @@ document.addEventListener("DOMContentLoaded", () => {
           continue;
         }
 
-        let currentCellValueText =
-          currentCell.querySelector(".insight-trigger")?.childNodes[0]
-            ?.nodeValue || currentCell.textContent; // Get only the text node, not the span
+        let insightTriggerSpan = currentCell.querySelector(".insight-trigger");
+        
+        let currentCellValueText;
+        if (insightTriggerSpan) {
+             currentCellValueText = insightTriggerSpan.childNodes[0]?.nodeValue || insightTriggerSpan.textContent;
+        } else {
+             currentCellValueText = currentCell.textContent;
+        }
         currentCellValueText = currentCellValueText.trim();
         const originalNumericalValue = cleanValue(currentCellValueText);
 
         let percentageDisplaySpan =
           currentCell.querySelector(".percentage-impact");
-        let insightTriggerSpan = currentCell.querySelector(".insight-trigger");
+        
+        
 
         if (currentYear === "24-25") {
-          // For FY 24-25, use the hard-coded percentage if available
+          // 2. Handle FY 24-25 (Slider impacted data + hard-coded percentage)
           const originalData = originalFy2425Data.get(currentCell);
-          if (originalData && originalData.percentageHTML) {
-            if (insightTriggerSpan) {
-              // Ensure only the value is the text node, and append the original percentage HTML
-              insightTriggerSpan.childNodes[0].nodeValue =
-                new Intl.NumberFormat("en-US", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }).format(originalData.value); // Use original numerical value for initial display
-              // Remove any existing percentage span before re-inserting
-              const existingPcntSpan =
-                insightTriggerSpan.querySelector(".percentage-impact");
-              if (existingPcntSpan) existingPcntSpan.remove();
-              insightTriggerSpan.insertAdjacentHTML(
-                "beforeend",
-                originalData.percentageHTML
-              );
+
+          if (originalData) {
+            // The numerical value might be changed by the slider, so we retrieve the current displayed value
+            // (The slider changes the nodeValue directly in applySliderImpact)
+            let currentDisplayedValue = insightTriggerSpan 
+                ? insightTriggerSpan.childNodes[0]?.nodeValue 
+                : currentCell.textContent;
+                
+            currentDisplayedValue = currentDisplayedValue.trim();
+
+            if (originalData.percentageHTML) {
+              if (insightTriggerSpan) {
+                // Keep the current (slider-adjusted) value display
+                insightTriggerSpan.childNodes[0].nodeValue = currentDisplayedValue; 
+                
+                // Remove existing percentage span before re-inserting the original hardcoded one
+                const existingPcntSpan =
+                  insightTriggerSpan.querySelector(".percentage-impact");
+                if (existingPcntSpan) existingPcntSpan.remove();
+                
+                insightTriggerSpan.insertAdjacentHTML(
+                  "beforeend",
+                  originalData.percentageHTML
+                );
+              }
             } else {
-              // Fallback if no insight-trigger, should not happen for FY24-25 based on HTML
-              currentCell.innerHTML = `${new Intl.NumberFormat("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }).format(originalData.value)} ${originalData.percentageHTML}`;
-            }
-          } else {
-            // If no hard-coded percentage for 24-25, ensure no percentage is displayed
-            if (percentageDisplaySpan) percentageDisplaySpan.remove();
-            if (insightTriggerSpan) {
-              insightTriggerSpan.textContent = new Intl.NumberFormat("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }).format(originalNumericalValue);
-            } else {
-              currentCell.textContent = new Intl.NumberFormat("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }).format(originalNumericalValue);
+              // No hard-coded percentage, ensure none is displayed
+              if (percentageDisplaySpan) percentageDisplaySpan.remove();
+              if (insightTriggerSpan) {
+                insightTriggerSpan.textContent = currentDisplayedValue;
+              } else {
+                currentCell.textContent = currentDisplayedValue;
+              }
             }
           }
           continue; // Skip further calculation for FY 24-25
         }
 
-        // For other years, calculate percentage change
+        // 3. Calculate year-over-year percentage change for other years
         const nextVisibleCell = dataCells
           .slice(i + 1)
           .find((cell) => cell.style.display !== "none");
@@ -736,8 +786,7 @@ document.addEventListener("DOMContentLoaded", () => {
               100;
           }
         } else {
-          // This is the last visible year (excluding FY 24-25 which is handled above)
-          // Do not display a percentage for the very last displayed year
+          // This is the last visible historical year (e.g., FY 21-22 if all are visible)
           shouldDisplayPercentage = false;
           percentageChange = 0;
         }
@@ -745,9 +794,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // Handle display for calculated percentages
         if (shouldDisplayPercentage) {
           percentageChange = parseFloat(percentageChange.toFixed(2));
+          
           if (!percentageDisplaySpan) {
             percentageDisplaySpan = document.createElement("span");
             percentageDisplaySpan.classList.add("percentage-impact");
+            
             if (insightTriggerSpan) {
               insightTriggerSpan.appendChild(percentageDisplaySpan);
               // Ensure only the value is the text node
@@ -757,7 +808,7 @@ document.addEventListener("DOMContentLoaded", () => {
               currentCell.appendChild(percentageDisplaySpan);
             }
           } else {
-            // If span exists, ensure it's within insight-trigger if present
+            // If span exists, ensure it's positioned correctly
             if (
               insightTriggerSpan &&
               !insightTriggerSpan.contains(percentageDisplaySpan)
@@ -798,23 +849,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // --- Initial Data Capture (Needed by slider and percentage calculations) ---
+  // Must run before `calculateAndDisplayPercentages()` to populate `originalFy2425Data` map.
+  tableRows.forEach((row) => {
+    const fy2425Cell = row.querySelector(".year-data.fy-24-25");
+    if (fy2425Cell && !originalFy2425Data.has(fy2425Cell)) {
+      const insightTriggerSpan = fy2425Cell.querySelector(".insight-trigger");
+      if (insightTriggerSpan) {
+        // We need to capture the text node value and the original percentage HTML
+        const originalValue = cleanValue(
+          insightTriggerSpan.childNodes[0]?.nodeValue || ""
+        );
+        const percentageSpan =
+          insightTriggerSpan.querySelector(".percentage-impact");
+        const originalPercentageHTML = percentageSpan
+          ? percentageSpan.outerHTML
+          : "";
+        originalFy2425Data.set(fy2425Cell, {
+          value: originalValue,
+          percentageHTML: originalPercentageHTML,
+        });
+      }
+    }
+  });
+
+
   calculateAndDisplayPercentages(); // Initial run
 
-  // Re-calculate percentages when "View All Years" is clicked
+  // Re-calculate percentages when "View All Years" is simulated (if needed)
   if (viewAllYearsBtn) {
     viewAllYearsBtn.addEventListener("click", () => {
       showAllYears();
-      setActiveNavButton(viewAllYearsBtn);
       calculateAndDisplayPercentages(); // Recalculate for all years
-    });
-  }
-
-  // Also re-calculate if the Balance Sheet button is clicked (to reset to default years)
-  if (balanceSheetBtn) {
-    balanceSheetBtn.addEventListener("click", () => {
-      setActiveNavButton(balanceSheetBtn);
-      hideOtherYears(); // This function calls showYears(defaultYears)
-      calculateAndDisplayPercentages(); // Recalculate for default years
     });
   }
 
@@ -835,68 +901,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
-  // // --- Slider Functionality ---
-  // const slider1 = document.getElementById("slider-1");
-  // const slider2 = document.getElementById("slider-2");
-  // // const sliderYearSpan = document.getElementById("sliderYear"); // Not used directly, but keep if needed for dynamic year display
-  // const rangeFromMonthSpan = document.getElementById("rangeFromMonth");
-  // const rangeToMonthSpan = document.getElementById("rangeToMonth");
-  // const sliderTrack = document.querySelector(".slider-track");
-
-  // const months = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
-
-  // function updateSliderLabels() {
-  //   const minVal = parseInt(slider1.value);
-  //   const maxVal = parseInt(slider2.value);
-
-  //   rangeFromMonthSpan.textContent = months[minVal - 1];
-  //   rangeToMonthSpan.textContent = months[maxVal - 1];
-
-  //   // Update track fill
-  //   const minPercent = ((minVal - slider1.min) / (slider1.max - slider1.min)) * 100;
-  //   const maxPercent = ((maxVal - slider2.min) / (slider2.max - slider2.min)) * 100;
-  //   sliderTrack.style.left = `${minPercent}%`;
-  //   sliderTrack.style.right = `${100 - maxPercent}%`;
-  // }
-
-  // // Initial update
-  // updateSliderLabels();
-
-  // const profitLossRows = document.querySelectorAll(
-  //   "#profitLossContent tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
-  // );
-
-  // // Store original values for FY 24-25 for all relevant cells
-  // const originalFy2425Values = new Map();
-  // profitLossRows.forEach((row) => {
-  //   const fy2425Cell = row.querySelector(".year-column.fy-24-25 .insight-trigger");
-  //   if (fy2425Cell) {
-  //     const originalValue = cleanValue(fy2425Cell.textContent);
-  //     originalFy2425Values.set(fy2425Cell, originalValue);
-  //   }
-  // });
-
-  
-  //   calculateAndDisplayPercentages(); // Recalculate percentages after value changes
-  // }
-
-  // slider1.addEventListener("input", () => {
-  //   if (parseInt(slider1.value) > parseInt(slider2.value)) {
-  //     slider1.value = slider2.value;
-  //   }
-  //   updateSliderLabels();
-  //   applySliderImpact();
-  // });
-
-  // slider2.addEventListener("input", () => {
-  //   if (parseInt(slider2.value) < parseInt(slider1.value)) {
-  //     slider2.value = slider1.value;
-  //   }
-  //   updateSliderLabels();
-  //   applySliderImpact();
-  // });
-
-  // // Apply initial impact based on default slider positions
-  // applySliderImpact();
 });
