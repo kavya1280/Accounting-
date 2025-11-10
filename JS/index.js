@@ -967,6 +967,7 @@ var nameMap = {
     "Depreciation And Amortisation Expenses": "D&A Expenses",
     "Other Expenses": "Other Exp.",
     "Exceptional Items": "Exceptional",
+    "P/L Before Exceptional, ExtraOrdinary Items And Tax": "P/L Before Exceptional",
     "Profit/Loss Before Tax": "P/L Before Tax",
     "Profit/Loss For The Period": "Final P/L"
 };
