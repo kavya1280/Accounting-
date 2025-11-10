@@ -12,6 +12,8 @@
   --impact-header-bg: #dc3545; /* Impact table header */
   --impact-row-even: #fdf2f2; /* Light red for even impact rows */
   --text-muted: #6c757d;
+  --dark-text: #343a40;
+  --primary-green:#28a745;
 
   /* New: Balance Sheet Specific Colors */
   --balance-sheet-section-bg: #d4edda; /* Light green */
@@ -1865,3 +1867,4 @@ input[type="range"]:active::-webkit-slider-thumb {
 .category:hover {
     background-color: #e0e0e0;
 }
+
