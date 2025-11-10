@@ -609,210 +609,141 @@ document.addEventListener("DOMContentLoaded", () => {
   hideOtherYears();
 
   // --- Percentage Calculation Logic ---
-  function cleanValue(value) {
-    return (
-      parseFloat(
-        String(value)
-          .replace(/\s\(.*?\%\)$/, "")
-          .replace(/,/g, "")
-      ) || 0
-    );
-  }
-
-  function getPercentageClass(percentage) {
-    if (percentage >= 25) {
-      return "percent-green";
-    } else if (percentage >= 5) {
-      return "percent-yellow";
-    } else if (percentage >= -5) {
-      return "percent-orange";
-    } else {
-      return "percent-red";
-    }
-  }
-
-  const tableRows = document.querySelectorAll(
-    "tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
+ // --- Percentage Calculation Logic ---
+function cleanValue(value) {
+  return (
+    parseFloat(
+      String(value)
+        .replace(/\s\(.*?\%\)$/, "")
+        .replace(/,/g, "")
+    ) || 0
   );
+}
 
-
-  function calculateAndDisplayPercentages() {
-    tableRows.forEach((row) => {
-      const dataCells = Array.from(row.querySelectorAll("td.year-data"));
-
-      // For FY 24-25, capture original percentage HTML if it exists
-      const fy2425Cell = row.querySelector(".year-data.fy-24-25");
-      if (fy2425Cell && !originalFy2425Data.has(fy2425Cell)) {
-        const insightTriggerSpan = fy2425Cell.querySelector(".insight-trigger");
-        if (insightTriggerSpan) {
-          const originalValue = cleanValue(
-            insightTriggerSpan.childNodes[0]?.nodeValue || ""
-          );
-          const percentageSpan =
-            insightTriggerSpan.querySelector(".percentage-impact");
-          const originalPercentageHTML = percentageSpan
-            ? percentageSpan.outerHTML
-            : "";
-          originalFy2425Data.set(fy2425Cell, {
-            value: originalValue,
-            percentageHTML: originalPercentageHTML,
-          });
-        }
-      }
-
-      for (let i = 0; i < dataCells.length; i++) {
-        const currentCell = dataCells[i];
-        const currentYear = currentCell.dataset.year;
-
-        // If the cell is hidden, remove any percentage span and skip
-        if (currentCell.style.display === "none") {
-          const existingPercentageSpan =
-            currentCell.querySelector(".percentage-impact");
-          if (existingPercentageSpan) {
-            existingPercentageSpan.remove();
-          }
-          continue;
-        }
-
-        let currentCellValueText =
-          currentCell.querySelector(".insight-trigger")?.childNodes[0]
-            ?.nodeValue || currentCell.textContent; // Get only the text node, not the span
-        currentCellValueText = currentCellValueText.trim();
-        const originalNumericalValue = cleanValue(currentCellValueText);
-
-        let percentageDisplaySpan =
-          currentCell.querySelector(".percentage-impact");
-        let insightTriggerSpan = currentCell.querySelector(".insight-trigger");
-
-        if (currentYear === "24-25") {
-          // For FY 24-25, use the hard-coded percentage if available
-          const originalData = originalFy2425Data.get(currentCell);
-          if (originalData && originalData.percentageHTML) {
-            if (insightTriggerSpan) {
-              // Ensure only the value is the text node, and append the original percentage HTML
-              insightTriggerSpan.childNodes[0].nodeValue =
-                new Intl.NumberFormat("en-US", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }).format(originalData.value); // Use original numerical value for initial display
-              // Remove any existing percentage span before re-inserting
-              const existingPcntSpan =
-                insightTriggerSpan.querySelector(".percentage-impact");
-              if (existingPcntSpan) existingPcntSpan.remove();
-              insightTriggerSpan.insertAdjacentHTML(
-                "beforeend",
-                originalData.percentageHTML
-              );
-            } else {
-              // Fallback if no insight-trigger, should not happen for FY24-25 based on HTML
-              currentCell.innerHTML = `${new Intl.NumberFormat("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }).format(originalData.value)} ${originalData.percentageHTML}`;
-            }
-          } else {
-            // If no hard-coded percentage for 24-25, ensure no percentage is displayed
-            if (percentageDisplaySpan) percentageDisplaySpan.remove();
-            if (insightTriggerSpan) {
-              insightTriggerSpan.textContent = new Intl.NumberFormat("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }).format(originalNumericalValue);
-            } else {
-              currentCell.textContent = new Intl.NumberFormat("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }).format(originalNumericalValue);
-            }
-          }
-          continue; // Skip further calculation for FY 24-25
-        }
-
-        // For other years, calculate percentage change
-        const nextVisibleCell = dataCells
-          .slice(i + 1)
-          .find((cell) => cell.style.display !== "none");
-
-        let percentageChange;
-        let shouldDisplayPercentage = true;
-
-        if (nextVisibleCell) {
-          let previousCellValueText =
-            nextVisibleCell.querySelector(".insight-trigger")?.childNodes[0]
-              ?.nodeValue || nextVisibleCell.textContent;
-          previousCellValueText = previousCellValueText.trim();
-          const previousYearValue = cleanValue(previousCellValueText);
-
-          if (previousYearValue === 0) {
-            percentageChange = originalNumericalValue === 0 ? 0 : 100;
-          } else {
-            percentageChange =
-              ((originalNumericalValue - previousYearValue) /
-                previousYearValue) *
-              100;
-          }
-        } else {
-          // This is the last visible year (excluding FY 24-25 which is handled above)
-          // Do not display a percentage for the very last displayed year
-          shouldDisplayPercentage = false;
-          percentageChange = 0;
-        }
-
-        // Handle display for calculated percentages
-        if (shouldDisplayPercentage) {
-          percentageChange = parseFloat(percentageChange.toFixed(2));
-          if (!percentageDisplaySpan) {
-            percentageDisplaySpan = document.createElement("span");
-            percentageDisplaySpan.classList.add("percentage-impact");
-            if (insightTriggerSpan) {
-              insightTriggerSpan.appendChild(percentageDisplaySpan);
-              // Ensure only the value is the text node
-              insightTriggerSpan.childNodes[0].nodeValue = currentCellValueText;
-            } else {
-              currentCell.innerHTML = `${currentCellValueText}`;
-              currentCell.appendChild(percentageDisplaySpan);
-            }
-          } else {
-            // If span exists, ensure it's within insight-trigger if present
-            if (
-              insightTriggerSpan &&
-              !insightTriggerSpan.contains(percentageDisplaySpan)
-            ) {
-              insightTriggerSpan.appendChild(percentageDisplaySpan);
-            }
-            // Ensure the main text part of the cell/insight-trigger is correct
-            if (insightTriggerSpan) {
-              insightTriggerSpan.childNodes[0].nodeValue = currentCellValueText;
-            } else {
-              currentCell.childNodes[0].nodeValue = currentCellValueText;
-            }
-          }
-
-          percentageDisplaySpan.textContent = ` (${percentageChange}%)`;
-          percentageDisplaySpan.classList.remove(
-            "percent-green",
-            "percent-yellow",
-            "percent-orange",
-            "percent-red"
-          );
-          percentageDisplaySpan.classList.add(
-            getPercentageClass(percentageChange)
-          );
-        } else {
-          // If no percentage should be displayed, remove it if it exists
-          if (percentageDisplaySpan) {
-            percentageDisplaySpan.remove();
-          }
-          // Also, ensure the text content is just the value if no percentage is shown
-          if (insightTriggerSpan) {
-            insightTriggerSpan.textContent = currentCellValueText;
-          } else {
-            currentCell.textContent = currentCellValueText;
-          }
-        }
-      }
-    });
+function getPercentageClass(percentage) {
+  if (percentage >= 25) {
+    return "percent-green";
+  } else if (percentage >= 5) {
+    return "percent-yellow";
+  } else if (percentage >= -5) {
+    return "percent-orange";
+  } else {
+    return "percent-red";
   }
+}
+
+const tableRows = document.querySelectorAll(
+  "tbody tr:not(.section-title):not(.category):not(.sub-total):not(.grand-total)"
+);
+
+
+function calculateAndDisplayPercentages() {
+  tableRows.forEach((row) => {
+    const dataCells = Array.from(row.querySelectorAll("td.year-data"));
+
+    // 1. Capture Original Data for 24-25 (only needs to run once per row)
+    const fy2425Cell = row.querySelector(".year-data.fy-24-25");
+    if (fy2425Cell && !originalFy2425Data.has(fy2425Cell)) {
+      const insightTriggerSpan = fy2425Cell.querySelector(".insight-trigger");
+      if (insightTriggerSpan) {
+        const originalValue = cleanValue(
+          insightTriggerSpan.childNodes[0]?.nodeValue || ""
+        );
+        const percentageSpan =
+          insightTriggerSpan.querySelector(".percentage-impact");
+        const originalPercentageHTML = percentageSpan
+          ? percentageSpan.outerHTML
+          : "";
+        originalFy2425Data.set(fy2425Cell, {
+          value: originalValue,
+          percentageHTML: originalPercentageHTML,
+        });
+      }
+    }
+
+    for (let i = 0; i < dataCells.length; i++) {
+      const currentCell = dataCells[i];
+      const currentYear = currentCell.dataset.year;
+
+      // Handle hidden cells: remove percentage span if visibility changes
+      if (currentCell.style.display === "none") {
+        const existingPercentageSpan =
+          currentCell.querySelector(".percentage-impact");
+        if (existingPercentageSpan) {
+          existingPercentageSpan.remove();
+        }
+        continue;
+      }
+
+      let percentageDisplaySpan =
+        currentCell.querySelector(".percentage-impact");
+      let insightTriggerSpan = currentCell.querySelector(".insight-trigger");
+
+      // Get the underlying numerical value
+      let currentCellValueText =
+        currentCell.querySelector(".insight-trigger")?.childNodes[0]
+          ?.nodeValue || currentCell.textContent;
+      currentCellValueText = currentCellValueText.trim();
+      const originalNumericalValue = cleanValue(currentCellValueText);
+
+      const formattedValue = new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(originalNumericalValue);
+
+
+      if (currentYear === "24-25") {
+        // --- FY 24-25: Restore the original, hard-coded percentage HTML ---
+        const originalData = originalFy2425Data.get(currentCell);
+
+        if (originalData && originalData.percentageHTML) {
+          if (insightTriggerSpan) {
+            // Set the numerical value
+            insightTriggerSpan.childNodes[0].nodeValue = formattedValue;
+            // Remove any existing percentage span before re-inserting
+            const existingPcntSpan =
+              insightTriggerSpan.querySelector(".percentage-impact");
+            if (existingPcntSpan) existingPcntSpan.remove();
+
+            // Re-insert the original hard-coded percentage HTML
+            insightTriggerSpan.insertAdjacentHTML(
+              "beforeend",
+              originalData.percentageHTML
+            );
+          }
+        } else {
+          // If no hard-coded percentage for 24-25, ensure none is displayed
+          if (percentageDisplaySpan) percentageDisplaySpan.remove();
+          if (insightTriggerSpan) {
+            insightTriggerSpan.textContent = formattedValue;
+          } else {
+            currentCell.textContent = formattedValue;
+          }
+        }
+
+      } else {
+        // --- ALL OTHER YEARS: Remove all percentages ---
+
+        // 1. Remove the percentage span if it exists
+        if (percentageDisplaySpan) {
+          percentageDisplaySpan.remove();
+        }
+
+        // 2. Ensure the displayed content is just the formatted numerical value
+        if (insightTriggerSpan) {
+          // If the text node exists, update it, otherwise set the whole content
+          if (insightTriggerSpan.childNodes[0]) {
+            insightTriggerSpan.childNodes[0].nodeValue = formattedValue;
+          } else {
+            insightTriggerSpan.textContent = formattedValue;
+          }
+        } else {
+          currentCell.textContent = formattedValue;
+        }
+      }
+    }
+  });
+}
 
   calculateAndDisplayPercentages(); // Initial run
 
