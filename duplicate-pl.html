@@ -9,7 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <link rel="stylesheet" href="CSS/PL.css" />
+    <link rel="stylesheet" href="CSS/duplicate-pl.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -164,19 +164,12 @@
           <tbody>
            
 
-            <tr class="category">
+            <tr class="category" data-target="income">
               <td colspan="5">
-                <span class="collapsible">INCOME</span>
-                <div class="explanation">
-                  <i
-                    >This section details all revenues earned by the company
-                    during the reporting period, forming the top line of the
-                    income statement.</i
-                  >
-                </div>
+                 ▼INCOME
               </td>
             </tr>
-            <tr>
+            <tr class="child income">
               <td>
                 <span class="collapsible">Revenue From Operations [Gross]</span>
                 <div class="explanation">
@@ -222,7 +215,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child income">
               <td>
                 <span class="collapsible"
                   >Less: Excise/Service Tax/Other Levies</span
@@ -270,7 +263,7 @@
                 >
               </td>
             </tr>
-            <tr class="sub-total">
+            <tr class="sub-total child income">
               <td>
                 <span class="collapsible sub-total-collapsible"
                   >Revenue From Operations [Net]</span
@@ -352,7 +345,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child income">
               <td>
                 <span class="collapsible">Other Income</span>
                 <div class="explanation">
@@ -441,19 +434,12 @@
               </td>
             </tr>
 
-            <tr class="category">
+            <tr class="category" data-target="expenses">
               <td colspan="5">
-                <span class="collapsible">EXPENSES</span>
-                <div class="explanation">
-                  <i
-                    >This section details all costs incurred by the company to
-                    generate its revenue during the reporting period, directly
-                    impacting profitability.</i
-                  >
-                </div>
+                ▼EXPENSES
               </td>
             </tr>
-            <tr>
+            <tr class="child expenses">
               <td>
                 <span class="collapsible">Cost Of Materials Consumed</span>
                 <div class="explanation">
@@ -499,7 +485,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child expenses">
               <td>
                 <span class="collapsible">Purchase Of Stock-In Trade</span>
                 <div class="explanation">
@@ -544,7 +530,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child expenses">
               <td>
                 <span class="collapsible">Operating And Direct Expenses</span>
                 <div class="explanation">
@@ -590,7 +576,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child expenses">
               <td>
                 <span class="collapsible"
                   >Changes In Inventories OF FG, WIP And Stock-In Trade</span
@@ -631,7 +617,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child expenses">
               <td>
                 <span class="collapsible">Employee Benefit Expenses</span>
                 <div class="explanation">
@@ -677,7 +663,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child expenses">
               <td>
                 <span class="collapsible">Finance Costs</span>
                 <div class="explanation">
@@ -723,7 +709,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child expenses">
               <td>
                 <span class="collapsible"
                   >Depreciation And Amortisation Expenses</span
@@ -764,7 +750,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child expenses">
               <td>
                 <span class="collapsible">Other Expenses</span>
                 <div class="explanation">
@@ -873,7 +859,7 @@
               </td>
             </tr>
 
-            <tr class="grand-total">
+            <!-- <tr class="grand-total">
               <td>
                 <span class="collapsible grand-total-collapsible"
                   >Profit/Loss Before Exceptional, ExtraOrdinary Items And
@@ -913,8 +899,8 @@
                   >46,786.00</span
                 >
               </td>
-            </tr>
-            <tr>
+            </tr> -->
+            <tr class="child expenses">
               <td>
                 <span class="collapsible">Exceptional Items</span>
                 <div class="explanation">
@@ -956,7 +942,7 @@
                 >
               </td>
             </tr>
-            <tr class="grand-total">
+            <!-- <tr class="grand-total">
               <td>
                 <span class="collapsible grand-total-collapsible"
                   >Profit/Loss Before Tax</span
@@ -996,23 +982,14 @@
                   >46,786.00</span
                 >
               </td>
-            </tr>
+            </tr> -->
 
-            <tr class="category">
+            <tr class="category" data-target="tax-expenses-continued">
               <td colspan="5">
-                <span class="collapsible"
-                  >Tax Expenses-Continued Operations</span
-                >
-                <div class="explanation">
-                  <i
-                    >The total tax expense related to the ongoing operations of
-                    the business, directly reducing the profit available to
-                    shareholders.</i
-                  >
-                </div>
+                ▼Tax Expenses-Continued Operations
               </td>
             </tr>
-            <tr>
+            <tr class="child tax-expenses-continued">
               <td>
                 <span class="collapsible">Current Tax</span>
                 <div class="explanation">
@@ -1052,7 +1029,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <tr class="child tax-expenses-continued">
               <td>
                 <span class="collapsible">Deferred Tax</span>
                 <div class="explanation">
@@ -1092,9 +1069,9 @@
                 >
               </td>
             </tr>
-            <tr class="sub-total">
+            <tr class="sub-total" style="background-color: #ffffffc3;">
               <td>
-                <span class="collapsible sub-total-collapsible"
+                <span class="collapsible sub-total-collapsible" style="color: blue;"
                   >Total Tax Expenses</span
                 >
                 <div class="explanation">
@@ -1133,7 +1110,7 @@
               </td>
             </tr>
 
-            <tr class="grand-total">
+            <!-- <tr class="grand-total">
               <td>
                 <span class="collapsible grand-total-collapsible"
                   >Profit/Loss After Tax And Before ExtraOrdinary Items</span
@@ -1172,7 +1149,7 @@
                   >39,084.00</span
                 >
               </td>
-            </tr>
+            </tr> -->
             <tr class="grand-total">
               <td>
                 <span class="collapsible grand-total-collapsible"
@@ -1213,7 +1190,7 @@
                 >
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <span class="collapsible"
                   >Profit Loss From Discontinuing Operations</span
@@ -1292,7 +1269,7 @@
                   >0.00</span
                 >
               </td>
-            </tr>
+            </tr> -->
             <tr class="grand-total">
               <td>
                 <span
@@ -1443,7 +1420,6 @@
     
 
     <script src="JS/duplicate-pl.js"></script>
-    <script src="JS/BL.js"></script>
     <div id="insightModal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">

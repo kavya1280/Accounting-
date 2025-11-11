@@ -753,7 +753,6 @@ body {
     }
 }
 
-
 .child {
     display: none; /* Hidden initially */
 }
@@ -767,3 +766,4 @@ body {
 .category:hover {
     background-color: #e0e0e0;
 }
+
