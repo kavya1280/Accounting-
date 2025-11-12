@@ -1465,10 +1465,11 @@ table tbody tr td:first-child {
 } */
 
 .btn-container {
-  text-align: center;
-  margin: 20px;
-}
+  text-align: right;
+  margin: 40px;
+  padding-right: 120px;
 
+}
 .gradient-btn {
   background: linear-gradient(135deg, #00c6ff, #0072ff);
   color: #fff;
