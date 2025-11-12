@@ -1851,16 +1851,39 @@ input[type="range"]:active::-webkit-slider-thumb {
 
 
 
-.child {
-    display: none; /* Hidden initially */
+
+
+/* Hide the checkbox */
+.category .toggle {
+  display: none;
 }
 
+/* Make it look clickable */
 .category {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    cursor: pointer;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #f4f4f4;
 }
 
-.category:hover {
-    background-color: #e0e0e0;
+/* Add ▼ by default */
+.category .label-text::before {
+  content: "▼ ";
+  font-size: 14px;
+  transition: transform 0.3s;
+}
+
+/* Change arrow when expanded */
+.category .toggle:checked + .label-text::before {
+  content: "▲ ";
+}
+
+/* Hide child rows by default */
+.child {
+  display: none;
+}
+
+/* Show child rows when expanded */
+.category .toggle:checked
+.child {
+  display: table-row;
 }

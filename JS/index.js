@@ -572,6 +572,7 @@ function viewAll() {
 // --- Start JS Block ---
 
 
+// Data remains the same
 var balanceSheetData = {
   name: "Balance Sheet", shortName: "B/S",
   children: [
@@ -646,6 +647,9 @@ am5.ready(function() {
     root.setThemes([
       am5themes_Animated.new(root)
     ]);
+    
+
+
 
     // Create wrapper container
     var container = root.container.children.push(am5.Container.new(root, {
@@ -659,11 +663,18 @@ am5.ready(function() {
       singleBranchOnly: true,
       downDepth: 10,
       // Set to 3 to display 3 rings initially
-      initialDepth: 3, 
+      initialDepth: 2, 
       valueField: "value",
+      // Use shortName as the main category field for display purposes
       categoryField: "name",
       childDataField: "children"
     }));
+    
+    series.get("colors").set("colors",[
+      am5.color(0x1E88E5), 
+      am5.color(0xF4511E), 
+      am5.color(0x8E24AA)  
+    ])
     
     // Set Balance Sheet data
     series.data.setAll([balanceSheetData]);
@@ -671,74 +682,47 @@ am5.ready(function() {
 
 
     // ==========================================================
-    // TOOLTIP CUSTOMIZATION (Requirement: Show Full Name on hover)
+    // TOOLTIP CUSTOMIZATION (Show full 'name' on hover)
     // ==========================================================
     
-    series.slices.template.set("tooltipText", "{name}: {value}");
-    // Optionally customize the tooltip appearance
+    // // Set the tooltip to show the full name ({name}) and value
+    // series.slices.template.set("tooltipText", "{name}: [bold]{value}[/]");
+    
+    // Configure the tooltip object itself
     series.slices.template.set("tooltip", am5.Tooltip.new(root, {
-        getFillFromData: true
+        getFillFromData: true,
+        pointerOrientation: "horizontal"
     }));
 
 
     // ==========================================================
-    // LABEL CUSTOMIZATION (Existing logic for Short Name display)
+    // LABEL CUSTOMIZATION (Ensuring shortName is used for display)
     // ==========================================================
     
-    series.labels.template.setAll({
-        fill: am5.color(0xFFFFFF), // Set all labels to WHITE
-        text: "{name}", 
-        textType: "radial" 
-    });
+    var labelTemplate = series.labels.template;
 
-    // ADAPTER 1: Controls the text content (Short Name vs. Full Name) and alignment
-    series.labels.template.adapters.add("text", function(text, target) {
+    // 1. Set consistent label style (Radial text is best for Sunburst)
+    labelTemplate.set("color", am5.color(0x000000));
+    
+    // 2. ADAPTER: Use Short Name for display (This ensures nodes without a value 
+    // or intermediate nodes still display their short name, though categoryField 
+    // usually handles it for the primary display.)
+    labelTemplate.adapters.add("text", function(text, target) {
         var dataItem = target.dataItem;
         if (!dataItem) return text;
-
-        var data = dataItem.dataContext;
-        
-        // Check if the currently selected item is the main root item (the initial, non-drilled state)
-        var isInitialView = (series.get("selectedDataItem") === series.dataItems[0]);
-
-        if (isInitialView && data.shortName) {
-            // In initial full view: Use short name and regular (horizontal) alignment
-            target.set("textType", "regular"); 
-            return data.shortName;
-        }
-        
-        // If drilled down: Use full name and radial alignment
-        target.set("textType", "radial");
-        return data.name;
-    });
-
-
-    // ADAPTER 2: Controls visibility, ensuring short names are seen in the initial state
-    series.labels.template.adapters.add("visible", function(currentVisible, target) {
-        if (currentVisible) return true; 
-
-        var dataItem = target.dataItem;
-        if (!dataItem) return false;
         
         var data = dataItem.dataContext;
-        var isInitialView = (series.get("selectedDataItem") === series.dataItems[0]);
-
-        // If we are in the initial view and this item has a short name, force visibility 
-        // to ensure the dense initial display is navigable.
-        if (isInitialView && data.shortName) {
-            return true;
-        }
-
-        return currentVisible;
+        
+        // Prioritize short name for concise display
+        return data.shortName || data.name;
     });
-    
-    // ==========================================================
 
     // Make stuff animate on load
     series.appear(1000, 100);
 
 }); // end am5.ready()
-  // =======================================================
+
+// =======================================================
   // == TREEMAP CHART LOGIC ==
   // =======================================================
 // --- Start JS Block ---
@@ -881,12 +865,12 @@ var data = {
     {
       name: "PROFIT / LOSS",
       children: [
-        { name: "Exceptional Items", value: 11 },
-        { name: "Profit/Loss Before Tax", value: 13 },
-        { name: "Current Tax", value: 12 },
-        { name: "Deferred Tax", value: 11 },
-        { name: "Total Tax Expenses", value: 12 },
-        { name: "Profit/Loss From Continuing Operations", value: 14 },
+        // { name: "Exceptional Items", value: 11 },
+        // { name: "Profit/Loss Before Tax", value: 13 },
+        // { name: "Current Tax", value: 12 },
+        // { name: "Deferred Tax", value: 11 },
+        { name: "Total Tax Expenses", value: 50 },
+        // { name: "Profit/Loss From Continuing Operations", value: 14 },
       ]
     }
   ]
@@ -1096,12 +1080,18 @@ series.links.template.set("fillStyle", "source");
 
 series.nodes.get("colors").set("step", 2);
 series.nodes.data.setAll([
-  { id: "A" },
-  { id: "B" },
-  { id: "C" },
-  { id: "D" },
-  { id: "E" },
-  { id: "F" }
+  { id: "April" },
+  { id: "May" },
+  { id: "June" },
+  { id: "July" },
+  { id: "August" },
+  { id: "September" },
+  { id: "October" },
+  { id: "November" },
+  { id: "December" },
+  { id: "January" },
+  { id: "February" },
+  { id: "March" },
 ]);
 
 series.nodes.get("colors").set("step", 2);
@@ -1128,7 +1118,7 @@ series.bullets.push(function (_root, _series, dataItem) {
 
 series.nodes.labels.template.setAll({
   textType: "regular",
-  fill: root.interfaceColors.get("background"),
+  fill: am5.color(0x000000),
   fontSize: "1.1em",
   radius: -5
 });
@@ -1147,15 +1137,17 @@ series.children.moveValue(series.bulletsContainer, 0);
 // Set data
 // https://www.amcharts.com/docs/v5/charts/flow-charts/#Setting_data
 series.data.setAll([
-  { from: "A", to: "D", value: 10 },
-  { from: "B", to: "C", value: 8 },
-  { from: "B", to: "D", value: 4 },
-  { from: "B", to: "E", value: 2 },
-  { from: "C", to: "A", value: 14 },
-  { from: "C", to: "E", value: 4 },
-  { from: "E", to: "D", value: 8 },
-  { from: "F", to: "A", value: 7 },
-  { from: "D", to: "B", value: 2 }
+  { from: "April", to: "May", value: 10 },
+  { from: "May", to: "June", value: 8 },
+  { from: "June", to: "July", value: 4 },
+  { from: "July", to: "August", value: 2 },
+  { from: "August", to: "September", value: 14 },
+  { from: "September", to: "October", value: 4 },
+  { from: "October", to: "November", value: 8 },
+  { from: "November", to: "December", value: 7 },
+  { from: "December", to: "January", value: 2 },
+  { from: "January", to: "February", value: 14 },
+  { from: "February", to: "March", value: 4 },
 ]);
 
 // Make stuff animate on load
@@ -1179,470 +1171,110 @@ root.setThemes([
 ]);
 
 var data = {
-  value: 0,
+  value: 100,
   children: [
     {
-      name: "Flora",
+      name: "1000",
       children: [
         {
-          name: "Black Tea",
-          value: 1
-        },
-        {
-          name: "Floral",
+          name: "1001",
           children: [
             {
-              name: "Chamomile",
-              value: 1
+              name: "450000270",
+              value: 100
+            }
+          ]
+        },
+        {
+          name: "1901",
+          children: [
+            {
+              name: "300000477",
+              value: 60
+            }
+          ]
+        },
+        {
+          name: "1000",
+          children: [
+            {
+              name: "380000143",
+              value: 40
             },
             {
-              name: "Rose",
-              value: 1
-            },
-            {
-              name: "Jasmine",
-              value: 1
+              name: "400000397",
+              value: 50
             }
           ]
         }
       ]
     },
     {
-      name: "Fruity",
+      name: "3500",
       children: [
         {
-          name: "Berry",
+          name: "3501",
           children: [
             {
-              name: "Blackberry",
-              value: 1
+              name: "330000065",
+              value: 30
             },
             {
-              name: "Raspberry",
-              value: 1
+              name: "330000396",
+              value: 25
             },
             {
-              name: "Blueberry",
-              value: 1
+              name: "210000074",
+              value: 20
             },
             {
-              name: "Strawberry",
-              value: 1
+              name: "330000463",
+              value: 15
             }
           ]
         },
         {
-          name: "Dried Fruit",
+          name: "3500",
           children: [
             {
-              name: "Raisin",
-              value: 1
-            },
-            {
-              name: "Prune",
-              value: 1
-            }
-          ]
-        },
-        {
-          name: "Other Fruit",
-          children: [
-            {
-              name: "Coconut",
-              value: 1
-            },
-            {
-              name: "Cherry",
-              value: 1
-            },
-            {
-              name: "Pomegranate",
-              value: 1
-            },
-            {
-              name: "Pineapple",
-              value: 1
-            },
-            {
-              name: "Grape",
-              value: 1
-            },
-            {
-              name: "Apple",
-              value: 1
-            },
-            {
-              name: "Peach",
-              value: 1
-            },
-            {
-              name: "Pear",
-              value: 1
-            }
-          ]
-        },
-        {
-          name: "Citrus Fruit",
-          children: [
-            {
-              name: "Grapefruit",
-              value: 1
-            },
-            {
-              name: "Orange",
-              value: 1
-            },
-            {
-              name: "Lemon",
-              value: 1
-            },
-            {
-              name: "Lime",
-              value: 1
+              name: "400000271",
+              value: 35
             }
           ]
         }
       ]
     },
     {
-      name: "Sour/Fermented",
+      name: "7001",
       children: [
         {
-          name: "Sour",
+          name: "7001",
           children: [
             {
-              name: "Sour Aromatics",
-              value: 1
+              name: "420000109",
+              value: 45
             },
             {
-              name: "Acetic Acid",
-              value: 1
+              name: "200000016",
+              value: 40
             },
             {
-              name: "Butyric Acid",
-              value: 1
+              name: "180000014",
+              value: 35
             },
             {
-              name: "Isovaleric Acid",
-              value: 1
+              name: "420000027",
+              value: 30
             },
             {
-              name: "Citric Acid",
-              value: 1
+              name: "430001593",
+              value: 25
             },
             {
-              name: "Malic Acid",
-              value: 1
+              name: "160000116",
+              value: 20
             }
           ]
-        },
-        {
-          name: "Alcohol/Fremented",
-          children: [
-            {
-              name: "Winey",
-              value: 1
-            },
-            {
-              name: "Whiskey",
-              value: 1
-            },
-            {
-              name: "Fremented",
-              value: 1
-            },
-            {
-              name: "Overripe",
-              value: 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "Green/Vegetative",
-      children: [
-        {
-          name: "Olive Oil",
-          value: 1
-        },
-        {
-          name: "Raw",
-          value: 1
-        },
-        {
-          name: "Green/Vegetative",
-          children: [
-            {
-              name: "Under-ripe",
-              value: 1
-            },
-            {
-              name: "Peapod",
-              value: 1
-            },
-            {
-              name: "Fresh",
-              value: 1
-            },
-            {
-              name: "Dark Green",
-              value: 1
-            },
-            {
-              name: "Vegetative",
-              value: 1
-            },
-            {
-              name: "Hay-like",
-              value: 1
-            },
-            {
-              name: "Herb-like",
-              value: 1
-            }
-          ]
-        },
-        {
-          name: "Beany",
-          value: 1
-        }
-      ]
-    },
-    {
-      name: "Other",
-      children: [
-        {
-          name: "Papery/Musty",
-          children: [
-            {
-              name: "Stale",
-              value: 1
-            },
-            {
-              name: "Cardboard",
-              value: 1
-            },
-            {
-              name: "Papery",
-              value: 1
-            },
-            {
-              name: "Woody",
-              value: 1
-            },
-            {
-              name: "Moldy/Damp",
-              value: 1
-            },
-            {
-              name: "Musty/Dusty",
-              value: 1
-            },
-            {
-              name: "Musty/Earthy",
-              value: 1
-            },
-            {
-              name: "Animalic",
-              value: 1
-            },
-            {
-              name: "Meaty Brothy",
-              value: 1
-            },
-            {
-              name: "Phenolic",
-              value: 1
-            }
-          ]
-        },
-        {
-          name: "Chemical",
-          children: [
-            {
-              name: "Bitter",
-              value: 1
-            },
-            {
-              name: "Salty",
-              value: 1
-            },
-            {
-              name: "Medicinal",
-              value: 1
-            },
-            {
-              name: "Petroleum",
-              value: 1
-            },
-            {
-              name: "Skunky",
-              value: 1
-            },
-            {
-              name: "Rubber",
-              value: 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "Roasted",
-      children: [
-        {
-          name: "Pipe Tobacco",
-          value: 1
-        },
-        {
-          name: "Tobacco",
-          value: 1
-        },
-        {
-          name: "Burnt",
-          children: [
-            {
-              name: "Acrid",
-              value: 1
-            },
-            {
-              name: "Ashy",
-              value: 1
-            },
-            {
-              name: "Smoky",
-              value: 1
-            },
-            {
-              name: "Brown, Roast",
-              value: 1
-            }
-          ]
-        },
-        {
-          name: "Cereal",
-          children: [
-            {
-              name: "Grain",
-              value: 1
-            },
-            {
-              name: "Malt",
-              value: 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "Spices",
-      children: [
-        {
-          name: "Pungent",
-          value: 1
-        },
-        {
-          name: "Pepper",
-          value: 1
-        },
-        {
-          name: "Brown Spice",
-          children: [
-            {
-              name: "Anise",
-              value: 1
-            },
-            {
-              name: "Nutmeg",
-              value: 1
-            },
-            {
-              name: "Cinnamon",
-              value: 1
-            },
-            {
-              name: "Clove",
-              value: 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "Nutty/Cocoa",
-      children: [
-        {
-          name: "Nutty",
-          children: [
-            {
-              name: "Peanuts",
-              value: 1
-            },
-            {
-              name: "Hazelnut",
-              value: 1
-            },
-            {
-              name: "Almond",
-              value: 1
-            }
-          ]
-        },
-        {
-          name: "Cocoa",
-          children: [
-            {
-              name: "Chocolate",
-              value: 1
-            },
-            {
-              name: "Dark Chocolate",
-              value: 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "Sweet",
-      children: [
-        {
-          name: "Brown Sugar",
-          children: [
-            {
-              name: "Molasses",
-              value: 1
-            },
-            {
-              name: "Maple Syrup",
-              value: 1
-            },
-            {
-              name: "Caramelized",
-              value: 1
-            },
-            {
-              name: "Honey",
-              value: 1
-            }
-          ]
-        },
-        {
-          name: "Vanilla",
-          value: 1
-        },
-        {
-          name: "Vanillin",
-          value: 1
-        },
-        {
-          name: "Overall Sweet",
-          value: 1
-        },
-        {
-          name: "Sweet Aromatics",
-          value: 1
         }
       ]
     }
@@ -1679,9 +1311,15 @@ var series = zoomableContainer.contents.children.push(am5hierarchy.ForceDirected
   centerStrength: 0.8
 }));
 
-series.get("colors").setAll({
-  step: 2
-});
+series.get("colors").set("colors", [
+  // am5.color(0x1E88E5), // Professional Blue
+  am5.color(0x43A047), // Deep Green
+  // am5.color(0xFB8C00), // Amber
+  // am5.color(0x8E24AA), // Violet
+  // am5.color(0xF4511E)  // Burnt Orange/Red
+]);
+
+series.get("colors").set("step", 2);
 
 series.links.template.set("strength", 0.5);
 series.labels.template.set("minScale", 0);
