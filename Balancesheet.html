@@ -28,12 +28,14 @@
 
     </head>
 <body>
-
     <header class="header fixed-top-header">
         <div class="logo-placeholder left-logo">
             <!-- Using original logo image -->
             <a href="https://ajalabs.ai/about.html"><img src="images/ajalabs-black.png" alt="Company Logo"></a>
+
         </div>
+        <h1 class="page-title2">Numeric Oculus</h1>
+
         <!-- <h1 class="header-title" style="text-transform: uppercase;">Cockpit View</h1> -->
         <div class="header-right-elements">
             <nav class="main-nav-links">
@@ -53,7 +55,7 @@
         
         
         <div id="balanceSheetContent" class="financial-statement active"> 
-            <h1> BALANCE SHEET</h1>
+            <h1 style="text-transform: uppercase;"> Statement of Financial Position</h1>
              <div class="circular-mask">
             </div>
             <p class="currency-note">(All amounts are in millions unless otherwise stated)</p>
@@ -65,9 +67,14 @@
     <div class="kpi-card kpi-total-insights">
         <div class="kpi-icon"><i class="fas fa-lightbulb"></i></div>
         <div class="kpi-info">
-            <div class="kpi-label">#Insights</div>
+            <div class="kpi-label">#Insights
+            </div>
             <div class="kpi-value">160</div>
         </div>
+        <span class="info-icon" title="Total Insights">
+            <i class="fas fa-info-circle"></i>
+        </span>
+
     </div>
     <!-- Other KPI cards remain the same -->
     <div class="kpi-card kpi-number-of-location">
@@ -76,6 +83,10 @@
             <div class="kpi-label">#Number of Locations</div>
             <div class="kpi-value">42</div>
         </div>
+        <span class="info-icon" title="Total Insights">
+            <i class="fas fa-info-circle"></i>
+        </span>
+
     </div>
     <div class="kpi-card kpi-number-of-plans">
         <div class="kpi-icon"><i class="fas fa-clipboard-list"></i></div>
@@ -83,6 +94,9 @@
             <div class="kpi-label">#Number of Plants</div>
             <div class="kpi-value">189</div>
         </div>
+        <span class="info-icon" title="Number of Plans">
+            <i class="fas fa-info-circle"></i>
+        </span>
     </div>
     <div class="kpi-card kpi-total-vendor">
         <div class="kpi-icon"><i class="fas fa-handshake"></i></div>
@@ -90,13 +104,19 @@
             <div class="kpi-label">#Vendors</div>
             <div class="kpi-value">567</div>
         </div>
+        <span class="info-icon" title="Number of Vendors">
+            <i class="fas fa-info-circle"></i>
+        </span>
     </div>
     <div class="kpi-card kpi-total-impacts">
         <div class="kpi-icon"><i class="fas fa-exclamation-triangle"></i></div>
         <div class="kpi-info">
-            <div class="kpi-label">#Impacts</div>
+            <div class="kpi-label">Total Impacts</div>
             <div class="kpi-value">2,02,882 M</div>
         </div>
+        <span class="info-icon" title="Number of Vendors">
+            <i class="fas fa-info-circle"></i>
+        </span>
     </div>
     <div class="kpi-card kpi-equity">
         <div class="kpi-icon"><i class="fas fa-chart-line"></i></div>
@@ -104,6 +124,9 @@
             <div class="kpi-label">Total<br> Shareholder's Funds</div>
             <div class="kpi-value">4,67,699 M</div>
         </div>
+        <span class="info-icon" title="Number of Vendors">
+            <i class="fas fa-info-circle"></i>
+        </span>
     </div>
     <div class="kpi-card kpi-total-liabilities">
         <div class="kpi-icon"><i class="fas fa-inr"></i></div>
@@ -111,6 +134,9 @@
             <div class="kpi-label">Total Liabilities</div>
             <div class="kpi-value">5,42,742 M</div>
         </div>
+        <span class="info-icon" title="Number of Vendors">
+            <i class="fas fa-info-circle"></i>
+        </span>
     </div>
     <!-- Combined Net Profit and Net Profit Margin KPI -->
     <div class="kpi-card kpi-total-assets">
@@ -119,7 +145,11 @@
             <div class="kpi-label">Total Assets</div>
             <div class="kpi-value">10,10,441 M</div>
         </div>
+        <span class="info-icon" title="Number of Vendors">
+            <i class="fas fa-info-circle"></i>
+        </span>
     </div>
+
 </div>
 <div style="height: 2em; overflow: hidden;"></div>
 
@@ -179,15 +209,12 @@
                     </tr>
                     <tr class="category" data-target="shareholder">
                         <td colspan="6">
-                            <label class="collapsible">
-                            <input type="checkbox" class="toggle">
-                            <span class="label-text">SHAREHOLDER'S FUNDS</span>
-                            </label>        
+                           ▼SHAREHOLDER'S FUNDS      
                         </td>
                     </tr>
                     <tr class="child shareholder">
                         <td>
-                            Equity Share Capital 
+                            <span class="collapsible">Equity Share Capital </span>
                             <div class="explanation">
                                 <i>The value of shares issued to equity holders. It directly increases Shareholder's Funds, representing direct investment by owners.</i>
                                 <a href="Balancesheet-view-details.html?selected=Equity Share Capital" class="navigate-button">View Details</a>

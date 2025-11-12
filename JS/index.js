@@ -671,7 +671,7 @@ am5.ready(function() {
     }));
     
     series.get("colors").set("colors",[
-      am5.color(0x1E88E5), 
+      am5.color(0xffffff), 
       am5.color(0xF4511E), 
       am5.color(0x8E24AA)  
     ])
